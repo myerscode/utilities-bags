@@ -1,0 +1,39 @@
+{
+  "name": "myerscode/utilities-bags",
+  "description": "A fluent interface for interacting with collection data.",
+  "keywords": [
+    "arrays",
+    "objects",
+    "collections"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "myerscode",
+      "email": "team@myerscode.com",
+      "homepage": "https://myerscode.com"
+    },
+    {
+      "name": "Fred Myerscough",
+      "email": "fred@myerscough.co.uk",
+      "homepage": "https://fredmyerscough.co.uk"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Myerscode\\Utilities\\Bags\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
+}
