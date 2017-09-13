@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Myerscode\Utilities\Bags\Utility;
+use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
 /**
@@ -37,6 +38,19 @@ class ConstructTest extends BaseBagSuite
             [
                 [],
                 []
+            ],
+            [
+                [
+                    'var1' => 1,
+                    'var2' => 'two',
+                    'var3' => null,
+                    'var4' => [],
+                    'var5' =>  [
+                        'hello',
+                        'world'
+                    ],
+                ],
+                new BagConstructorTestCase()
             ],
         ];
     }
