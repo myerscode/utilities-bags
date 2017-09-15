@@ -72,6 +72,33 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Is the bag holding associative data
+     * key=value opposed to 123=value
+     *
+     * @return bool
+     */
+    public function isAssociative(): bool
+    {
+        if (sizeof($this->bag) === 0) {
+            return false;
+        }
+
+        return array_keys($this->bag) !== range(0, count($this->bag) - 1);
+    }
+
+    /**
+     * Create a new instance of the bag utility
+     *
+     * @param $bag
+     *
+     * @return $this
+     */
+    public static function make($bag): Utility
+    {
+        return new static($bag);
+    }
+
+    /**
      * Implode the the bag to show a key=value string
      *
      * @param string $glue
@@ -99,18 +126,6 @@ class Utility implements \Countable, \IteratorAggregate
             $this->bag,
             array_keys($this->bag)
         ));
-    }
-
-    /**
-     * Create a new instance of the bag utility
-     *
-     * @param $bag
-     *
-     * @return $this
-     */
-    public static function make($bag): Utility
-    {
-        return new static($bag);
     }
 
     /**
