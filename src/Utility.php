@@ -162,7 +162,9 @@ class Utility implements \Countable, \IteratorAggregate
         }
 
         if (is_array($bag)) {
-            return array_map(__METHOD__, $bag);
+            $bag = array_map(function ($e) {
+                return (is_object($e) || is_array($e)) ? $this->transformToBag($e) : $e;
+            }, $bag);
         }
 
         return $bag;
