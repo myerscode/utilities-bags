@@ -72,6 +72,36 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Implode the the bag to show a key=value string
+     *
+     * @param string $glue
+     * @param string $keyPrefix
+     * @param string $keyPostfix
+     * @param string $keyJoint
+     * @param string $valuePrefix
+     * @param string $valuePostfix
+     *
+     * @return string
+     */
+    public function toKeyValueString(
+        $glue = ' ',
+        $keyPrefix = '',
+        $keyPostfix = '',
+        $keyJoint = '=',
+        $valuePrefix = '\'',
+        $valuePostfix = '\''
+    ) {
+        return implode($glue, array_map(
+            function ($v, $k) use ($keyPrefix, $keyPostfix, $keyJoint, $valuePrefix, $valuePostfix) {
+                return sprintf($keyPrefix . "%s" . $keyPostfix . $keyJoint . $valuePrefix . "%s" . $valuePostfix, $k,
+                    $v);
+            },
+            $this->bag,
+            array_keys($this->bag)
+        ));
+    }
+
+    /**
      * Create a new instance of the bag utility
      *
      * @param $bag
