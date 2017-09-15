@@ -129,6 +129,26 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Get the bag as an array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->bag;
+    }
+
+    /**
+     * Get the bag as an object
+     *
+     * @return object
+     */
+    public function toObject()
+    {
+        return json_decode(json_encode($this->bag));
+    }
+
+    /**
      * Transform the constructor parameter to a usable array for the utility to use
      *
      * @param $bag
