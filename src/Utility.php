@@ -28,6 +28,20 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Are all the values in the needle bag in the haystack bag
+     *
+     * @param $needles
+     *
+     * @return bool
+     */
+    public function containsAll($needles): bool
+    {
+        $needlesBag = $this->transformBag($needles);
+
+        return !array_diff($needlesBag, $this->bag);
+    }
+
+    /**
      * @inheritDoc
      */
     public function count()
