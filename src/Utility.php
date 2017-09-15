@@ -42,6 +42,20 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Are any of the needle values in the haystack bag
+     *
+     * @param $needles
+     *
+     * @return bool
+     */
+    public function containsAny($needles): bool
+    {
+        $needlesBag = $this->transformBag($needles);
+
+        return !!array_intersect($needlesBag, $this->bag);
+    }
+
+    /**
      * @inheritDoc
      */
     public function count()
