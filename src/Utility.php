@@ -7,11 +7,11 @@ namespace Myerscode\Utilities\Bags;
  *
  * @package Myerscode\Utilities\Bags
  */
-class Utility
+class Utility implements \Countable, \IteratorAggregate
 {
 
     /**
-     * The value this model is representing
+     * The values of this collection
      *
      * @var array
      */
@@ -25,6 +25,22 @@ class Utility
     public function __construct($bag)
     {
         $this->bag = $this->transformBag($bag);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count()
+    {
+        return count($this->bag);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIterator(): \ArrayIterator
+    {
+        return new \ArrayIterator($this->bag);
     }
 
     /**
