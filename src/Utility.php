@@ -24,7 +24,7 @@ class Utility implements \Countable, \IteratorAggregate
      */
     public function __construct($bag)
     {
-        $this->bag = $this->transformBag($bag);
+        $this->bag = $this->transformToBag($bag);
     }
 
     /**
@@ -36,7 +36,7 @@ class Utility implements \Countable, \IteratorAggregate
      */
     public function containsAll($needles): bool
     {
-        $needlesBag = $this->transformBag($needles);
+        $needlesBag = $this->transformToBag($needles);
 
         return !array_diff($needlesBag, $this->bag);
     }
@@ -50,7 +50,7 @@ class Utility implements \Countable, \IteratorAggregate
      */
     public function containsAny($needles): bool
     {
-        $needlesBag = $this->transformBag($needles);
+        $needlesBag = $this->transformToBag($needles);
 
         return !!array_intersect($needlesBag, $this->bag);
     }
@@ -155,7 +155,7 @@ class Utility implements \Countable, \IteratorAggregate
      *
      * @return array
      */
-    private function transformBag($bag)
+    private function transformToBag($bag): array
     {
         if (is_object($bag)) {
             $bag = get_object_vars($bag);
