@@ -10,40 +10,43 @@ use Tests\Support\BaseBagSuite;
 class IsAssociativeTest extends BaseBagSuite
 {
 
-    public function validDataProvider()
+    public function dataProvider()
     {
         return [
             [
+                true,
                 ['foo' => 'bar', 'hello' => 'world']
             ],
             [
+                true,
                 ['foo' => ['hello' => 'world']]
             ],
             [
+                true,
                 ['foo' => ['bar', 'hello', 'world']]
             ],
             [
+                true,
                 [0 => 'hello', 'one' => 'world']
             ],
-        ];
-    }
-
-    public function invalidDataProvider()
-    {
-        return [
             [
+                false,
                 [1, 2, 3, 4]
             ],
             [
+                false,
                 ['foo', 'bar', 'hello', 'world']
             ],
             [
+                false,
                 [0 => 'hello', '1' => 'world']
             ],
             [
+                false,
                 [['hello' => 'world']]
             ],
             [
+                false,
                 []
             ],
         ];
@@ -52,25 +55,33 @@ class IsAssociativeTest extends BaseBagSuite
     /**
      * Test that isAssociative returns true if the bag is an associative array
      *
+     * @param bool $expected The expected result
      * @param string $bag The value to pass to the utility
-     * @dataProvider validDataProvider
+     *
+     * @dataProvider dataProvider
      * @covers ::isAssociative
      */
-    public function testBagIsAssociativeArray($bag)
+    public function testBagIsAssociative($expected, $bag)
     {
-        $this->assertTrue($this->utility($bag)->isAssociative());
+        $this->assertEquals($expected, $this->utility($bag)->isAssociative());
     }
 
     /**
-     * Test that isAssociative returns false if the bag is not an associative array
+     * Test internal call to isAssociativeArray returns true if the bag is an associative array
      *
+     * @param bool $expected The expected result
      * @param string $bag The value to pass to the utility
-     * @dataProvider invalidDataProvider
-     * @covers ::isAssociative
+     *
+     * @dataProvider dataProvider
+     * @covers ::isAssociativeArray
      */
-    public function testBagIsNotAssociativeArray($bag)
+    public function testBagIsAssociativeArray($expected, $bag)
     {
-        $this->assertFalse($this->utility($bag)->isAssociative());
+        $class = $this->utility([]);
+        $reflection = new \ReflectionClass(get_class($class));
+        $method = $reflection->getMethod('isAssociativeArray');
+        $method->setAccessible(true);
+        $this->assertEquals($expected, $method->invokeArgs($class, [$bag]));
     }
 
 }
