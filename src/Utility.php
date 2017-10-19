@@ -111,6 +111,25 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Remove all empty values from the bag
+     * An empty value could be null, 0, '', false
+     *
+     * @return Utility
+     */
+    public function removeEmpty(): Utility
+    {
+        $filteredBag = array_filter($this->bag, function ($value) {
+            return !empty($value);
+        });
+
+        if (!$this->isAssociative()) {
+            $filteredBag = array_values($filteredBag);
+        }
+
+        return new static($filteredBag);
+    }
+
+    /**
      * Implode the the bag to show a key=value string
      *
      * @param string $glue
