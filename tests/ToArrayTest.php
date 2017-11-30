@@ -1,0 +1,23 @@
+<?php
+
+namespace Tests;
+
+use Tests\Support\BaseBagSuite;
+
+/**
+ * @coversDefaultClass Myerscode\Utilities\Bags\Utility
+ */
+class ToArrayTest extends BaseBagSuite
+{
+
+    /**
+     * Test that toArray returns all the bag data as an array
+     *
+     * @covers ::toArray
+     */
+    public function testBagReturnsDataAsArray()
+    {
+        $this->assertEquals([1, 2, 3], $this->utility([1, 2, 3])->toArray());
+        $this->assertEquals(['hello' => 'world'], $this->utility(['hello' => 'world'])->toArray());
+    }
+}
