@@ -7,7 +7,7 @@ namespace Myerscode\Utilities\Bags;
  *
  * @package Myerscode\Utilities\Bags
  */
-class Utility implements \Countable, \IteratorAggregate
+class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
 {
 
     /**
@@ -25,6 +25,23 @@ class Utility implements \Countable, \IteratorAggregate
     public function __construct($bag)
     {
         $this->bag = $this->transformToBag($bag);
+    }
+
+    /**
+     * Add a value to an index if it doesn't exit
+     *
+     * @param $value
+     * @param $index
+     *
+     * @return Utility
+     */
+    public function add($index, $value): Utility
+    {
+        if (is_null($this->get($index))) {
+            return $this->set($index, $value);
+        }
+
+        return $this;
     }
 
     /**
@@ -61,6 +78,35 @@ class Utility implements \Countable, \IteratorAggregate
     public function count()
     {
         return count($this->bag);
+    }
+
+    /**
+     * Check if an index exists in the bag
+     *
+     * @param $index
+     *
+     * @return bool
+     */
+    public function exists($index): bool
+    {
+        return isset($this->bag[$index]);
+    }
+
+    /**
+     * Get a value from a given index or return a default value
+     *
+     * @param $index
+     * @param null $default
+     *
+     * @return mixed|null
+     */
+    public function get($index, $default = null)
+    {
+        if ($this->exists($index)) {
+            return $this->bag[$index];
+        }
+
+        return $default;
     }
 
     /**
@@ -111,6 +157,74 @@ class Utility implements \Countable, \IteratorAggregate
     }
 
     /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset): bool
+    {
+        return $this->exists($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value): Utility
+    {
+        return $this->set($offset, $value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset): Utility
+    {
+        return $this->remove($offset);
+    }
+
+    /**
+     * Push a value onto the end of the bag
+     *
+     * @param $values
+     *
+     * @return Utility
+     */
+    public function push(...$values): Utility
+    {
+        $newBag = $this->toArray();
+
+        foreach ($values as $value) {
+            array_push($newBag, $value);
+        }
+
+        return new self($newBag);
+    }
+
+    /**
+     * Remove an value from the bag via its index
+     *
+     * @param $index
+     *
+     * @return Utility
+     */
+    public function remove($index): Utility
+    {
+        if ($this->exists($index)) {
+            $newBag = $this->toArray();
+            unset($newBag[$index]);
+            return new self($newBag);
+        }
+
+        return $this;
+    }
+
+    /**
      * Remove all empty values from the bag
      * An empty value could be null, 0, '', false
      *
@@ -127,6 +241,33 @@ class Utility implements \Countable, \IteratorAggregate
         }
 
         return new static($filteredBag);
+    }
+
+    /**
+     * Set an array index with a given value
+     *
+     * @param $value
+     * @param $index
+     *
+     * @return Utility
+     */
+    public function set($index, $value): Utility
+    {
+        $newBag = $this->toArray();
+
+        $newBag[$index] = $value;
+
+        return new self($newBag);
+    }
+
+    /**
+     * Get the bag as an array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->bag;
     }
 
     /**
@@ -151,22 +292,15 @@ class Utility implements \Countable, \IteratorAggregate
     ) {
         return implode($glue, array_map(
             function ($v, $k) use ($keyPrefix, $keyPostfix, $keyJoint, $valuePrefix, $valuePostfix) {
-                return sprintf($keyPrefix . "%s" . $keyPostfix . $keyJoint . $valuePrefix . "%s" . $valuePostfix, $k,
-                    $v);
+                return sprintf(
+                    $keyPrefix . "%s" . $keyPostfix . $keyJoint . $valuePrefix . "%s" . $valuePostfix,
+                    $k,
+                    $v
+                );
             },
             $this->bag,
             array_keys($this->bag)
         ));
-    }
-
-    /**
-     * Get the bag as an array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->bag;
     }
 
     /**
