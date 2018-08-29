@@ -65,23 +65,4 @@ class IsAssociativeTest extends BaseBagSuite
     {
         $this->assertEquals($expected, $this->utility($bag)->isAssociative());
     }
-
-    /**
-     * Test internal call to isAssociativeArray returns true if the bag is an associative array
-     *
-     * @param bool $expected The expected result
-     * @param string $bag The value to pass to the utility
-     *
-     * @dataProvider dataProvider
-     * @covers ::isAssociativeArray
-     */
-    public function testBagIsAssociativeArray($expected, $bag)
-    {
-        $class = $this->utility([]);
-        $reflection = new \ReflectionClass(get_class($class));
-        $method = $reflection->getMethod('isAssociativeArray');
-        $method->setAccessible(true);
-        $this->assertEquals($expected, $method->invokeArgs($class, [$bag]));
-    }
-
 }

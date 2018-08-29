@@ -125,23 +125,11 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function isAssociative(): bool
     {
-        return $this->isAssociativeArray($this->bag);
-    }
-
-    /**
-     * Check if the passed array is associative
-     *
-     * @param $bag
-     *
-     * @return bool
-     */
-    private function isAssociativeArray($bag): bool
-    {
-        if (sizeof($bag) === 0) {
+        if (count($this->bag) === 0) {
             return false;
         }
 
-        return array_keys($bag) !== range(0, count($bag) - 1);
+        return array_keys($this->bag) !== range(0, count($this->bag) - 1);
     }
 
     /**
