@@ -145,6 +145,20 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Is the bag holding multidimensional data
+     *
+     * @return bool
+     */
+    public function isMultiDimensional(): bool
+    {
+        if (sizeof($this->bag) === 0) {
+            return false;
+        }
+
+        return count($this->bag) !== count($this->bag, COUNT_RECURSIVE);
+    }
+
+    /**
      * Create a new instance of the bag utility
      *
      * @param $bag
@@ -289,7 +303,8 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
         $keyJoint = '=',
         $valuePrefix = '\'',
         $valuePostfix = '\''
-    ) {
+    )
+    {
         return implode($glue, array_map(
             function ($v, $k) use ($keyPrefix, $keyPostfix, $keyJoint, $valuePrefix, $valuePostfix) {
                 return sprintf(
