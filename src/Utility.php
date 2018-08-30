@@ -329,11 +329,11 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
             $bag = get_object_vars($bag);
         }
 
-        if (is_array($bag)) {
-            $bag = array_map(function ($e) {
-                return (is_object($e) || is_array($e)) ? $this->transformToBag($e) : $e;
-            }, $bag);
-        }
+        $bag = is_array($bag) ? $bag : [$bag];
+
+        $bag = array_map(function ($e) {
+            return (is_object($e) || is_array($e)) ? $this->transformToBag($e) : $e;
+        }, $bag);
 
         return $bag;
     }
