@@ -45,6 +45,18 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Alias of contains any
+     *
+     * @param $needles
+     *
+     * @return bool
+     */
+    public function contains($needles): bool
+    {
+        return $this->containsAny($needles);
+    }
+
+    /**
      * Are all the values in the needle bag in the haystack bag
      *
      * @param $needles
