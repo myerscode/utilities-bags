@@ -18,11 +18,27 @@ class ContainsAllTest extends BaseBagSuite
                 [1, 2, 3, 4, 5],
             ],
             [
+                1,
+                [1, 2, 3, 4, 5],
+            ],
+            [
                 ['1', '2', '3'],
                 ['1', '2', '3', '4', '5'],
             ],
             [
+                '2',
+                ['1', '2', '3', '4', '5'],
+            ],
+            [
                 ['hello' => 'world', 'fox' => ''],
+                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+            ],
+            [
+                'world',
+                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+            ],
+            [
+                '',
                 ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
             ],
             [
@@ -40,11 +56,23 @@ class ContainsAllTest extends BaseBagSuite
                 [1, 2, 3, 4, 5],
             ],
             [
+                9,
+                [1, 2, 3, 4, 5],
+            ],
+            [
                 ['3', '6', '9'],
                 ['1', '2', '3', '4', '5'],
             ],
             [
+                '6',
+                ['1', '2', '3', '4', '5'],
+            ],
+            [
                 ['foo' => 'bar', 'fox' => '', 'quick'],
+                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+            ],
+            [
+                'bar',
                 ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
             ],
             [
