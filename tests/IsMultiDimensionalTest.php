@@ -5,16 +5,16 @@ namespace Tests;
 use Tests\Support\BaseBagSuite;
 
 /**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
+ * @coversDefaultClass \Myerscode\Utilities\Bags\Utility
  */
-class IsAssociativeTest extends BaseBagSuite
+class IsMultiDimensionalTest extends BaseBagSuite
 {
 
     public function dataProvider()
     {
         return [
             [
-                true,
+                false,
                 ['foo' => 'bar', 'hello' => 'world']
             ],
             [
@@ -27,6 +27,18 @@ class IsAssociativeTest extends BaseBagSuite
             ],
             [
                 true,
+                ['foo' => ['bar', 'hello', 'world'], 'hello' => ['world' => ['foo' => 'bar']]]
+            ],
+            [
+                true,
+                [['hello' => 'world']]
+            ],
+            [
+                true,
+                [123 => ['hello' => 'world']]
+            ],
+            [
+                false,
                 [0 => 'hello', 'one' => 'world']
             ],
             [
@@ -43,26 +55,22 @@ class IsAssociativeTest extends BaseBagSuite
             ],
             [
                 false,
-                [['hello' => 'world']]
-            ],
-            [
-                false,
                 []
             ],
         ];
     }
 
     /**
-     * Test that isAssociative returns true if the bag is an associative array
+     * Test that isMultiDimensional returns true if the bag is contains multi dimensional data
      *
      * @param bool $expected The expected result
      * @param string $bag The value to pass to the utility
      *
      * @dataProvider dataProvider
-     * @covers ::isAssociative
+     * @covers ::isMultiDimensional
      */
-    public function testBagIsAssociative($expected, $bag)
+    public function testBagIsMultiDimensional($expected, $bag)
     {
-        $this->assertEquals($expected, $this->utility($bag)->isAssociative());
+        $this->assertEquals($expected, $this->utility($bag)->isMultiDimensional());
     }
 }

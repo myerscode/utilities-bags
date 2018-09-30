@@ -65,6 +65,7 @@ class ContainsAnyTest extends BaseBagSuite
     public function testReturnsTrueIfSomeValuesArePresent($needles, $bag)
     {
         $this->assertTrue($this->utility($bag)->containsAny($needles));
+        $this->assertTrue($this->utility($bag)->contains($needles));
     }
 
     /**
@@ -78,5 +79,6 @@ class ContainsAnyTest extends BaseBagSuite
     public function testReturnsFalseIfNoValuesArePresent($needles, $bag)
     {
         $this->assertFalse($this->utility($bag)->containsAny($needles));
+        $this->assertFalse($this->utility($bag)->contains($needles));
     }
 }

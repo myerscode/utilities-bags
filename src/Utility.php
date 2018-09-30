@@ -45,6 +45,18 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Alias of contains any
+     *
+     * @param $needles
+     *
+     * @return bool
+     */
+    public function contains($needles): bool
+    {
+        return $this->containsAny($needles);
+    }
+
+    /**
      * Are all the values in the needle bag in the haystack bag
      *
      * @param $needles
@@ -125,23 +137,25 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function isAssociative(): bool
     {
-        return $this->isAssociativeArray($this->bag);
-    }
-
-    /**
-     * Check if the passed array is associative
-     *
-     * @param $bag
-     *
-     * @return bool
-     */
-    private function isAssociativeArray($bag): bool
-    {
-        if (sizeof($bag) === 0) {
+        if (count($this->bag) === 0) {
             return false;
         }
 
-        return array_keys($bag) !== range(0, count($bag) - 1);
+        return array_keys($this->bag) !== range(0, count($this->bag) - 1);
+    }
+
+    /**
+     * Is the bag holding multidimensional data
+     *
+     * @return bool
+     */
+    public function isMultiDimensional(): bool
+    {
+        if (sizeof($this->bag) === 0) {
+            return false;
+        }
+
+        return count($this->bag) !== count($this->bag, COUNT_RECURSIVE);
     }
 
     /**
@@ -289,7 +303,8 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
         $keyJoint = '=',
         $valuePrefix = '\'',
         $valuePostfix = '\''
-    ) {
+    )
+    {
         return implode($glue, array_map(
             function ($v, $k) use ($keyPrefix, $keyPostfix, $keyJoint, $valuePrefix, $valuePostfix) {
                 return sprintf(
@@ -326,11 +341,11 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
             $bag = get_object_vars($bag);
         }
 
-        if (is_array($bag)) {
-            $bag = array_map(function ($e) {
-                return (is_object($e) || is_array($e)) ? $this->transformToBag($e) : $e;
-            }, $bag);
-        }
+        $bag = is_array($bag) ? $bag : [$bag];
+
+        $bag = array_map(function ($e) {
+            return (is_object($e) || is_array($e)) ? $this->transformToBag($e) : $e;
+        }, $bag);
 
         return $bag;
     }
