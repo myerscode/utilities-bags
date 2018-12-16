@@ -145,6 +145,22 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Is the bag a indexed array
+     * e.g. $arr[0], $arr[7], $arr[49]
+     *
+     * @return bool
+     */
+    public function isIndexed(): bool
+    {
+        $arr = $this->bag;
+
+        for (reset($arr); is_int(key($arr)); next($arr)) {
+            ;
+        }
+        return is_null(key($arr));
+    }
+
+    /**
      * Is the bag holding multidimensional data
      *
      * @return bool

@@ -52,6 +52,9 @@ Get a value from a given index or return a default value
 #### isAssociative(): bool
 Is the bag holding associative data
 
+### isIndexed: bool
+Is the bag holding indexed data
+
 #### isMultiDimensional(): bool
 Is the bag holding multidimensional data
 
