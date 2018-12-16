@@ -175,6 +175,21 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Is the bag a sequential array
+     * e.g. $arr[0], $arr[1], $arr[2]
+     *
+     * @return bool
+     */
+    function isSequential()
+    {
+        $rangeLength = count($this->bag) - 1;
+
+        $range = ($rangeLength >= 0) ? range(0, ($rangeLength >= 0) ? $rangeLength : 0) : [];
+
+        return empty(array_diff(array_keys($this->bag), $range));
+    }
+
+    /**
      * Create a new instance of the bag utility
      *
      * @param $bag

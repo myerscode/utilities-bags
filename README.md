@@ -58,6 +58,9 @@ Is the bag holding indexed data
 #### isMultiDimensional(): bool
 Is the bag holding multidimensional data
 
+### isSequential: bool
+Is the bag holding sequentially indexed data
+
 #### make($bag): Utility
 Create a new instance of the bag utility
 
