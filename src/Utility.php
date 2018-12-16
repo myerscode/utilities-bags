@@ -145,6 +145,22 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Is the bag a indexed array
+     * e.g. $arr[0], $arr[7], $arr[49]
+     *
+     * @return bool
+     */
+    public function isIndexed(): bool
+    {
+        $arr = $this->bag;
+
+        for (reset($arr); is_int(key($arr)); next($arr)) {
+            ;
+        }
+        return is_null(key($arr));
+    }
+
+    /**
      * Is the bag holding multidimensional data
      *
      * @return bool
@@ -156,6 +172,21 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
         }
 
         return count($this->bag) !== count($this->bag, COUNT_RECURSIVE);
+    }
+
+    /**
+     * Is the bag a sequential array
+     * e.g. $arr[0], $arr[1], $arr[2]
+     *
+     * @return bool
+     */
+    function isSequential()
+    {
+        $rangeLength = count($this->bag) - 1;
+
+        $range = ($rangeLength >= 0) ? range(0, ($rangeLength >= 0) ? $rangeLength : 0) : [];
+
+        return empty(array_diff(array_keys($this->bag), $range));
     }
 
     /**

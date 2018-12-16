@@ -52,8 +52,14 @@ Get a value from a given index or return a default value
 #### isAssociative(): bool
 Is the bag holding associative data
 
+### isIndexed: bool
+Is the bag holding indexed data
+
 #### isMultiDimensional(): bool
 Is the bag holding multidimensional data
+
+### isSequential: bool
+Is the bag holding sequentially indexed data
 
 #### make($bag): Utility
 Create a new instance of the bag utility
@@ -89,3 +95,8 @@ Get the bag as an object
 
 #### value()
 Get the bags current value
+
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
