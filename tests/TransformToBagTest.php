@@ -37,17 +37,11 @@ class TransformToBagTest extends BaseBagSuite
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagArray]));
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagObject]));
 
+        $randomClass = new BagConstructorTestCase();
         $classArray = [
-            'var1' => 1,
-            'var2' => 'two',
-            'var3' => null,
-            'var4' => [],
-            'var5' =>  [
-                'hello',
-                'world'
-            ],
+            $randomClass
         ];
-        $this->assertEquals($classArray, $method->invokeArgs($class, [new BagConstructorTestCase()]));
+        $this->assertEquals($classArray, $method->invokeArgs($class, [$randomClass]));
 
     }
 }

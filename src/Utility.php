@@ -368,14 +368,14 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     private function transformToBag($bag): array
     {
-        if (is_object($bag)) {
+        if (is_object($bag) && $bag instanceof \stdClass) {
             $bag = get_object_vars($bag);
         }
 
         $bag = is_array($bag) ? $bag : [$bag];
 
         $bag = array_map(function ($e) {
-            return (is_object($e) || is_array($e)) ? $this->transformToBag($e) : $e;
+            return ((is_object($e) && $e instanceof \stdClass) || is_array($e)) ? $this->transformToBag($e) : $e;
         }, $bag);
 
         return $bag;
