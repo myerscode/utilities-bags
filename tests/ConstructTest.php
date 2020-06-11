@@ -14,6 +14,8 @@ class ConstructTest extends BaseBagSuite
 
     public function dataProvider()
     {
+        $randomClass = new BagConstructorTestCase();
+
         return [
             [
                 [1, 2, 3, 4, 5],
@@ -49,16 +51,9 @@ class ConstructTest extends BaseBagSuite
             ],
             [
                 [
-                    'var1' => 1,
-                    'var2' => 'two',
-                    'var3' => null,
-                    'var4' => [],
-                    'var5' =>  [
-                        'hello',
-                        'world'
-                    ],
+                    $randomClass
                 ],
-                new BagConstructorTestCase()
+                $randomClass
             ],
         ];
     }
