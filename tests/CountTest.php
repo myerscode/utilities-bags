@@ -28,7 +28,7 @@ class CountTest extends BaseBagSuite
                 ['hello' => 'world', 'quick' => 'brown', 'fox' => '']
             ],
             [
-                5,
+                1,
                 new BagConstructorTestCase()
             ],
         ];
