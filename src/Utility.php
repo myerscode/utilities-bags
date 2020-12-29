@@ -2,12 +2,17 @@
 
 namespace Myerscode\Utilities\Bags;
 
+use Countable;
+use ArrayAccess;
+use JsonSerializable;
+use IteratorAggregate;
+
 /**
  * Class Utility
  *
  * @package Myerscode\Utilities\Bags
  */
-class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
+class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {
 
     /**
@@ -187,6 +192,16 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
         $range = ($rangeLength >= 0) ? range(0, ($rangeLength >= 0) ? $rangeLength : 0) : [];
 
         return empty(array_diff(array_keys($this->bag), $range));
+    }
+
+    /**
+     * Return items for JSON serialization
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->bag;
     }
 
     /**
