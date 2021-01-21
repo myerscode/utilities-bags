@@ -2,10 +2,10 @@
 
 namespace Myerscode\Utilities\Bags;
 
-use Countable;
 use ArrayAccess;
-use JsonSerializable;
+use Countable;
 use IteratorAggregate;
+use JsonSerializable;
 
 /**
  * Class Utility
@@ -20,7 +20,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      *
      * @var array
      */
-    private $bag;
+    protected $bag;
 
     /**
      * Utility constructor.
@@ -381,7 +381,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      *
      * @return array
      */
-    private function transformToBag($bag): array
+    protected function transformToBag($bag): array
     {
         if (is_object($bag) && $bag instanceof \stdClass) {
             $bag = get_object_vars($bag);

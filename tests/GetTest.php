@@ -5,7 +5,7 @@ namespace Tests;
 use Tests\Support\BaseBagSuite;
 
 /**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
+ * @coversDefaultClass \Myerscode\Utilities\Bags\Utility
  */
 class GetTest extends BaseBagSuite
 {
@@ -41,5 +41,68 @@ class GetTest extends BaseBagSuite
 
         $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));
 
+    }
+
+
+    /**
+     * @covers \Myerscode\Utilities\Bags\DotUtility::get
+     */
+    public function testDotValueRetrievedFromGet()
+    {
+        $values = [
+            'deep' => [
+                'nested' => [
+                    'values' => [
+                        'hello',
+                        'world',
+                    ],
+                ],
+            ],
+
+            'key' => [
+                'with' => [
+                    'dot' => 'value',
+                ],
+            ],
+
+            'key.with.dot' => 'lives here',
+
+        ];
+
+        $this->assertEquals(['hello', 'world',], $this->dot($values)->get('deep.nested.values'));
+
+        $this->assertEquals('lives here', $this->dot($values)->get('key.with.dot'));
+
+        $this->assertEquals(null, $this->dot($values)->get('deep.nested.values.contains'));
+    }
+
+    /**
+     * @covers \Myerscode\Utilities\Bags\DotUtility::get
+     */
+    public function testDotValueReturnsDefaultIfNotFound()
+    {
+        $values = [
+            'deep' => [
+                'nested' => [
+                    'values' => [
+                        'hello',
+                        'world',
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals(null, $this->dot($values)->get('deep.nested.values.contains'));
+
+        $this->assertEquals([
+            'nested' => [
+                'values' => [
+                    'hello',
+                    'world',
+                ],
+            ],
+        ], $this->dot($values)->get('deep'));
+
+        $this->assertEquals('default-value', $this->dot($values)->get('deep.nested.values.contains', 'default-value'));
     }
 }

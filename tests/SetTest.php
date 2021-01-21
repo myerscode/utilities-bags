@@ -34,6 +34,10 @@ class SetTest extends BaseBagSuite
         // check can use key index
         $bag = $this->utility([0 => 'foo'])->set('foo', 'bar')->value();
         $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
+
+        // dot notation is not applied
+        $bag = $this->utility([])->set('foo.bar', 'hello world')->value();
+        $this->assertEquals(['foo.bar' => 'hello world'], $bag);
     }
 
     /**
@@ -60,5 +64,43 @@ class SetTest extends BaseBagSuite
         // check can use key index
         $bag = $this->utility([0 => 'foo'])->offsetSet('foo', 'bar')->value();
         $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
+    }
+
+    public function testSetValueByDotNotation()
+    {
+        $values = [
+            'deep' => [
+                'nested' => [
+                    'values' => [
+                        'hello',
+                    ]
+                ]
+            ]
+        ];
+
+        $bag = $this->dot($values)->set('deep.nested.values', 'hello world');
+
+        $this->assertEquals([
+            'deep' => [
+                'nested' => [
+                    'values' => 'hello world'
+                ]
+            ]
+        ], $bag->value());
+
+        $bag = $this->dot($values)->set('foo.bar', 'hello world');
+
+        $this->assertEquals([
+            'deep' => [
+                'nested' => [
+                    'values' => [
+                        'hello',
+                    ]
+                ]
+            ],
+            'foo' => [
+                'bar' => 'hello world'
+            ]
+        ], $bag->value());
     }
 }
