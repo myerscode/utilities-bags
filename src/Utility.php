@@ -217,6 +217,38 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Merge a array or bag Utility into the array
+     *
+     * @param $bag
+     *
+     * @return Utility
+     */
+    public function merge($bag): Utility
+    {
+        if ($bag instanceof self) {
+            return new static(array_merge($this->bag, $bag->toArray()));
+        }
+
+        return new static(array_merge($this->bag, (new static($bag))->toArray()));
+    }
+
+    /**
+     * Recursively Merge a array or bag Utility into the array
+     *
+     * @param $bag
+     *
+     * @return Utility
+     */
+    public function mergeRecursively($bag): Utility
+    {
+        if ($bag instanceof self) {
+            return new static(array_merge_recursive($this->bag, $bag->toArray()));
+        }
+
+        return new static(array_merge_recursive($this->bag, (new static($bag))->toArray()));
+    }
+
+    /**
      * @inheritDoc
      */
     public function offsetExists($offset): bool
