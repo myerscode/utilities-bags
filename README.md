@@ -23,6 +23,28 @@ $bag = new Utility(['Hello', 'World']);
 $bag = Utility::make(['Hello', 'World']);
 ```
 
+## Dot Notation Access
+
+If you want to access your bag data using `dot.notation.accessors` (all keys as one string separated by a dot) then create
+a `DotUtility` instance.
+
+``` php
+$bag = new DotUtility(['Hello', 'World']);
+$bag = DotUtility::make(['Hello', 'World']);
+```
+
+### Available Methods
+
+#### Get
+```php
+$bag->get('my.deep.nested.value', 'default value');
+```
+
+#### Set
+```php
+$bag->set('my.deep.nested.value', 'is this');
+```
+
 ## Methods
 
 The utility implements the core/SPL PHP `ArrayAccess`, `Countable`, `IteratorAggregate` interfaces, so can be used as per 
