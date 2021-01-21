@@ -1,6 +1,6 @@
 {
   "name": "myerscode/utilities-bags",
-  "description": "A fluent interface for chaining interaction with collection data using idempotent bags.",
+  "description": "A PHP helper utility class for fluent interaction and manipulation with collection data using immutable bags",
   "keywords": [
     "arrays",
     "objects",
