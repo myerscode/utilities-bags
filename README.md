@@ -34,7 +34,7 @@ $bag = new DotUtility(['Hello', 'World']);
 $bag = DotUtility::make(['Hello', 'World']);
 ```
 
-### Available Methods
+### Example Usage
 
 #### Get
 ```php
@@ -119,6 +119,13 @@ Get the bag as an object
 #### value()
 Get the bags current value
 
+## Issues
+
+Bug reports and feature requests can be submitted on the [Github Issue Tracker](https://github.com/myerscode/utilities-bags/issues).
+
+## Contributing
+
+See the Myerscode [contributing](https://github.com/myerscode/docs/blob/master/contributing.md) page for information.
 
 ## License
 
