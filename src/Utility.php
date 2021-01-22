@@ -2,12 +2,17 @@
 
 namespace Myerscode\Utilities\Bags;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
+use JsonSerializable;
+
 /**
  * Class Utility
  *
  * @package Myerscode\Utilities\Bags
  */
-class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
+class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {
 
     /**
@@ -15,7 +20,7 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @var array
      */
-    private $bag;
+    protected $bag;
 
     /**
      * Utility constructor.
@@ -190,6 +195,16 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Return items for JSON serialization
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->bag;
+    }
+
+    /**
      * Create a new instance of the bag utility
      *
      * @param $bag
@@ -199,6 +214,38 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
     public static function make($bag): Utility
     {
         return new static($bag);
+    }
+
+    /**
+     * Merge a array or bag Utility into the array
+     *
+     * @param $bag
+     *
+     * @return Utility
+     */
+    public function merge($bag): Utility
+    {
+        if ($bag instanceof self) {
+            return new static(array_merge($this->bag, $bag->toArray()));
+        }
+
+        return new static(array_merge($this->bag, (new static($bag))->toArray()));
+    }
+
+    /**
+     * Recursively Merge a array or bag Utility into the array
+     *
+     * @param $bag
+     *
+     * @return Utility
+     */
+    public function mergeRecursively($bag): Utility
+    {
+        if ($bag instanceof self) {
+            return new static(array_merge_recursive($this->bag, $bag->toArray()));
+        }
+
+        return new static(array_merge_recursive($this->bag, (new static($bag))->toArray()));
     }
 
     /**
@@ -366,7 +413,7 @@ class Utility implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @return array
      */
-    private function transformToBag($bag): array
+    protected function transformToBag($bag): array
     {
         if (is_object($bag) && $bag instanceof \stdClass) {
             $bag = get_object_vars($bag);

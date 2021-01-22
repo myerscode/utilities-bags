@@ -61,6 +61,7 @@ class ContainsAnyTest extends BaseBagSuite
      * @param string $bag Bags values
      * @dataProvider trueDataProvider
      * @covers ::containsAny
+     * @covers ::contains
      */
     public function testReturnsTrueIfSomeValuesArePresent($needles, $bag)
     {
@@ -75,6 +76,7 @@ class ContainsAnyTest extends BaseBagSuite
      * @param string $bag Bags values
      * @dataProvider falseDataProvider
      * @covers ::containsAny
+     * @covers ::contains
      */
     public function testReturnsFalseIfNoValuesArePresent($needles, $bag)
     {

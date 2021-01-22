@@ -1,9 +1,10 @@
 # Bags Utilities
-> A PHP helper utility class for the fluent use and manipulation of collection data
+> A PHP helper utility class for fluent interaction and manipulation with collection data using immutable bags
 
 [![Latest Stable Version](https://poser.pugx.org/myerscode/utilities-bags/v/stable)](https://packagist.org/packages/myerscode/utilities-bags)
 [![Total Downloads](https://poser.pugx.org/myerscode/utilities-bags/downloads)](https://packagist.org/packages/myerscode/utilities-bags)
 [![License](https://poser.pugx.org/myerscode/utilities-bags/license)](https://packagist.org/packages/myerscode/utilities-bags)
+![License](https://github.com/myerscode/utilities-bags/workflows/Tests/badge.svg?branch=master)
 
 
 ## Install
@@ -21,6 +22,28 @@ Create an instance of the fluent interface by creating a new instance either via
 ``` php
 $bag = new Utility(['Hello', 'World']);
 $bag = Utility::make(['Hello', 'World']);
+```
+
+## Dot Notation Access
+
+If you want to access your bag data using `dot.notation.accessors` (all keys as one string separated by a dot) then create
+a `DotUtility` instance.
+
+``` php
+$bag = new DotUtility(['Hello', 'World']);
+$bag = DotUtility::make(['Hello', 'World']);
+```
+
+### Example Usage
+
+#### Get
+```php
+$bag->get('my.deep.nested.value', 'default value');
+```
+
+#### Set
+```php
+$bag->set('my.deep.nested.value', 'is this');
 ```
 
 ## Methods
@@ -96,6 +119,13 @@ Get the bag as an object
 #### value()
 Get the bags current value
 
+## Issues
+
+Bug reports and feature requests can be submitted on the [Github Issue Tracker](https://github.com/myerscode/utilities-bags/issues).
+
+## Contributing
+
+See the Myerscode [contributing](https://github.com/myerscode/docs/blob/master/contributing.md) page for information.
 
 ## License
 
