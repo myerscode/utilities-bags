@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Tests\Support\BagConstructorTestCase;
+use Myerscode\Utilities\Bags\DotUtility;
 use Tests\Support\BaseBagSuite;
 
 class MergeRecursivelyTest extends BaseBagSuite
@@ -115,5 +115,13 @@ class MergeRecursivelyTest extends BaseBagSuite
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
+    }
+
+    public function testDotUtilityMergeReturnsNewInstance()
+    {
+        $bagOne = $this->dot([1, 2, 3]);
+        $bagTwo = $bagOne->mergeRecursively([4, 5, 6]);
+        $this->assertNotEquals($bagOne, $bagTwo);
+        $this->assertInstanceOf(DotUtility::class, $bagTwo);
     }
 }
