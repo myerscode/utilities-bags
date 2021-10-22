@@ -6,6 +6,8 @@ use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use JsonSerializable;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 
 /**
  * Class Utility
@@ -107,6 +109,29 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function exists($index): bool
     {
         return isset($this->bag[$index]);
+    }
+
+    /**
+     * Flatten a multi dimensional array
+     *
+     * @param  string  $separator
+     *
+     * @return array
+     */
+    public function flatten(string $separator = '.'): array
+    {
+        $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($this->toArray()), RecursiveIteratorIterator::SELF_FIRST);
+        $path = [];
+        $flattened = [];
+
+        foreach ($iterator as $key => $value) {
+            $path[$iterator->getDepth()] = $key;
+            if (!is_array($value)) {
+                $flattened[implode($separator, array_slice($path, 0, $iterator->getDepth() + 1))] = $value;
+            }
+        }
+
+        return $flattened;
     }
 
     /**
