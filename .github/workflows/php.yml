@@ -1,10 +1,10 @@
-name: Tests
+name: tests
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
 
 jobs:
   run:
@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        php-versions: ['7.3', '7.4', '8.0']
-        
+        php-versions: ['8.0', '8.1']
+
     name: PHP ${{ matrix.php-versions }} - ${{ matrix.os }}
     steps:
     - name: Checkout

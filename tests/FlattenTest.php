@@ -4,15 +4,8 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass \Myerscode\Utilities\Bags\Utility
- */
 class FlattenTest extends BaseBagSuite
 {
-
-    /**
-     * @covers ::flatten
-     */
     public function testFlatten()
     {
         $values = [
@@ -36,9 +29,6 @@ class FlattenTest extends BaseBagSuite
         $this->assertArrayHasKey('single.value', $flat);
     }
 
-    /**
-     * @covers ::flatten
-     */
     public function testCanFlattenWithCustomSeparator()
     {
         $values = [

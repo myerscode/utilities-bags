@@ -2,30 +2,25 @@
 
 namespace Tests;
 
+use ReflectionClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class TransformToBagTest extends BaseBagSuite
 {
-
     /**
      * Check that the transformToBag returns an array of values from a given user input
-     *
-     * @covers ::transformToBag
      */
     public function testExpectedResults()
     {
         $class = $this->utility([]);
-        $reflection = new \ReflectionClass(get_class($class));
+        $reflection = new ReflectionClass(get_class($class));
         $method = $reflection->getMethod('transformToBag');
         $method->setAccessible(true);
 
         $this->assertEquals([], $method->invokeArgs($class, [[]]));
 
-        $bagArray = [1,2,3];
+        $bagArray = [1, 2, 3];
         $bagObject = json_decode(json_encode($bagArray));
 
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagArray]));
@@ -39,9 +34,8 @@ class TransformToBagTest extends BaseBagSuite
 
         $randomClass = new BagConstructorTestCase();
         $classArray = [
-            $randomClass
+            $randomClass,
         ];
         $this->assertEquals($classArray, $method->invokeArgs($class, [$randomClass]));
-
     }
 }

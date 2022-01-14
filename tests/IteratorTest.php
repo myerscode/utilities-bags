@@ -2,26 +2,21 @@
 
 namespace Tests;
 
-use Myerscode\Utilities\Bags\Utility;
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class IteratorTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             [
-                [1, 2, 3, 4, 5]
+                [1, 2, 3, 4, 5],
             ],
             [
-                ['1', '2', '3', '4', '5']
+                ['1', '2', '3', '4', '5'],
             ],
             [
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => '']
+                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
             ],
         ];
     }
@@ -29,10 +24,7 @@ class IteratorTest extends BaseBagSuite
     /**
      * Test that bag can be iterated over
      *
-     * @param mixed $bag The value to pass to the utility
-     *
      * @dataProvider dataProvider
-     * @covers ::getIterator
      */
     public function testBagIsCanBeIteratedOver($bag)
     {
@@ -42,5 +34,4 @@ class IteratorTest extends BaseBagSuite
             $this->assertEquals($bag[$index], $item);
         }
     }
-
 }

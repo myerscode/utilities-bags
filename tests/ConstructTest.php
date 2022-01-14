@@ -4,53 +4,50 @@ namespace Tests;
 
 use Myerscode\Utilities\Bags\DotUtility;
 use Myerscode\Utilities\Bags\Utility;
+use stdClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class ConstructTest extends BaseBagSuite
 {
-
     public function dataProvider()
     {
         $randomClass = new BagConstructorTestCase();
 
         return [
-            [
+            'array with integers' => [
                 [1, 2, 3, 4, 5],
                 [1, 2, 3, 4, 5],
             ],
-            [
+            'single integer' => [
                 [1],
                 1,
             ],
-            [
+            'array with string integers' => [
                 ['1', '2', '3', '4', '5'],
                 ['1', '2', '3', '4', '5'],
             ],
-            [
+            'single string integers' => [
                 ['2'],
                 '2',
             ],
-            [
+            'associative array' => [
                 ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
                 ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
             ],
-            [
+            'json' => [
                 ['1', '2', '3', '4', '5'],
                 json_decode(json_encode([1, 2, 3, 4, 5]), false),
             ],
-            [
+            'empty class' => [
                 [],
-                new \stdClass(),
+                new stdClass(),
             ],
-            [
+            'empty array' => [
                 [],
                 [],
             ],
-            [
+            'class with toArray' => [
                 [
                     $randomClass,
                 ],
@@ -90,11 +87,7 @@ class ConstructTest extends BaseBagSuite
     /**
      * Test that the constructor takes value and sets it internally
      *
-     * @param  array  $expected  The value expected to be returned
-     * @param  mixed  $bag  The value to pass to the utility
-     *
      * @dataProvider dataProvider
-     * @covers ::__construct
      */
     public function testBagIsSetViaConstructor($expected, $bag)
     {
@@ -104,11 +97,7 @@ class ConstructTest extends BaseBagSuite
     /**
      * Test that the static make method takes value and sets it internally
      *
-     * @param  array  $expected  The value expected to be returned
-     * @param  mixed  $bag  The value to pass to the utility
-     *
      * @dataProvider dataProvider
-     * @covers ::make
      */
     public function testBagIsSetViaMake($expected, $bag)
     {
@@ -116,11 +105,7 @@ class ConstructTest extends BaseBagSuite
     }
 
     /**
-     * @param  mixed  $bag  The value to pass to the utility
-     * @param  array  $expected  The value expected to be returned
-     *
      * @dataProvider dotDataProvider
-     * @covers       \Myerscode\Utilities\Bags\DotUtility::__construct
      */
     public function testBagConstructsFromFlaDotNotationArray($bag, $expected)
     {
@@ -128,16 +113,10 @@ class ConstructTest extends BaseBagSuite
     }
 
     /**
-     * @param  mixed  $bag  The value to pass to the utility
-     * @param  array  $expected  The value expected to be returned
-     *
      * @dataProvider dotDataProvider
-     * @covers       \Myerscode\Utilities\Bags\DotUtility::make
      */
     public function testBagMakesFromFlaDotNotationArray($bag, $expected)
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }
-
-
 }

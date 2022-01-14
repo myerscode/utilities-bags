@@ -2,9 +2,10 @@
 
 namespace Tests\Support;
 
+use stdClass;
+
 class BagConstructorTestCase
 {
-
     public $var1 = 1;
 
     public $var2 = 'two';
@@ -15,11 +16,11 @@ class BagConstructorTestCase
 
     public function __construct()
     {
-        $this->var4 = new \stdClass();
+        $this->var4 = new stdClass();
 
         $this->var5 = [
             'hello',
-            'world'
+            'world',
         ];
     }
 

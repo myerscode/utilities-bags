@@ -4,16 +4,10 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class ValueTest extends BaseBagSuite
 {
-
     /**
      * Test that value returns all the bag data as an array
-     *
-     * @covers ::value
      */
     public function testValueReturnsDataAsArray()
     {

@@ -4,15 +4,8 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class AddTest extends BaseBagSuite
 {
-
-    /**
-     * @covers ::add
-     */
     public function testValueAddedToBag()
     {
         // check can add to empty bag

@@ -4,15 +4,8 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass \Myerscode\Utilities\Bags\Utility
- */
 class GetTest extends BaseBagSuite
 {
-
-    /**
-     * @covers ::get
-     */
     public function testValueRetrievedFromGet()
     {
         $this->assertEquals(null, $this->utility([])->get(100));
@@ -26,9 +19,6 @@ class GetTest extends BaseBagSuite
         $this->assertEquals('whoops', $this->utility(['foo', 'bar'])->get(2, 'whoops'));
     }
 
-    /**
-     * @covers ::offsetGet
-     */
     public function testValueRetrievedFromOffsetGet()
     {
         $this->assertEquals(null, $this->utility([])->offsetGet(100));
@@ -40,13 +30,8 @@ class GetTest extends BaseBagSuite
         $this->assertEquals('world', $this->utility(['foo' => 'bar', 'hello' => 'world'])->offsetGet('hello'));
 
         $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));
-
     }
 
-
-    /**
-     * @covers \Myerscode\Utilities\Bags\DotUtility::get
-     */
     public function testDotValueRetrievedFromGet()
     {
         $values = [
@@ -76,9 +61,6 @@ class GetTest extends BaseBagSuite
         $this->assertEquals(null, $this->dot($values)->get('deep.nested.values.contains'));
     }
 
-    /**
-     * @covers \Myerscode\Utilities\Bags\DotUtility::get
-     */
     public function testDotValueReturnsDefaultIfNotFound()
     {
         $values = [

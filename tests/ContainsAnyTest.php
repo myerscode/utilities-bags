@@ -4,13 +4,9 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class ContainsAnyTest extends BaseBagSuite
 {
-
-    public function trueDataProvider()
+    public function trueDataProvider(): array
     {
         return [
             [
@@ -32,7 +28,7 @@ class ContainsAnyTest extends BaseBagSuite
         ];
     }
 
-    public function falseDataProvider()
+    public function falseDataProvider(): array
     {
         return [
             [
@@ -57,11 +53,7 @@ class ContainsAnyTest extends BaseBagSuite
     /**
      * Check true is returned when any values in needles are found in the bag
      *
-     * @param string $needles Expected values
-     * @param string $bag Bags values
      * @dataProvider trueDataProvider
-     * @covers ::containsAny
-     * @covers ::contains
      */
     public function testReturnsTrueIfSomeValuesArePresent($needles, $bag)
     {
@@ -72,11 +64,7 @@ class ContainsAnyTest extends BaseBagSuite
     /**
      * Check false is returned when none of the values in needles are not found in the bag
      *
-     * @param string $needles Expected values
-     * @param string $bag Bags values
      * @dataProvider falseDataProvider
-     * @covers ::containsAny
-     * @covers ::contains
      */
     public function testReturnsFalseIfNoValuesArePresent($needles, $bag)
     {

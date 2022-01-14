@@ -11,14 +11,14 @@ abstract class BaseBagSuite extends TestCase
     /**
      * Utility class name
      *
-     * @var string $utility
+     * @var string
      */
     public $utility = Utility::class;
 
     /**
      * DotUtility class name
      *
-     * @var string $dotUtility
+     * @var string
      */
     public $dotUtility = DotUtility::class;
 
@@ -26,6 +26,7 @@ abstract class BaseBagSuite extends TestCase
      * {@inheritdoc}
      *
      * @param $config
+     *
      * @return Utility
      */
     public function utility($config)
@@ -37,6 +38,7 @@ abstract class BaseBagSuite extends TestCase
      * Get a new instance of the DotUtility class
      *
      * @param $config
+     *
      * @return DotUtility
      */
     public function dot($config)

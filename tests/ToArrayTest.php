@@ -4,16 +4,10 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class ToArrayTest extends BaseBagSuite
 {
-
     /**
      * Test that toArray returns all the bag data as an array
-     *
-     * @covers ::toArray
      */
     public function testBagReturnsDataAsArray()
     {

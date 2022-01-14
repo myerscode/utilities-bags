@@ -2,14 +2,14 @@
 
 namespace Tests;
 
+use stdClass;
 use Tests\Support\BaseBagSuite;
 
 class MergeTest extends BaseBagSuite
 {
-
     public function dataProvider()
     {
-        $stdC = new \stdClass();
+        $stdC = new stdClass();
         $stdC->hello = 'goodbye';
 
         return [
@@ -19,14 +19,14 @@ class MergeTest extends BaseBagSuite
                 [],
             ],
             'indexed arrays' => [
-                [1,2,3],
-                [4,5,6],
-                [1,2,3,4,5,6],
+                [1, 2, 3],
+                [4, 5, 6],
+                [1, 2, 3, 4, 5, 6],
             ],
             'mixed arrays' => [
-                [1,2,3],
+                [1, 2, 3],
                 ['foo' => 'bar'],
-                [1,2,3,'foo' => 'bar'],
+                [1, 2, 3, 'foo' => 'bar'],
             ],
             'associative arrays 1' => [
                 ['index' => ['foo']],
@@ -53,7 +53,7 @@ class MergeTest extends BaseBagSuite
 
     public function dotDataProvider()
     {
-        $stdC = new \stdClass();
+        $stdC = new stdClass();
         $stdC->hello = 'goodbye';
 
         return [
@@ -86,10 +86,7 @@ class MergeTest extends BaseBagSuite
     }
 
     /**
-     * Test that merge creates expected outcome
-     *
      * @dataProvider dataProvider
-     * @covers \Myerscode\Utilities\Bags\Utility::merge
      */
     public function testUtilityCanMergeArray($bag, $merge, $expected)
     {
@@ -98,10 +95,7 @@ class MergeTest extends BaseBagSuite
     }
 
     /**
-     * Test that merge creates expected outcome
-     *
      * @dataProvider dataProvider
-     * @covers \Myerscode\Utilities\Bags\DotUtility::merge
      */
     public function testDotUtilityCanMergeArray($bag, $merge, $expected)
     {
@@ -110,10 +104,7 @@ class MergeTest extends BaseBagSuite
     }
 
     /**
-     * Test that merge creates expected outcome
-     *
      * @dataProvider dotDataProvider
-     * @covers \Myerscode\Utilities\Bags\DotUtility::merge
      */
     public function testDotUtilityCanMergeDotArrays($bag, $merge, $expected)
     {

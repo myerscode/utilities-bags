@@ -4,15 +4,8 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class ExistsTest extends BaseBagSuite
 {
-
-    /**
-     * @covers ::exists
-     */
     public function testExists()
     {
         $this->assertTrue($this->utility([0 => 'hello', 100 => 'foo'])->exists(100));
@@ -24,9 +17,6 @@ class ExistsTest extends BaseBagSuite
         $this->assertFalse($this->utility(['hello' => 'world', 0 => 'foo'])->exists('foo'));
     }
 
-    /**
-     * @covers ::offsetExists
-     */
     public function testOffsetExists()
     {
         $this->assertTrue($this->utility([0 => 'hello', 100 => 'foo'])->offsetExists(100));
