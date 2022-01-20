@@ -7,7 +7,7 @@ use Tests\Support\BaseBagSuite;
 
 class MergeTest extends BaseBagSuite
 {
-    public function dataProvider()
+    public function __validData(): array
     {
         $stdC = new stdClass();
         $stdC->hello = 'goodbye';
@@ -51,7 +51,7 @@ class MergeTest extends BaseBagSuite
         ];
     }
 
-    public function dotDataProvider()
+    public function __validDotData(): array
     {
         $stdC = new stdClass();
         $stdC->hello = 'goodbye';
@@ -86,29 +86,29 @@ class MergeTest extends BaseBagSuite
     }
 
     /**
-     * @dataProvider dataProvider
+     * @dataProvider __validData
      */
-    public function testUtilityCanMergeArray($bag, $merge, $expected)
+    public function testDotUtilityCanMergeArray($bag, $merge, $expected): void
+    {
+        $bag = $this->dot($bag)->merge($merge)->value();
+        $this->assertEquals($expected, $bag);
+    }
+
+    /**
+     * @dataProvider __validDotData
+     */
+    public function testDotUtilityCanMergeDotArrays($bag, $merge, $expected): void
+    {
+        $bag = $this->dot($bag)->merge($merge)->value();
+        $this->assertEquals($expected, $bag);
+    }
+
+    /**
+     * @dataProvider __validData
+     */
+    public function testUtilityCanMergeArray($bag, $merge, $expected): void
     {
         $bag = $this->utility($bag)->merge($merge)->value();
-        $this->assertEquals($expected, $bag);
-    }
-
-    /**
-     * @dataProvider dataProvider
-     */
-    public function testDotUtilityCanMergeArray($bag, $merge, $expected)
-    {
-        $bag = $this->dot($bag)->merge($merge)->value();
-        $this->assertEquals($expected, $bag);
-    }
-
-    /**
-     * @dataProvider dotDataProvider
-     */
-    public function testDotUtilityCanMergeDotArrays($bag, $merge, $expected)
-    {
-        $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 }

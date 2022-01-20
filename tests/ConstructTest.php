@@ -10,9 +10,9 @@ use Tests\Support\BaseBagSuite;
 
 class ConstructTest extends BaseBagSuite
 {
-    public function dataProvider()
+    public function __validData(): array
     {
-        $randomClass = new BagConstructorTestCase();
+        $bagConstructorTestCase = new BagConstructorTestCase();
 
         return [
             'array with integers' => [
@@ -37,7 +37,7 @@ class ConstructTest extends BaseBagSuite
             ],
             'json' => [
                 ['1', '2', '3', '4', '5'],
-                json_decode(json_encode([1, 2, 3, 4, 5]), false),
+                json_decode(json_encode([1, 2, 3, 4, 5]), false, 512, JSON_THROW_ON_ERROR),
             ],
             'empty class' => [
                 [],
@@ -49,14 +49,14 @@ class ConstructTest extends BaseBagSuite
             ],
             'class with toArray' => [
                 [
-                    $randomClass,
+                    $bagConstructorTestCase,
                 ],
-                $randomClass,
+                $bagConstructorTestCase,
             ],
         ];
     }
 
-    public function dotDataProvider()
+    public function __validDotData(): array
     {
         return [
             [
@@ -85,11 +85,19 @@ class ConstructTest extends BaseBagSuite
     }
 
     /**
+     * @dataProvider __validDotData
+     */
+    public function testBagConstructsFromFlaDotNotationArray($bag, $expected): void
+    {
+        $this->assertEquals($expected, $this->dot($bag)->value());
+    }
+
+    /**
      * Test that the constructor takes value and sets it internally
      *
-     * @dataProvider dataProvider
+     * @dataProvider __validData
      */
-    public function testBagIsSetViaConstructor($expected, $bag)
+    public function testBagIsSetViaConstructor($expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->value());
     }
@@ -97,25 +105,17 @@ class ConstructTest extends BaseBagSuite
     /**
      * Test that the static make method takes value and sets it internally
      *
-     * @dataProvider dataProvider
+     * @dataProvider  __validData
      */
-    public function testBagIsSetViaMake($expected, $bag)
+    public function testBagIsSetViaMake($expected, $bag): void
     {
         $this->assertEquals($expected, Utility::make($bag)->value());
     }
 
     /**
-     * @dataProvider dotDataProvider
+     * @dataProvider __validDotData
      */
-    public function testBagConstructsFromFlaDotNotationArray($bag, $expected)
-    {
-        $this->assertEquals($expected, $this->dot($bag)->value());
-    }
-
-    /**
-     * @dataProvider dotDataProvider
-     */
-    public function testBagMakesFromFlaDotNotationArray($bag, $expected)
+    public function testBagMakesFromFlaDotNotationArray($bag, $expected): void
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }

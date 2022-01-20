@@ -8,41 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseBagSuite extends TestCase
 {
-    /**
-     * Utility class name
-     *
-     * @var string
-     */
-    public $utility = Utility::class;
-
-    /**
-     * DotUtility class name
-     *
-     * @var string
-     */
-    public $dotUtility = DotUtility::class;
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param $config
-     *
-     * @return Utility
-     */
-    public function utility($config)
-    {
-        return new Utility($config);
-    }
-
-    /**
-     * Get a new instance of the DotUtility class
-     *
-     * @param $config
-     *
-     * @return DotUtility
-     */
-    public function dot($config)
+    public function dot($config): DotUtility
     {
         return new DotUtility($config);
+    }
+
+    public function utility($config): Utility
+    {
+        return new Utility($config);
     }
 }

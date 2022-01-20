@@ -11,31 +11,31 @@ class TransformToBagTest extends BaseBagSuite
     /**
      * Check that the transformToBag returns an array of values from a given user input
      */
-    public function testExpectedResults()
+    public function testExpectedResults(): void
     {
         $class = $this->utility([]);
-        $reflection = new ReflectionClass(get_class($class));
-        $method = $reflection->getMethod('transformToBag');
-        $method->setAccessible(true);
+        $reflectionClass = new ReflectionClass($class::class);
+        $reflectionMethod = $reflectionClass->getMethod('transformToBag');
+        $reflectionMethod->setAccessible(true);
 
-        $this->assertEquals([], $method->invokeArgs($class, [[]]));
+        $this->assertEquals([], $reflectionMethod->invokeArgs($class, [[]]));
 
         $bagArray = [1, 2, 3];
-        $bagObject = json_decode(json_encode($bagArray));
+        $bagObject = json_decode(json_encode($bagArray), null, 512, JSON_THROW_ON_ERROR);
 
-        $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagArray]));
-        $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagObject]));
+        $this->assertEquals($bagArray, $reflectionMethod->invokeArgs($class, [$bagArray]));
+        $this->assertEquals($bagArray, $reflectionMethod->invokeArgs($class, [$bagObject]));
 
         $bagArray = ['hello' => 'world'];
-        $bagObject = json_decode(json_encode($bagArray));
+        $bagObject = json_decode(json_encode($bagArray), null, 512, JSON_THROW_ON_ERROR);
 
-        $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagArray]));
-        $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagObject]));
+        $this->assertEquals($bagArray, $reflectionMethod->invokeArgs($class, [$bagArray]));
+        $this->assertEquals($bagArray, $reflectionMethod->invokeArgs($class, [$bagObject]));
 
-        $randomClass = new BagConstructorTestCase();
+        $bagConstructorTestCase = new BagConstructorTestCase();
         $classArray = [
-            $randomClass,
+            $bagConstructorTestCase,
         ];
-        $this->assertEquals($classArray, $method->invokeArgs($class, [$randomClass]));
+        $this->assertEquals($classArray, $reflectionMethod->invokeArgs($class, [$bagConstructorTestCase]));
     }
 }

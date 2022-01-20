@@ -3,16 +3,19 @@
 namespace Tests\Support;
 
 use stdClass;
+use Stringable;
 
-class BagConstructorTestCase
+class BagConstructorTestCase implements Stringable
 {
-    public $var1 = 1;
+    public stdClass $var4;
 
-    public $var2 = 'two';
+    public array $var5;
 
-    public $var3 = null;
+    public int $var1 = 1;
 
-    private $private = 'foobar';
+    public string $var2 = 'two';
+
+    public $var3;
 
     public function __construct()
     {
@@ -24,7 +27,7 @@ class BagConstructorTestCase
         ];
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return 'BagConstructorTestCase::class';
     }

@@ -6,19 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class RemoveTest extends BaseBagSuite
 {
-    public function testRemove()
-    {
-        $bag = $this->utility(['foo', 'bar'])->remove(0)->value();
-        $this->assertEquals([1 => 'bar'], $bag);
-
-        $bag = $this->utility(['foo', 'bar'])->remove(100)->value();
-        $this->assertEquals([0 => 'foo', 1 => 'bar'], $bag);
-
-        $bag = $this->utility(['foo' => 'bar', 'foo', 'hello' => 'world', 'bar'])->remove('foo')->value();
-        $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag);
-    }
-
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         $bag = $this->utility(['foo', 'bar']);
         $bag->offsetUnset(0);
@@ -31,5 +19,17 @@ class RemoveTest extends BaseBagSuite
         $bag = $this->utility(['foo' => 'bar', 'foo', 'hello' => 'world', 'bar']);
         $bag->offsetUnset('foo');
         $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag->value());
+    }
+
+    public function testRemove(): void
+    {
+        $bag = $this->utility(['foo', 'bar'])->remove(0)->value();
+        $this->assertEquals([1 => 'bar'], $bag);
+
+        $bag = $this->utility(['foo', 'bar'])->remove(100)->value();
+        $this->assertEquals([0 => 'foo', 1 => 'bar'], $bag);
+
+        $bag = $this->utility(['foo' => 'bar', 'foo', 'hello' => 'world', 'bar'])->remove('foo')->value();
+        $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag);
     }
 }

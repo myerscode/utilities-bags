@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class AddTest extends BaseBagSuite
 {
-    public function testValueAddedToBag()
+    public function testValueAddedToBag(): void
     {
         // check can add to empty bag
         $bag = $this->utility([])->add(0, 'foo')->value();

@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 class MergeRecursivelyTest extends BaseBagSuite
 {
-    public function dataProvider(): array
+    public function __validData(): array
     {
         $stdC = new stdClass();
         $stdC->hello = 'goodbye';
@@ -47,7 +47,7 @@ class MergeRecursivelyTest extends BaseBagSuite
         ];
     }
 
-    public function dotDataProvider()
+    public function __validDotData(): array
     {
         $stdC = new stdClass();
         $stdC->hello = 'goodbye';
@@ -82,37 +82,37 @@ class MergeRecursivelyTest extends BaseBagSuite
     }
 
     /**
-     * @dataProvider dataProvider
+     * @dataProvider __validData
      */
-    public function testUtilityCanMergeArrayRecursively($bag, $merge, $expected)
-    {
-        $bag = $this->utility($bag)->mergeRecursively($merge)->value();
-        $this->assertEquals($expected, $bag);
-    }
-
-    /**
-     * @dataProvider dataProvider
-     */
-    public function testDotUtilityCanMergeArrayRecursively($bag, $merge, $expected)
+    public function testDotUtilityCanMergeArrayRecursively($bag, $merge, $expected): void
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     /**
-     * @dataProvider dotDataProvider
+     * @dataProvider __validDotData
      */
-    public function testDotUtilityCanMergeDotArraysRecursively($bag, $merge, $expected)
+    public function testDotUtilityCanMergeDotArraysRecursively($bag, $merge, $expected): void
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
-    public function testDotUtilityMergeReturnsNewInstance()
+    public function testDotUtilityMergeReturnsNewInstance(): void
     {
         $bagOne = $this->dot([1, 2, 3]);
         $bagTwo = $bagOne->mergeRecursively([4, 5, 6]);
         $this->assertNotEquals($bagOne, $bagTwo);
         $this->assertInstanceOf(DotUtility::class, $bagTwo);
+    }
+
+    /**
+     * @dataProvider __validData
+     */
+    public function testUtilityCanMergeArrayRecursively($bag, $merge, $expected): void
+    {
+        $bag = $this->utility($bag)->mergeRecursively($merge)->value();
+        $this->assertEquals($expected, $bag);
     }
 }

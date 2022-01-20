@@ -18,8 +18,8 @@ class DotUtility extends Utility
     {
         $array = $this->toArray();
 
-        if (! str_contains($index, '.') || $this->exists($index)) {
-            return parent::get($index, $default);
+        if (!$this->exists($index)) {
+            return $default;
         }
 
         foreach (explode('.', $index) as $segment) {
@@ -40,7 +40,9 @@ class DotUtility extends Utility
     {
         if (is_array($bag)) {
             return parent::merge($this->normalizeArray($bag));
-        } elseif ($bag instanceof parent) {
+        }
+
+        if ($bag instanceof parent) {
             return parent::merge($bag->toArray());
         }
 
@@ -54,7 +56,9 @@ class DotUtility extends Utility
     {
         if (is_array($bag)) {
             return parent::mergeRecursively($this->normalizeArray($bag));
-        } elseif ($bag instanceof parent) {
+        }
+
+        if ($bag instanceof parent) {
             return parent::mergeRecursively($bag->toArray());
         }
 
@@ -64,7 +68,7 @@ class DotUtility extends Utility
     /**
      * {@inheritdoc}
      */
-    public function set($index, $value): Utility
+    public function set($index, $value): DotUtility
     {
         $array = &$this->bag;
 
@@ -73,7 +77,7 @@ class DotUtility extends Utility
         while (count($keys) > 1) {
             $key = array_shift($keys);
 
-            if (! isset($array[$key])) {
+            if (!isset($array[$key])) {
                 $array[$key] = [];
             }
 
@@ -89,13 +93,15 @@ class DotUtility extends Utility
 
     /**
      * Destruct an array that has dot notation
+     *
+     * @return mixed[]
      */
     protected function normalizeArray(array $items, string $delimiter = '.'): array
     {
         $new = [];
 
         foreach ($items as $key => $value) {
-            if (! str_contains($key, $delimiter)) {
+            if (!str_contains($key, $delimiter)) {
                 $new[$key] = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
 
                 continue;
