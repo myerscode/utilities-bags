@@ -18,8 +18,11 @@ class DotUtility extends Utility
     public function get($index, $default = null)
     {
         $array = $this->toArray();
+        if (strpos($index, '.') === false) {
+            return parent::get($index, $default);
+        }
 
-        if (strpos($index, '.') === false || $this->exists($index)) {
+        if ($this->exists($index)) {
             return parent::get($index, $default);
         }
 
@@ -41,7 +44,9 @@ class DotUtility extends Utility
     {
         if (is_array($bag)) {
             return parent::merge($this->normalizeArray($bag));
-        } elseif ($bag instanceof self || $bag instanceof parent) {
+        }
+
+        if ($bag instanceof self || $bag instanceof parent) {
             return parent::merge($bag->toArray());
         }
 
@@ -55,44 +60,13 @@ class DotUtility extends Utility
     {
         if (is_array($bag)) {
             return parent::mergeRecursively($this->normalizeArray($bag));
-        } elseif ($bag instanceof self || $bag instanceof parent) {
+        }
+
+        if ($bag instanceof self || $bag instanceof parent) {
             return parent::mergeRecursively($bag->toArray());
         }
 
         return parent::mergeRecursively(new static($bag));
-    }
-
-    /**
-     * Destruct an array that has dot notation
-     *
-     * @param  array  $items
-     * @param  string  $delimiter
-     *
-     * @return array
-     */
-    protected function normalizeArray(array $items, $delimiter = '.'): array
-    {
-        $new = [];
-
-        foreach ($items as $key => $value) {
-            if (strpos($key, $delimiter) === false) {
-                $new[$key] = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
-                continue;
-            }
-
-            $segments = explode($delimiter, $key);
-
-            $last = &$new[$segments[0]];
-
-            foreach ($segments as $k => $segment) {
-                if ($k != 0) {
-                    $last = &$last[$segment];
-                }
-            }
-            $last = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
-        }
-
-        return $new;
     }
 
     /**
@@ -119,5 +93,37 @@ class DotUtility extends Utility
         $newBag = $this->bag;
 
         return new self($newBag);
+    }
+
+    /**
+     * Destruct an array that has dot notation
+     *
+     * @param  string  $delimiter
+     *
+     */
+    protected function normalizeArray(array $items, $delimiter = '.'): array
+    {
+        $new = [];
+
+        foreach ($items as $key => $value) {
+            if (strpos($key, $delimiter) === false) {
+                $new[$key] = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
+                continue;
+            }
+
+            $segments = explode($delimiter, $key);
+
+            $last = &$new[$segments[0]];
+
+            foreach ($segments as $k => $segment) {
+                if ($k != 0) {
+                    $last = &$last[$segment];
+                }
+            }
+
+            $last = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
+        }
+
+        return $new;
     }
 }

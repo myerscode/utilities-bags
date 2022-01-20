@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use ReflectionClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
@@ -19,29 +20,28 @@ class TransformToBagTest extends BaseBagSuite
     public function testExpectedResults()
     {
         $class = $this->utility([]);
-        $reflection = new \ReflectionClass(get_class($class));
-        $method = $reflection->getMethod('transformToBag');
+        $reflectionClass = new ReflectionClass(get_class($class));
+        $method = $reflectionClass->getMethod('transformToBag');
         $method->setAccessible(true);
 
         $this->assertEquals([], $method->invokeArgs($class, [[]]));
 
-        $bagArray = [1,2,3];
-        $bagObject = json_decode(json_encode($bagArray));
+        $bagArray = [1, 2, 3];
+        $bagObject = json_decode(json_encode($bagArray), null, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagArray]));
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagObject]));
 
         $bagArray = ['hello' => 'world'];
-        $bagObject = json_decode(json_encode($bagArray));
+        $bagObject = json_decode(json_encode($bagArray), null, 512, JSON_THROW_ON_ERROR);
 
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagArray]));
         $this->assertEquals($bagArray, $method->invokeArgs($class, [$bagObject]));
 
-        $randomClass = new BagConstructorTestCase();
+        $bagConstructorTestCase = new BagConstructorTestCase();
         $classArray = [
-            $randomClass
+            $bagConstructorTestCase,
         ];
-        $this->assertEquals($classArray, $method->invokeArgs($class, [$randomClass]));
-
+        $this->assertEquals($classArray, $method->invokeArgs($class, [$bagConstructorTestCase]));
     }
 }

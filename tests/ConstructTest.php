@@ -4,6 +4,7 @@ namespace Tests;
 
 use Myerscode\Utilities\Bags\DotUtility;
 use Myerscode\Utilities\Bags\Utility;
+use stdClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
@@ -15,7 +16,7 @@ class ConstructTest extends BaseBagSuite
 
     public function dataProvider()
     {
-        $randomClass = new BagConstructorTestCase();
+        $bagConstructorTestCase = new BagConstructorTestCase();
 
         return [
             [
@@ -40,11 +41,11 @@ class ConstructTest extends BaseBagSuite
             ],
             [
                 ['1', '2', '3', '4', '5'],
-                json_decode(json_encode([1, 2, 3, 4, 5]), false),
+                json_decode(json_encode([1, 2, 3, 4, 5]), false, 512, JSON_THROW_ON_ERROR),
             ],
             [
                 [],
-                new \stdClass(),
+                new stdClass(),
             ],
             [
                 [],
@@ -52,9 +53,9 @@ class ConstructTest extends BaseBagSuite
             ],
             [
                 [
-                    $randomClass,
+                    $bagConstructorTestCase,
                 ],
-                $randomClass,
+                $bagConstructorTestCase,
             ],
         ];
     }
@@ -88,6 +89,18 @@ class ConstructTest extends BaseBagSuite
     }
 
     /**
+     * @param  mixed  $bag  The value to pass to the utility
+     * @param  array  $expected  The value expected to be returned
+     *
+     * @dataProvider dotDataProvider
+     * @covers       \Myerscode\Utilities\Bags\DotUtility::__construct
+     */
+    public function testBagConstructsFromFlaDotNotationArray($bag, $expected)
+    {
+        $this->assertEquals($expected, $this->dot($bag)->value());
+    }
+
+    /**
      * Test that the constructor takes value and sets it internally
      *
      * @param  array  $expected  The value expected to be returned
@@ -113,18 +126,6 @@ class ConstructTest extends BaseBagSuite
     public function testBagIsSetViaMake($expected, $bag)
     {
         $this->assertEquals($expected, Utility::make($bag)->value());
-    }
-
-    /**
-     * @param  mixed  $bag  The value to pass to the utility
-     * @param  array  $expected  The value expected to be returned
-     *
-     * @dataProvider dotDataProvider
-     * @covers       \Myerscode\Utilities\Bags\DotUtility::__construct
-     */
-    public function testBagConstructsFromFlaDotNotationArray($bag, $expected)
-    {
-        $this->assertEquals($expected, $this->dot($bag)->value());
     }
 
     /**

@@ -10,34 +10,42 @@ use Tests\Support\BaseBagSuite;
 class SetTest extends BaseBagSuite
 {
 
-    /**
-     * @covers ::set
-     */
-    public function testValueSetToBagViaSet()
+    public function testSetValueByDotNotation()
     {
-        // check can add to empty bag
-        $bag = $this->utility([])->set(0, 'foo')->value();
-        $this->assertEquals([0 => 'foo'], $bag);
+        $values = [
+            'deep' => [
+                'nested' => [
+                    'values' => [
+                        'hello',
+                    ],
+                ],
+            ],
+        ];
 
-        //check value is not overwritten
-        $bag = $this->utility([0 => 'foo'])->set(0, 'bar')->value();
-        $this->assertEquals([0 => 'bar'], $bag);
+        $bag = $this->dot($values)->set('deep.nested.values', 'hello world');
 
-        // check value can be added
-        $bag = $this->utility([0 => 'foo'])->set(1, 'bar')->value();
-        $this->assertEquals([0 => 'foo', 1 => 'bar'], $bag);
+        $this->assertEquals([
+            'deep' => [
+                'nested' => [
+                    'values' => 'hello world',
+                ],
+            ],
+        ], $bag->value());
 
-        // check indexes can be mixed
-        $bag = $this->utility(['foo' => 'bar'])->set(0, 'foo')->value();
-        $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
+        $bag = $this->dot($values)->set('foo.bar', 'hello world');
 
-        // check can use key index
-        $bag = $this->utility([0 => 'foo'])->set('foo', 'bar')->value();
-        $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
-
-        // dot notation is not applied
-        $bag = $this->utility([])->set('foo.bar', 'hello world')->value();
-        $this->assertEquals(['foo.bar' => 'hello world'], $bag);
+        $this->assertEquals([
+            'deep' => [
+                'nested' => [
+                    'values' => [
+                        'hello',
+                    ],
+                ],
+            ],
+            'foo' => [
+                'bar' => 'hello world',
+            ],
+        ], $bag->value());
     }
 
     /**
@@ -66,41 +74,33 @@ class SetTest extends BaseBagSuite
         $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
     }
 
-    public function testSetValueByDotNotation()
+    /**
+     * @covers ::set
+     */
+    public function testValueSetToBagViaSet()
     {
-        $values = [
-            'deep' => [
-                'nested' => [
-                    'values' => [
-                        'hello',
-                    ]
-                ]
-            ]
-        ];
+        // check can add to empty bag
+        $bag = $this->utility([])->set(0, 'foo')->value();
+        $this->assertEquals([0 => 'foo'], $bag);
 
-        $bag = $this->dot($values)->set('deep.nested.values', 'hello world');
+        //check value is not overwritten
+        $bag = $this->utility([0 => 'foo'])->set(0, 'bar')->value();
+        $this->assertEquals([0 => 'bar'], $bag);
 
-        $this->assertEquals([
-            'deep' => [
-                'nested' => [
-                    'values' => 'hello world'
-                ]
-            ]
-        ], $bag->value());
+        // check value can be added
+        $bag = $this->utility([0 => 'foo'])->set(1, 'bar')->value();
+        $this->assertEquals([0 => 'foo', 1 => 'bar'], $bag);
 
-        $bag = $this->dot($values)->set('foo.bar', 'hello world');
+        // check indexes can be mixed
+        $bag = $this->utility(['foo' => 'bar'])->set(0, 'foo')->value();
+        $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
 
-        $this->assertEquals([
-            'deep' => [
-                'nested' => [
-                    'values' => [
-                        'hello',
-                    ]
-                ]
-            ],
-            'foo' => [
-                'bar' => 'hello world'
-            ]
-        ], $bag->value());
+        // check can use key index
+        $bag = $this->utility([0 => 'foo'])->set('foo', 'bar')->value();
+        $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
+
+        // dot notation is not applied
+        $bag = $this->utility([])->set('foo.bar', 'hello world')->value();
+        $this->assertEquals(['foo.bar' => 'hello world'], $bag);
     }
 }

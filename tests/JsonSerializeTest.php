@@ -12,7 +12,7 @@ class JsonSerializeTest extends BaseBagSuite
 
         $this->assertJsonStringEqualsJsonString(
             json_encode($values),
-            json_encode($this->utility($values))
+            json_encode($this->utility($values), JSON_THROW_ON_ERROR)
         );
     }
 }

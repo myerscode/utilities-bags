@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
 /**
@@ -20,7 +19,7 @@ class RemoveEmptyTest extends BaseBagSuite
     {
         $expected = [
             'foo',
-            'bar'
+            'bar',
         ];
 
         $bag = [
@@ -28,7 +27,7 @@ class RemoveEmptyTest extends BaseBagSuite
             null,
             'bar',
             '',
-            false
+            false,
         ];
 
         $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());
@@ -44,7 +43,7 @@ class RemoveEmptyTest extends BaseBagSuite
             123 => false,
             null,
             '',
-            0
+            0,
         ];
 
         $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());

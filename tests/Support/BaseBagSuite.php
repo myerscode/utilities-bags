@@ -23,24 +23,26 @@ abstract class BaseBagSuite extends TestCase
     public $dotUtility = DotUtility::class;
 
     /**
-     * {@inheritdoc}
-     *
-     * @param $config
-     * @return Utility
-     */
-    public function utility($config)
-    {
-        return new Utility($config);
-    }
-
-    /**
      * Get a new instance of the DotUtility class
      *
      * @param $config
+     *
      * @return DotUtility
      */
     public function dot($config)
     {
         return new DotUtility($config);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param $config
+     *
+     * @return Utility
+     */
+    public function utility($config)
+    {
+        return new Utility($config);
     }
 }

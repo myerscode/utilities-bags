@@ -11,40 +11,6 @@ class GetTest extends BaseBagSuite
 {
 
     /**
-     * @covers ::get
-     */
-    public function testValueRetrievedFromGet()
-    {
-        $this->assertEquals(null, $this->utility([])->get(100));
-
-        $this->assertEquals(null, $this->utility(['foo', 'bar'])->get(2));
-
-        $this->assertEquals('foo', $this->utility(['foo', 'bar'])->get(0));
-
-        $this->assertEquals('world', $this->utility(['foo' => 'bar', 'hello' => 'world'])->get('hello'));
-
-        $this->assertEquals('whoops', $this->utility(['foo', 'bar'])->get(2, 'whoops'));
-    }
-
-    /**
-     * @covers ::offsetGet
-     */
-    public function testValueRetrievedFromOffsetGet()
-    {
-        $this->assertEquals(null, $this->utility([])->offsetGet(100));
-
-        $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));
-
-        $this->assertEquals('foo', $this->utility(['foo', 'bar'])->offsetGet(0));
-
-        $this->assertEquals('world', $this->utility(['foo' => 'bar', 'hello' => 'world'])->offsetGet('hello'));
-
-        $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));
-
-    }
-
-
-    /**
      * @covers \Myerscode\Utilities\Bags\DotUtility::get
      */
     public function testDotValueRetrievedFromGet()
@@ -104,5 +70,37 @@ class GetTest extends BaseBagSuite
         ], $this->dot($values)->get('deep'));
 
         $this->assertEquals('default-value', $this->dot($values)->get('deep.nested.values.contains', 'default-value'));
+    }
+
+    /**
+     * @covers ::get
+     */
+    public function testValueRetrievedFromGet()
+    {
+        $this->assertEquals(null, $this->utility([])->get(100));
+
+        $this->assertEquals(null, $this->utility(['foo', 'bar'])->get(2));
+
+        $this->assertEquals('foo', $this->utility(['foo', 'bar'])->get(0));
+
+        $this->assertEquals('world', $this->utility(['foo' => 'bar', 'hello' => 'world'])->get('hello'));
+
+        $this->assertEquals('whoops', $this->utility(['foo', 'bar'])->get(2, 'whoops'));
+    }
+
+    /**
+     * @covers ::offsetGet
+     */
+    public function testValueRetrievedFromOffsetGet()
+    {
+        $this->assertEquals(null, $this->utility([])->offsetGet(100));
+
+        $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));
+
+        $this->assertEquals('foo', $this->utility(['foo', 'bar'])->offsetGet(0));
+
+        $this->assertEquals('world', $this->utility(['foo' => 'bar', 'hello' => 'world'])->offsetGet('hello'));
+
+        $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));
     }
 }
