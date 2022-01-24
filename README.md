@@ -4,7 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/myerscode/utilities-bags/v/stable)](https://packagist.org/packages/myerscode/utilities-bags)
 [![Total Downloads](https://poser.pugx.org/myerscode/utilities-bags/downloads)](https://packagist.org/packages/myerscode/utilities-bags)
 [![License](https://poser.pugx.org/myerscode/utilities-bags/license)](https://packagist.org/packages/myerscode/utilities-bags)
-![License](https://github.com/myerscode/utilities-bags/workflows/tests/badge.svg?branch=main)
+![Tests](https://github.com/myerscode/utilities-bags/workflows/tests/badge.svg?branch=main)
 
 
 ## Install
@@ -16,7 +16,7 @@ composer require myerscode/utilities-bags
 ```
 
 ## [Usage](./docs/usage.md)
-To see how to use the bag utility, view the usage guide [here](./docs/usage.md).
+To see how to use the utility, view the usage guide [here](./docs/usage.md).
 
 ## [Methods](./docs/methods.md)
 View all available methods in the documentation [here](./docs/methods.md).
