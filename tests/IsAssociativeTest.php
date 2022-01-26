@@ -4,50 +4,46 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class IsAssociativeTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function __validData(): array
     {
         return [
             [
                 true,
-                ['foo' => 'bar', 'hello' => 'world']
+                ['foo' => 'bar', 'hello' => 'world'],
             ],
             [
                 true,
-                ['foo' => ['hello' => 'world']]
+                ['foo' => ['hello' => 'world']],
             ],
             [
                 true,
-                ['foo' => ['bar', 'hello', 'world']]
+                ['foo' => ['bar', 'hello', 'world']],
             ],
             [
                 true,
-                [0 => 'hello', 'one' => 'world']
+                [0 => 'hello', 'one' => 'world'],
             ],
             [
                 false,
-                [1, 2, 3, 4]
+                [1, 2, 3, 4],
             ],
             [
                 false,
-                ['foo', 'bar', 'hello', 'world']
+                ['foo', 'bar', 'hello', 'world'],
             ],
             [
                 false,
-                [0 => 'hello', '1' => 'world']
+                [0 => 'hello', '1' => 'world'],
             ],
             [
                 false,
-                [['hello' => 'world']]
+                [['hello' => 'world']],
             ],
             [
                 false,
-                []
+                [],
             ],
         ];
     }
@@ -55,13 +51,9 @@ class IsAssociativeTest extends BaseBagSuite
     /**
      * Test that isAssociative returns true if the bag is an associative array
      *
-     * @param bool $expected The expected result
-     * @param string $bag The value to pass to the utility
-     *
-     * @dataProvider dataProvider
-     * @covers ::isAssociative
+     * @dataProvider __validData
      */
-    public function testBagIsAssociative($expected, $bag)
+    public function testBagIsAssociative($expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isAssociative());
     }

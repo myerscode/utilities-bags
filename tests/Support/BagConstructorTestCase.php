@@ -2,28 +2,32 @@
 
 namespace Tests\Support;
 
-class BagConstructorTestCase
+use stdClass;
+use Stringable;
+
+class BagConstructorTestCase implements Stringable
 {
+    public stdClass $var4;
 
-    public $var1 = 1;
+    public array $var5;
 
-    public $var2 = 'two';
+    public int $var1 = 1;
 
-    public $var3 = null;
+    public string $var2 = 'two';
 
-    private $private = 'foobar';
+    public $var3;
 
     public function __construct()
     {
-        $this->var4 = new \stdClass();
+        $this->var4 = new stdClass();
 
         $this->var5 = [
             'hello',
-            'world'
+            'world',
         ];
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return 'BagConstructorTestCase::class';
     }

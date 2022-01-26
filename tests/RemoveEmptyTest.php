@@ -2,25 +2,18 @@
 
 namespace Tests;
 
-use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class RemoveEmptyTest extends BaseBagSuite
 {
-
     /**
      * Test that bag knows its length
-     *
-     * @covers ::removeEmpty
      */
-    public function testBagCanRemoveEmptyValues()
+    public function testBagCanRemoveEmptyValues(): void
     {
         $expected = [
             'foo',
-            'bar'
+            'bar',
         ];
 
         $bag = [
@@ -28,7 +21,7 @@ class RemoveEmptyTest extends BaseBagSuite
             null,
             'bar',
             '',
-            false
+            false,
         ];
 
         $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());
@@ -44,10 +37,9 @@ class RemoveEmptyTest extends BaseBagSuite
             123 => false,
             null,
             '',
-            0
+            0,
         ];
 
         $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());
     }
-
 }

@@ -2,26 +2,22 @@
 
 namespace Tests;
 
-use Myerscode\Utilities\Bags\Utility;
+use IteratorAggregate;
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class IteratorTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function __validData(): array
     {
         return [
             [
-                [1, 2, 3, 4, 5]
+                [1, 2, 3, 4, 5],
             ],
             [
-                ['1', '2', '3', '4', '5']
+                ['1', '2', '3', '4', '5'],
             ],
             [
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => '']
+                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
             ],
         ];
     }
@@ -29,18 +25,24 @@ class IteratorTest extends BaseBagSuite
     /**
      * Test that bag can be iterated over
      *
-     * @param mixed $bag The value to pass to the utility
+     * @dataProvider __validData
      *
-     * @dataProvider dataProvider
-     * @covers ::getIterator
+     * @param  int[]|string[]|array<string, string>  $bag
      */
-    public function testBagIsCanBeIteratedOver($bag)
+    public function testBagIsCanBeIteratedOver(array $bag): void
     {
-        foreach ($this->utility($bag) as $index => $item) {
+        foreach ($this->utility($bag) as $index => $utility) {
             $this->assertArrayHasKey($index, $bag);
-            $this->assertEquals(array_search($item, $bag), $index);
-            $this->assertEquals($bag[$index], $item);
+            $this->assertEquals(array_search($utility, $bag), $index);
+            $this->assertEquals($bag[$index], $utility);
         }
     }
 
+    /**
+     * Test that bag can be iterated over
+     */
+    public function testImplementsIteratorAggregate(): void
+    {
+        $this->assertInstanceOf(IteratorAggregate::class, $this->utility([]));
+    }
 }

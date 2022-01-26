@@ -4,16 +4,9 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class PushTest extends BaseBagSuite
 {
-
-    /**
-     * @covers ::push
-     */
-    public function testValueAddedToBag()
+    public function testValueAddedToBag(): void
     {
         $bag = $this->utility([])->push('foo')->value();
         $this->assertEquals(['foo'], $bag);

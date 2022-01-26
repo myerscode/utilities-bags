@@ -4,16 +4,24 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class RemoveTest extends BaseBagSuite
 {
+    public function testOffsetUnset(): void
+    {
+        $bag = $this->utility(['foo', 'bar']);
+        $bag->offsetUnset(0);
+        $this->assertEquals([1 => 'bar'], $bag->value());
 
-    /**
-     * @covers ::remove
-     */
-    public function testRemove()
+        $bag = $this->utility(['foo', 'bar']);
+        $bag->offsetUnset(100);
+        $this->assertEquals([0 => 'foo', 1 => 'bar'], $bag->value());
+
+        $bag = $this->utility(['foo' => 'bar', 'foo', 'hello' => 'world', 'bar']);
+        $bag->offsetUnset('foo');
+        $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag->value());
+    }
+
+    public function testRemove(): void
     {
         $bag = $this->utility(['foo', 'bar'])->remove(0)->value();
         $this->assertEquals([1 => 'bar'], $bag);
@@ -23,22 +31,5 @@ class RemoveTest extends BaseBagSuite
 
         $bag = $this->utility(['foo' => 'bar', 'foo', 'hello' => 'world', 'bar'])->remove('foo')->value();
         $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag);
-
-    }
-
-    /**
-     * @covers ::offsetUnset
-     */
-    public function testOffsetUnset()
-    {
-        $bag = $this->utility(['foo', 'bar'])->offsetUnset(0)->value();
-        $this->assertEquals([1 => 'bar'], $bag);
-
-        $bag = $this->utility(['foo', 'bar'])->offsetUnset(100)->value();
-        $this->assertEquals([0 => 'foo', 1 => 'bar'], $bag);
-
-        $bag = $this->utility(['foo' => 'bar', 'foo', 'hello' => 'world', 'bar'])->offsetUnset('foo')->value();
-        $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag);
-
     }
 }
