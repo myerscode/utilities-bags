@@ -72,7 +72,7 @@ class DotUtility extends Utility
     {
         $array = &$this->bag;
 
-        $keys = explode('.', $index);
+        $keys = explode('.', (string) $index);
 
         while (count($keys) > 1) {
             $key = array_shift($keys);
@@ -101,13 +101,13 @@ class DotUtility extends Utility
         $new = [];
 
         foreach ($items as $key => $value) {
-            if (!str_contains($key, $delimiter)) {
+            if (!str_contains((string) $key, $delimiter)) {
                 $new[$key] = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
 
                 continue;
             }
 
-            $segments = explode($delimiter, $key);
+            $segments = explode($delimiter, (string) $key);
 
             $last = &$new[$segments[0]];
 

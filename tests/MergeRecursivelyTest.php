@@ -44,6 +44,11 @@ class MergeRecursivelyTest extends BaseBagSuite
                 $stdC,
                 ['hello' => ['world', 'goodbye']],
             ],
+            'merges keys and index' => [
+                ['Tor', 'Fred', 'foo' => ['bar' => 'value']],
+                [1 => 'Chris', 'foo' => 'hello world'],
+                ['Tor', 'Fred', 'Chris', 'foo' => ['hello world', 'bar' => 'value']],
+            ],
         ];
     }
 

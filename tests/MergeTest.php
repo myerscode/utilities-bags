@@ -48,6 +48,11 @@ class MergeTest extends BaseBagSuite
                 $stdC,
                 ['hello' => 'goodbye'],
             ],
+            'merges keys and index' => [
+                ['Tor', 'Fred', 'foo' => ['bar' => 'value']],
+                [1 => 'Chris', 'foo' => 'hello world'],
+                ['Tor', 'Fred', 'Chris', 'foo' => 'hello world'],
+            ],
         ];
     }
 
