@@ -322,7 +322,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function removeEmpty(): Utility
     {
-        $filteredBag = array_filter($this->bag, fn($value) => !empty($value));
+        $filteredBag = array_filter($this->bag, function ($value) {
+            return !empty($value);
+        });
 
         if (!$this->isAssociative()) {
             $filteredBag = array_values($filteredBag);
@@ -379,11 +381,13 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         return implode(
             $glue,
             array_map(
-                fn($v, $k) => sprintf(
-                    $keyPrefix."%s".$keyPostfix.$keyJoint.$valuePrefix."%s".$valuePostfix,
-                    $k,
-                    $v
-                ),
+                function ($v, $k) use ($keyPrefix, $keyPostfix, $keyJoint, $valuePrefix, $valuePostfix) {
+                    return sprintf(
+                        $keyPrefix."%s".$keyPostfix.$keyJoint.$valuePrefix."%s".$valuePostfix,
+                        $k,
+                        $v
+                    );
+                },
                 $this->bag,
                 array_keys($this->bag)
             )
@@ -423,6 +427,8 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         $bag = is_array($bag) ? $bag : [$bag];
 
-        return array_map(fn($e) => ((is_object($e) && $e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
+        return array_map(function ($e) {
+            return ((is_object($e) && $e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e;
+        }, $bag);
     }
 }
