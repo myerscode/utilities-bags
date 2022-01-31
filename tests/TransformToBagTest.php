@@ -6,9 +6,6 @@ use ReflectionClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class TransformToBagTest extends BaseBagSuite
 {
 

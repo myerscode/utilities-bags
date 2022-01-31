@@ -4,9 +4,6 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-/**
- * @coversDefaultClass Myerscode\Utilities\Bags\Utility
- */
 class IsSequentialTest extends BaseBagSuite
 {
 
