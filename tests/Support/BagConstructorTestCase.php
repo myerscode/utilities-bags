@@ -7,8 +7,8 @@ use stdClass;
 class BagConstructorTestCase
 {
 
-    public stdClass $var4;
-    public array $var5;
+    public $var4;
+    public $var5;
     public $var1 = 1;
 
     public $var2 = 'two';

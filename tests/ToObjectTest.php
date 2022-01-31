@@ -6,12 +6,6 @@ use Tests\Support\BaseBagSuite;
 
 class ToObjectTest extends BaseBagSuite
 {
-
-    /**
-     * Test that toObject returns all the bag data as an object
-     *
-     * @covers ::toObject
-     */
     public function testBagReturnsDataAsArray()
     {
         $this->assertEquals(

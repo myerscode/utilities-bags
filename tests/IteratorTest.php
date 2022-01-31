@@ -2,12 +2,12 @@
 
 namespace Tests;
 
+use IteratorAggregate;
 use Tests\Support\BaseBagSuite;
 
 class IteratorTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function __validData(): array
     {
         return [
             [
@@ -25,12 +25,11 @@ class IteratorTest extends BaseBagSuite
     /**
      * Test that bag can be iterated over
      *
-     * @param  mixed  $bag  The value to pass to the utility
+     * @dataProvider __validData
      *
-     * @dataProvider dataProvider
-     * @covers ::getIterator
+     * @param  int[]|string[]|array<string, string>  $bag
      */
-    public function testBagIsCanBeIteratedOver($bag)
+    public function testBagIsCanBeIteratedOver(array $bag): void
     {
         foreach ($this->utility($bag) as $index => $utility) {
             $this->assertArrayHasKey($index, $bag);
@@ -39,4 +38,11 @@ class IteratorTest extends BaseBagSuite
         }
     }
 
+    /**
+     * Test that bag can be iterated over
+     */
+    public function testImplementsIteratorAggregate(): void
+    {
+        $this->assertInstanceOf(IteratorAggregate::class, $this->utility([]));
+    }
 }

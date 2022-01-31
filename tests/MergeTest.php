@@ -7,8 +7,7 @@ use Tests\Support\BaseBagSuite;
 
 class MergeTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function __validData(): array
     {
         $stdC = new stdClass();
         $stdC->hello = 'goodbye';
@@ -49,10 +48,15 @@ class MergeTest extends BaseBagSuite
                 $stdC,
                 ['hello' => 'goodbye'],
             ],
+            'merges keys and index' => [
+                ['Tor', 'Fred', 'foo' => ['bar' => 'value']],
+                [1 => 'Chris', 'foo' => 'hello world'],
+                ['Tor', 'Fred', 'Chris', 'foo' => 'hello world'],
+            ],
         ];
     }
 
-    public function dotDataProvider()
+    public function __validDotData(): array
     {
         $stdC = new stdClass();
         $stdC->hello = 'goodbye';
@@ -87,36 +91,27 @@ class MergeTest extends BaseBagSuite
     }
 
     /**
-     * Test that merge creates expected outcome
-     *
-     * @dataProvider dataProvider
-     * @covers       \Myerscode\Utilities\Bags\DotUtility::merge
+     * @dataProvider __validData
      */
-    public function testDotUtilityCanMergeArray($bag, $merge, $expected)
+    public function testDotUtilityCanMergeArray($bag, $merge, $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     /**
-     * Test that merge creates expected outcome
-     *
-     * @dataProvider dotDataProvider
-     * @covers       \Myerscode\Utilities\Bags\DotUtility::merge
+     * @dataProvider __validDotData
      */
-    public function testDotUtilityCanMergeDotArrays($bag, $merge, $expected)
+    public function testDotUtilityCanMergeDotArrays($bag, $merge, $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     /**
-     * Test that merge creates expected outcome
-     *
-     * @dataProvider dataProvider
-     * @covers       \Myerscode\Utilities\Bags\Utility::merge
+     * @dataProvider __validData
      */
-    public function testUtilityCanMergeArray($bag, $merge, $expected)
+    public function testUtilityCanMergeArray($bag, $merge, $expected): void
     {
         $bag = $this->utility($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);

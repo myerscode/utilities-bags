@@ -6,8 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class ContainsAllTest extends BaseBagSuite
 {
-
-    public function falseDataProvider()
+    public function __invalidData(): array
     {
         return [
             [
@@ -41,35 +40,7 @@ class ContainsAllTest extends BaseBagSuite
         ];
     }
 
-    /**
-     * Check false is returned when all values in needles are not found in the bag
-     *
-     * @param  string  $needles  Values to check for
-     * @param  string  $bag  The bags values
-     *
-     * @dataProvider falseDataProvider
-     * @covers ::containsAll
-     */
-    public function testReturnsFalseIfSomeValuesAreMissing($needles, $bag)
-    {
-        $this->assertFalse($this->utility($bag)->containsAll($needles));
-    }
-
-    /**
-     * Check true is returned when all values in needles are found in the bag
-     *
-     * @param  string  $needles  Values to check for
-     * @param  string  $bag  The bags values
-     *
-     * @dataProvider trueDataProvider
-     * @covers ::containsAll
-     */
-    public function testReturnsTrueIfSomeValuesArePresent($needles, $bag)
-    {
-        $this->assertTrue($this->utility($bag)->containsAll($needles));
-    }
-
-    public function trueDataProvider()
+    public function __validData(): array
     {
         return [
             [
@@ -105,5 +76,25 @@ class ContainsAllTest extends BaseBagSuite
                 json_decode(json_encode([1, 3, 5]), false, 512, JSON_THROW_ON_ERROR),
             ],
         ];
+    }
+
+    /**
+     * Check false is returned when all values in needles are not found in the bag
+     *
+     * @dataProvider __invalidData
+     */
+    public function testReturnsFalseIfSomeValuesAreMissing($needles, $bag): void
+    {
+        $this->assertFalse($this->utility($bag)->containsAll($needles));
+    }
+
+    /**
+     * Check true is returned when all values in needles are found in the bag
+     *
+     * @dataProvider __validData
+     */
+    public function testReturnsTrueIfSomeValuesArePresent($needles, $bag): void
+    {
+        $this->assertTrue($this->utility($bag)->containsAll($needles));
     }
 }

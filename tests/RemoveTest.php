@@ -6,10 +6,6 @@ use Tests\Support\BaseBagSuite;
 
 class RemoveTest extends BaseBagSuite
 {
-
-    /**
-     * @covers ::offsetUnset
-     */
     public function testOffsetUnset()
     {
         $bag = $this->utility(['foo', 'bar'])->offsetUnset(0)->value();
@@ -22,9 +18,6 @@ class RemoveTest extends BaseBagSuite
         $this->assertEquals([0 => 'foo', 1 => 'bar', 'hello' => 'world',], $bag);
     }
 
-    /**
-     * @covers ::remove
-     */
     public function testRemove()
     {
         $bag = $this->utility(['foo', 'bar'])->remove(0)->value();

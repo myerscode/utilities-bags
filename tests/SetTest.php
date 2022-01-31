@@ -45,9 +45,6 @@ class SetTest extends BaseBagSuite
         ], $bag->value());
     }
 
-    /**
-     * @covers ::offsetSet
-     */
     public function testValueSetToBagViaOffsetSet()
     {
         // check can add to empty bag
@@ -71,9 +68,6 @@ class SetTest extends BaseBagSuite
         $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag);
     }
 
-    /**
-     * @covers ::set
-     */
     public function testValueSetToBagViaSet()
     {
         // check can add to empty bag

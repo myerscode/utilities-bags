@@ -6,13 +6,10 @@ use Tests\Support\BaseBagSuite;
 
 class RemoveEmptyTest extends BaseBagSuite
 {
-
     /**
      * Test that bag knows its length
-     *
-     * @covers ::removeEmpty
      */
-    public function testBagCanRemoveEmptyValues()
+    public function testBagCanRemoveEmptyValues(): void
     {
         $expected = [
             'foo',
@@ -45,5 +42,4 @@ class RemoveEmptyTest extends BaseBagSuite
 
         $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());
     }
-
 }

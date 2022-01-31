@@ -6,11 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class GetTest extends BaseBagSuite
 {
-
-    /**
-     * @covers \Myerscode\Utilities\Bags\DotUtility::get
-     */
-    public function testDotValueRetrievedFromGet()
+    public function testDotValueRetrievedFromGet(): void
     {
         $values = [
             'deep' => [
@@ -39,10 +35,7 @@ class GetTest extends BaseBagSuite
         $this->assertEquals(null, $this->dot($values)->get('deep.nested.values.contains'));
     }
 
-    /**
-     * @covers \Myerscode\Utilities\Bags\DotUtility::get
-     */
-    public function testDotValueReturnsDefaultIfNotFound()
+    public function testDotValueReturnsDefaultIfNotFound(): void
     {
         $values = [
             'deep' => [
@@ -69,10 +62,7 @@ class GetTest extends BaseBagSuite
         $this->assertEquals('default-value', $this->dot($values)->get('deep.nested.values.contains', 'default-value'));
     }
 
-    /**
-     * @covers ::get
-     */
-    public function testValueRetrievedFromGet()
+    public function testValueRetrievedFromGet(): void
     {
         $this->assertEquals(null, $this->utility([])->get(100));
 
@@ -85,10 +75,7 @@ class GetTest extends BaseBagSuite
         $this->assertEquals('whoops', $this->utility(['foo', 'bar'])->get(2, 'whoops'));
     }
 
-    /**
-     * @covers ::offsetGet
-     */
-    public function testValueRetrievedFromOffsetGet()
+    public function testValueRetrievedFromOffsetGet(): void
     {
         $this->assertEquals(null, $this->utility([])->offsetGet(100));
 

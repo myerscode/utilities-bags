@@ -6,8 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class IsAssociativeTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function __validData(): array
     {
         return [
             [
@@ -52,13 +51,9 @@ class IsAssociativeTest extends BaseBagSuite
     /**
      * Test that isAssociative returns true if the bag is an associative array
      *
-     * @param  bool  $expected  The expected result
-     * @param  string  $bag  The value to pass to the utility
-     *
-     * @dataProvider dataProvider
-     * @covers ::isAssociative
+     * @dataProvider __validData
      */
-    public function testBagIsAssociative($expected, $bag)
+    public function testBagIsAssociative($expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isAssociative());
     }

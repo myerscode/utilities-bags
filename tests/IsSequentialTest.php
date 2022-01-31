@@ -7,7 +7,7 @@ use Tests\Support\BaseBagSuite;
 class IsSequentialTest extends BaseBagSuite
 {
 
-    public function dataProvider()
+    public function __dataProvider()
     {
         return [
             'associative keys' => [
@@ -46,13 +46,7 @@ class IsSequentialTest extends BaseBagSuite
     }
 
     /**
-     * Test that isSequential returns true if the bag is an sequential indexed array
-     *
-     * @param  bool  $expected  The expected result
-     * @param  string  $bag  The value to pass to the utility
-     *
-     * @dataProvider dataProvider
-     * @covers ::isSequential
+     * @dataProvider __dataProvider
      */
     public function testBagIsSequential($expected, $bag)
     {

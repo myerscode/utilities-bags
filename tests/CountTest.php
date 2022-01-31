@@ -7,8 +7,7 @@ use Tests\Support\BaseBagSuite;
 
 class CountTest extends BaseBagSuite
 {
-
-    public function dataProvider()
+    public function __validData(): array
     {
         return [
             [
@@ -33,16 +32,11 @@ class CountTest extends BaseBagSuite
     /**
      * Test that bag knows its length
      *
-     * @param  mixed  $expected  The expected result
-     * @param  mixed  $bag  The value to pass to the utility
-     *
-     * @dataProvider dataProvider
-     * @covers ::count
+     * @dataProvider __validData
      */
-    public function testBagIsCanBeIteratedOver($expected, $bag)
+    public function testBagIsCanBeIteratedOver($expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->count());
         $this->assertEquals($expected, count($this->utility($bag)));
     }
-
 }
