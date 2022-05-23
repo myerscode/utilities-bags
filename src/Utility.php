@@ -142,6 +142,19 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Filter the values of the bag with a given callback
+     * If no callback filter is provided, all null/falsey values are removed
+     */
+    public function filter(callable|null $filter = null, int $mode = ARRAY_FILTER_USE_BOTH): Utility
+    {
+        if ($filter) {
+            return new static(array_filter($this->bag, $filter, $mode));
+        }
+
+        return new static(array_filter($this->bag));
+    }
+
+    /**
      * Flatten a multidimensional array
      *
      * @param  string  $separator

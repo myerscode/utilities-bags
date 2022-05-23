@@ -81,6 +81,23 @@ $bag->exists(49);
 // false
 ```
 
+## filter
+Remove values from the bag based on a given callback condition. If no condition 
+is given, `filter()` will remove falsey values.
+```php 
+$bag = new Utility([7, 49, 42, 69, false, null, 0]);
+
+$bag->filter(); 
+// [7, 49, 42, 69]
+
+$bag = new Utility([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+
+$bag->filter(function ($value) {
+ return $value < 5;
+}); 
+// [1,2,3,4, 9 => 0]
+```
+
 ## flatten(string $separator = '.')
 Flatten a multidimensional array, using the separator to join keys
 ```php 
