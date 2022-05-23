@@ -244,6 +244,25 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Join the values of an array
+     *
+     * @param  string  $joinGlue
+     * @param  string|null  $lastGlue
+     *
+     * @return string
+     */
+    public function join(string $joinGlue, string $lastGlue = null): string
+    {
+        $values = $this->values();
+
+        if (is_null($lastGlue)) {
+            return implode($joinGlue, $values);
+        }
+
+        return implode($joinGlue, array_slice($values, 0, $this->count() - 1)) . $lastGlue . array_slice($values, -1, 1)[0];
+    }
+
+    /**
      * Return items for JSON serialization
      *
      * @return array
