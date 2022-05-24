@@ -290,6 +290,15 @@ $bag->remove('foo');
 // ['Tor']
 ```
 
+## resetIndex(): Utility
+Resets the sequential index keys of the bag
+```php
+$bag = new Utility([1 => 7, 7 => 'x', 49 => 7, 77 => 49]);
+
+$bag->resetIndex();
+// [0 => 7, 1 => 'x', 2 => 7, 3 => 49];
+```
+
 ## set(string|int $index, mixed $value): Utility
 Set an array index with a given value
 ```php 

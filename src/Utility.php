@@ -404,6 +404,25 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Resets the sequential index keys of the bag
+     *
+     * @return Utility
+     */
+    public function resetIndex(): Utility
+    {
+        if ($this->isIndexed() || $this->isSequential()) {
+            return new static(array_values($this->bag));
+        }
+        $assocKeys = $this->filter(fn ($value, $key) => !is_int($key))->keys();
+        $indexedKeys = $this->filter(fn ($value, $key) => is_int($key))->keys();
+
+        $assocValues = $this->filter(fn ($key) => in_array($key, $assocKeys), ARRAY_FILTER_USE_KEY)->value();
+        $indexedValues = $this->filter(fn ($key) => in_array($key, $indexedKeys), ARRAY_FILTER_USE_KEY)->values();
+
+        return new static($assocValues + $indexedValues);
+    }
+
+    /**
      * Remove all empty values from the bag
      * An empty value could be null, 0, '', false
      *
