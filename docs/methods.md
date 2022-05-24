@@ -343,3 +343,12 @@ $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
 $bag->value();
 // ['Tor', 'Fred', 'foo' => 'bar']
 ```
+
+## values()
+Get the bags values (ignoring indexes)
+```php 
+$bag = new Utility([77 => 49, 'corgi' => 'Gerald', 'owner' => 'Fred']);
+
+$bag->values();
+// [49, 'Gerald', 'Fred']
+```

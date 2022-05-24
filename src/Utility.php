@@ -521,6 +521,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         return $this->bag;
     }
 
+    /**
+     * Get the values of the array (ignoring any indexes)
+     *
+     * @return array
+     */
+    public function values(): array
+    {
+        return array_values($this->value());
+    }
+
     protected function dotGet(string $index, $default = null): mixed
     {
         $value = $this->value();
