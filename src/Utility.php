@@ -287,6 +287,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return array of root keys from the bag
+     *
+     * @return array
+     */
+    public function keys(): array
+    {
+        return array_keys($this->bag);
+    }
+
+    /**
      * Merge an array or bag Utility into the current bag
      *
      * @param $bag

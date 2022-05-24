@@ -201,6 +201,15 @@ $bag->join(',', ' and ');
 
 ## jsonSerialize(): array
 
+## keys(): string
+Return array of root keys from the bag
+```php 
+$bag = new Utility([7, 48, 'corgi' => 'Rupert', 'ball_chaser' => 'Gerald']);
+
+$bag->keys();
+// [0, 1, 'corgi', 'ball_chaser']
+```
+
 ## merge($bag): Utility
 Merge an array or bag Utility into the current bag
 ```php 
