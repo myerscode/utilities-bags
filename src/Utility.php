@@ -8,6 +8,7 @@ use Countable;
 use IteratorAggregate;
 use JsonException;
 use JsonSerializable;
+use Myerscode\Utilities\Bags\Exceptions\InvalidMappedValueException;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 use stdClass;
@@ -294,6 +295,43 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function keys(): array
     {
         return array_keys($this->bag);
+    }
+
+    /**
+     * Create new bag containing the results of applying the callback to each value in the current bag
+     *
+     * @param  callable  $mapper
+     *
+     * @return Utility
+     */
+    public function map(callable $mapper): Utility
+    {
+        $keys = array_keys($this->bag);
+
+        $items = array_map($mapper, $this->bag, $keys);
+
+        return new static(array_combine($keys, $items));
+    }
+
+    /**
+     * Remap the values of the bag with new index keys
+     *
+     * The mapper should return an key/value pair array with a single value
+     *
+     * @param  callable  $mapper
+     *
+     * @return Utility
+     */
+    public function mapKeys(callable $mapper): Utility
+    {
+        $mapped = array_reduce(array_map($mapper, array_keys($this->bag), $this->bag), function (array $newBag, array $mappedValue) {
+            if (count($mappedValue) > 1) {
+                throw new InvalidMappedValueException();
+            }
+            return $newBag + $mappedValue;
+        }, []);
+
+        return new static($mapped);
     }
 
     /**

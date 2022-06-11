@@ -210,6 +210,28 @@ $bag->keys();
 // [0, 1, 'corgi', 'ball_chaser']
 ```
 
+## map(callback $mapper): Utility
+Create a new bag containing the results of applying the callback to each value of the current bag.
+
+```php 
+$values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+$this->utility($rawValues)->map(fn($value) => $value * 7);
+
+// [7, 14, 21, 28, 35, 42, 49, 56, 63, 70]
+```
+
+## mapKeys(callback $mapper): Utility
+Create a new bag containing the results of applying the callback to each value of the current bag.
+
+```php 
+$values = [['name' => 'Fred', 'colour' => 'purple'], ['name' => 'Tor', 'colour' => 'pink']];
+
+$this->utility($rawValues)->map(fn($index, $value) => [$value['name'] => $value]);
+
+// ['Fred' => ['name' => 'Fred', 'colour' => 'purple'], 'Tor' => ['name' => 'Tor', 'colour' => 'pink']]
+```
+
 ## merge($bag): Utility
 Merge an array or bag Utility into the current bag
 ```php 
