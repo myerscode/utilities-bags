@@ -113,6 +113,41 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Pass each value in the bag to a closure so an action can be performed on it
+     *
+     * @param  callable  $eachCallable
+     *
+     * @return $this
+     */
+    public function each(callable $eachCallable): Utility
+    {
+        foreach ($this->value() as $key => $item) {
+            $eachCallable($item, $key);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Pass each value in the bag to a closure until a specific value is returned
+     *
+     * @param  callable  $eachCallable
+     * @param  mixed  $stopOn
+     *
+     * @return $this
+     */
+    public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
+    {
+        foreach ($this->value() as $key => $item) {
+            if ($eachCallable($item, $key) === $stopOn) {
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Check if an index exists in the bag
      *
      * @param  string|int  $index

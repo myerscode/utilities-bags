@@ -66,6 +66,30 @@ $bag->count();
 // 2
 ```
 
+## each(callable $eachCallable): Utility
+Pass each value in the bag to a closure so an action can be performed on it
+```php
+$bag = new Utility(['Tor', 'Fred'], function($value) {
+    echo $value;
+});
+
+// Tor
+// Fred
+```
+
+## eachUntil(callable $eachCallable): Utility
+Pass each value in the bag to a closure so an action can be performed on it
+```php
+$bag = new Utility(['Tor', 'Gerald', 'Rupert', 'Chris', 'Fred'], function($value) {
+    echo $value
+    return $value
+},  'Rupert');
+
+// Tor
+// Gerald
+// Rupert
+```
+
 ## exists(string|int $index): bool
 Does a key exist in the bag. Can use dot notation to check deep nested values exist.
 ```php 
