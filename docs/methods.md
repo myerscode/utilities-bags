@@ -81,6 +81,23 @@ $bag->exists(49);
 // false
 ```
 
+## filter
+Remove values from the bag based on a given callback condition. If no condition 
+is given, `filter()` will remove falsey values.
+```php 
+$bag = new Utility([7, 49, 42, 69, false, null, 0]);
+
+$bag->filter(); 
+// [7, 49, 42, 69]
+
+$bag = new Utility([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+
+$bag->filter(function ($value) {
+ return $value < 5;
+}); 
+// [1,2,3,4, 9 => 0]
+```
+
 ## flatten(string $separator = '.')
 Flatten a multidimensional array, using the separator to join keys
 ```php 
@@ -169,7 +186,29 @@ $bag->isSequential();
 // false
 ```
 
+## join(string $joinGlue, string $lastGlue = null): string
+Join the values of the bag with a given glue string, and additionally
+with an optional last glue to create an alternate ending join.
+```php 
+$bag = new Utility([1,2,3,4,5,6,7,8,9,0]);
+
+$bag->join(',');
+// 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+
+$bag->join(',', ' and ');
+// 1, 2, 3, 4, 5, 6, 7, 8, 9 and 0
+```
+
 ## jsonSerialize(): array
+
+## keys(): string
+Return array of root keys from the bag
+```php 
+$bag = new Utility([7, 48, 'corgi' => 'Rupert', 'ball_chaser' => 'Gerald']);
+
+$bag->keys();
+// [0, 1, 'corgi', 'ball_chaser']
+```
 
 ## merge($bag): Utility
 Merge an array or bag Utility into the current bag
@@ -251,6 +290,15 @@ $bag->remove('foo');
 // ['Tor']
 ```
 
+## resetIndex(): Utility
+Resets the sequential index keys of the bag
+```php
+$bag = new Utility([1 => 7, 7 => 'x', 49 => 7, 77 => 49]);
+
+$bag->resetIndex();
+// [0 => 7, 1 => 'x', 2 => 7, 3 => 49];
+```
+
 ## set(string|int $index, mixed $value): Utility
 Set an array index with a given value
 ```php 
@@ -294,4 +342,13 @@ $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
 
 $bag->value();
 // ['Tor', 'Fred', 'foo' => 'bar']
+```
+
+## values()
+Get the bags values (ignoring indexes)
+```php 
+$bag = new Utility([77 => 49, 'corgi' => 'Gerald', 'owner' => 'Fred']);
+
+$bag->values();
+// [49, 'Gerald', 'Fred']
 ```

@@ -142,6 +142,19 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Filter the values of the bag with a given callback
+     * If no callback filter is provided, all null/falsey values are removed
+     */
+    public function filter(callable|null $filter = null, int $mode = ARRAY_FILTER_USE_BOTH): Utility
+    {
+        if ($filter) {
+            return new static(array_filter($this->bag, $filter, $mode));
+        }
+
+        return new static(array_filter($this->bag));
+    }
+
+    /**
      * Flatten a multidimensional array
      *
      * @param  string  $separator
@@ -244,6 +257,25 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Join the values of an array
+     *
+     * @param  string  $joinGlue
+     * @param  string|null  $lastGlue
+     *
+     * @return string
+     */
+    public function join(string $joinGlue, string $lastGlue = null): string
+    {
+        $values = $this->values();
+
+        if (is_null($lastGlue)) {
+            return implode($joinGlue, $values);
+        }
+
+        return implode($joinGlue, array_slice($values, 0, $this->count() - 1)) . $lastGlue . array_slice($values, -1, 1)[0];
+    }
+
+    /**
      * Return items for JSON serialization
      *
      * @return array
@@ -252,6 +284,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function jsonSerialize(): array
     {
         return $this->bag;
+    }
+
+    /**
+     * Return array of root keys from the bag
+     *
+     * @return array
+     */
+    public function keys(): array
+    {
+        return array_keys($this->bag);
     }
 
     /**
@@ -362,6 +404,25 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Resets the sequential index keys of the bag
+     *
+     * @return Utility
+     */
+    public function resetIndex(): Utility
+    {
+        if ($this->isIndexed() || $this->isSequential()) {
+            return new static(array_values($this->bag));
+        }
+        $assocKeys = $this->filter(fn ($value, $key) => !is_int($key))->keys();
+        $indexedKeys = $this->filter(fn ($value, $key) => is_int($key))->keys();
+
+        $assocValues = $this->filter(fn ($key) => in_array($key, $assocKeys), ARRAY_FILTER_USE_KEY)->value();
+        $indexedValues = $this->filter(fn ($key) => in_array($key, $indexedKeys), ARRAY_FILTER_USE_KEY)->values();
+
+        return new static($assocValues + $indexedValues);
+    }
+
+    /**
      * Remove all empty values from the bag
      * An empty value could be null, 0, '', false
      *
@@ -458,6 +519,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function value(): array
     {
         return $this->bag;
+    }
+
+    /**
+     * Get the values of the array (ignoring any indexes)
+     *
+     * @return array
+     */
+    public function values(): array
+    {
+        return array_values($this->value());
     }
 
     protected function dotGet(string $index, $default = null): mixed
