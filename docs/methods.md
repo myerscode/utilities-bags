@@ -92,6 +92,21 @@ $bag = new Utility(['Tor', 'Gerald', 'Rupert', 'Chris', 'Fred'], function($value
 // Rupert
 ```
 
+### except(array|Utility $onlyKeys): Utility
+Make a new bag with excluding the given keys
+```php 
+$bag = new Utility([
+            'foo' => 'bar',
+            'hello' => 'world',
+            'fluffy' => 'corgi',
+            'Rupert',
+            'Gerald',
+        ]);
+        
+$bag->except(['foo', 'hello',]);
+// ['fluffy' => 'corgi', 'Rupert', 'Gerald']]
+```
+
 ### exists(string|int $index): bool
 Does a key exist in the bag. Can use dot notation to check deep nested values exist.
 ```php 
@@ -269,6 +284,21 @@ $bag = new Utility([0 => 'Tor', 2 => 'Chris']);
 
 $bag->isSequential();
 // false
+```
+
+### only(array|Utility $onlyKeys): Utility
+Make a new bag with only the given keys
+```php 
+$bag = new Utility([
+            'foo' => 'bar',
+            'hello' => 'world',
+            'fluffy' => 'corgi',
+            'Rupert',
+            'Gerald',
+        ]);
+        
+$bag->only(['hello', 'fluffy',]);
+// ['hello' => 'world', 'fluffy' => 'corgi']]
 ```
 
 ### make($bag): Utility
