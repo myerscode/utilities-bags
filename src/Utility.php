@@ -129,6 +129,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return a new bag with all keys except the given ones
+     *
+     * @param  array|Utility  $exceptKeys
+     *
+     * @return Utility
+     */
+    public function except(array|Utility $exceptKeys): Utility
+    {
+        return new self(array_diff_key($this->bag, array_flip((array)$exceptKeys)));
+    }
+
+    /**
      * Pass each value in the bag to a closure until a specific value is returned
      *
      * @param  callable  $eachCallable
