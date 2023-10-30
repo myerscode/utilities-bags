@@ -3,7 +3,9 @@
 The utility implements the core/SPL PHP `ArrayAccess`, `Countable`, `IteratorAggregate` interfaces, so can be used as per
 the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [here](http://php.net/manual/en/spl.interfaces.php).
 
-## add($index, $value): Utility
+## Available Methods
+
+### add($index, $value): Utility
 Add a new value a specified index to the bag
 ```php
 $bag = new Utility(['Tor', 'Fred']);
@@ -15,7 +17,7 @@ $bag->add(1, 'Chris')->value();
 // ['Tor', 'Chris']
 ```
 
-## contains($needles): bool
+### contains($needles): bool
 Alias of [containsAny](##containsany)
 ```php
 $bag = new Utility(['Tor', 'Fred']);
@@ -27,7 +29,7 @@ $bag->contains('Tor');
 // true
 ```
 
-## containsAll($needles): bool
+### containsAll($needles): bool
 Are all the values in the needle bag in the haystack bag
 ```php
 $bag = new Utility(['Tor', 'Fred']);
@@ -42,7 +44,7 @@ $bag->containsAll(['Fred', 'Chris',]);
 // false
 ```
 
-## containsAny($needles): bool
+### containsAny($needles): bool
 Are any of the needle values in the haystack bag
 ```php
 $bag = new Utility(['Tor', 'Fred']);
@@ -57,7 +59,7 @@ $bag->containsAny(['Chris', 'Jack',]);
 // false
 ```
 
-## count(): int
+### count(): int
 How many items are in the bag
 ```php
 $bag = new Utility(['Tor', 'Fred']);
@@ -66,7 +68,7 @@ $bag->count();
 // 2
 ```
 
-## each(callable $eachCallable): Utility
+### each(callable $eachCallable): Utility
 Pass each value in the bag to a closure so an action can be performed on it
 ```php
 $bag = new Utility(['Tor', 'Fred'], function($value) {
@@ -77,7 +79,7 @@ $bag = new Utility(['Tor', 'Fred'], function($value) {
 // Fred
 ```
 
-## eachUntil(callable $eachCallable): Utility
+### eachUntil(callable $eachCallable): Utility
 Pass each value in the bag to a closure so an action can be performed on it
 ```php
 $bag = new Utility(['Tor', 'Gerald', 'Rupert', 'Chris', 'Fred'], function($value) {
@@ -90,7 +92,7 @@ $bag = new Utility(['Tor', 'Gerald', 'Rupert', 'Chris', 'Fred'], function($value
 // Rupert
 ```
 
-## exists(string|int $index): bool
+### exists(string|int $index): bool
 Does a key exist in the bag. Can use dot notation to check deep nested values exist.
 ```php 
 $bag = new Utility(['Tor', 'number' => 7]);
@@ -105,7 +107,7 @@ $bag->exists(49);
 // false
 ```
 
-## filter
+### filter
 Remove values from the bag based on a given callback condition. If no condition 
 is given, `filter()` will remove falsey values.
 ```php 
@@ -122,7 +124,7 @@ $bag->filter(function ($value) {
 // [1,2,3,4, 9 => 0]
 ```
 
-## flatten(string $separator = '.')
+### flatten(string $separator = '.')
 Flatten a multidimensional array, using the separator to join keys
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => ['bar' => 'example']]);
@@ -131,7 +133,7 @@ $bag->flatten();
 // ['0' => 'Tor', '1' => 'Fred', 'foo.bar' => 'example']
 ```
 
-## get($index, $default = null)
+### get($index, $default = null)
 Get a value from a given index or return a default value
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
@@ -149,9 +151,9 @@ $bag->get('yordle', 'Vex');
 // 'Vex'
 ```
 
-## getIterator(): ArrayIterator
+### getIterator(): ArrayIterator
 
-## isAssociative(): bool
+### isAssociative(): bool
 Is the bag holding associative data
 ```php 
 $bag = new Utility(['Tor', 'Fred']);
@@ -165,7 +167,7 @@ $bag->isAssociative();
 // true
 ```
 
-## isIndexed(): bool
+### isIndexed(): bool
 Is the bag holding indexed data
 ```php 
 $bag = new Utility(['Tor', 'Fred']);
@@ -183,7 +185,7 @@ $bag = new Utility(['Fred', 'foo' => 'bar', 'hello' => 'world']);
 $bag->isAssociative();
 // false
 ```
-## isMultiDimensional(): bool
+### isMultiDimensional(): bool
 Is the bag holding multidimensional data
 ```php 
 $bag = new Utility(['Tor', 'Fred']);
@@ -197,7 +199,7 @@ $bag->isMultiDimensional();
 // true
 ```
 
-## isSequential(): bool
+### isSequential(): bool
 Is the bag holding sequentially indexed data
 ```php 
 $bag = new Utility([0 => 'Tor', 1 => 'Fred', 2 => 'Chris']);
@@ -210,7 +212,7 @@ $bag->isSequential();
 // false
 ```
 
-## join(string $joinGlue, string $lastGlue = null): string
+### join(string $joinGlue, string $lastGlue = null): string
 Join the values of the bag with a given glue string, and additionally
 with an optional last glue to create an alternate ending join.
 ```php 
@@ -223,9 +225,9 @@ $bag->join(',', ' and ');
 // 1, 2, 3, 4, 5, 6, 7, 8, 9 and 0
 ```
 
-## jsonSerialize(): array
+### jsonSerialize(): array
 
-## keys(): string
+### keys(): string
 Return array of root keys from the bag
 ```php 
 $bag = new Utility([7, 48, 'corgi' => 'Rupert', 'ball_chaser' => 'Gerald']);
@@ -234,7 +236,7 @@ $bag->keys();
 // [0, 1, 'corgi', 'ball_chaser']
 ```
 
-## map(callback $mapper): Utility
+### map(callback $mapper): Utility
 Create a new bag containing the results of applying the callback to each value of the current bag.
 
 ```php 
@@ -245,7 +247,7 @@ $this->utility($rawValues)->map(fn($value) => $value * 7);
 // [7, 14, 21, 28, 35, 42, 49, 56, 63, 70]
 ```
 
-## mapKeys(callback $mapper): Utility
+### mapKeys(callback $mapper): Utility
 Create a new bag containing the results of applying the callback to each value of the current bag.
 
 ```php 
@@ -256,7 +258,7 @@ $this->utility($rawValues)->map(fn($index, $value) => [$value['name'] => $value]
 // ['Fred' => ['name' => 'Fred', 'colour' => 'purple'], 'Tor' => ['name' => 'Tor', 'colour' => 'pink']]
 ```
 
-## merge($bag): Utility
+### merge($bag): Utility
 Merge an array or bag Utility into the current bag
 ```php 
 $bag = new Utility([0 => 'Tor', 1 => 'Fred', 2 => 'Chris']);
@@ -269,7 +271,7 @@ $bag->isSequential();
 // false
 ```
 
-## make($bag): Utility
+### make($bag): Utility
 Create a new instance of the bag utility
 ```php 
 $bag = Utility::make(['Tor', 'Fred']);
@@ -277,7 +279,7 @@ $bag = Utility::make(['Tor', 'Fred']);
 $bag2 = Utility::make($bag)
 ```
 
-## merge($bag): Utility
+### merge($bag): Utility
 Recursively merge an array or bag Utility into the current bag
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => ['bar' => 'value']]);
@@ -286,7 +288,7 @@ $bag->merge([1 => 'Chris', 'foo' => 'hello world']);
 // ['Tor', 'Fred', 'Chris', 'foo' => 'hello world']]
 ```
 
-## mergeRecursively($bag): Utility
+### mergeRecursively($bag): Utility
 Recursively merge an array or bag Utility into the current bag
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => ['bar' => 'value']]);
@@ -295,15 +297,15 @@ $bag->mergeRecursively([1 => 'Chris', 'foo' => 'hello world']);
 // ['Tor', 'Fred', 'Chris', 'foo' => ['hello world', 'bar' => 'value']]
 ```
 
-## offsetExists($offset): bool
+### offsetExists($offset): bool
 
-## offsetGet($offset): void
+### offsetGet($offset): void
 
-## offsetSet($offset, $value): Utility
+### offsetSet($offset, $value): Utility
 
-## offsetUnset($offset): Utility
+### offsetUnset($offset): Utility
 
-## push(...$values): Utility
+### push(...$values): Utility
 Push value(s) onto the end of the bag
 ```php 
 $bag = new Utility(['Tor', 'Fred');
@@ -315,7 +317,7 @@ $bag->push('Jack', 'Alex');
 // ['Tor', 'Fred', 'Chris', 'Jack', 'Alex']
 ```
 
-## removeEmpty(): Utility
+### removeEmpty(): Utility
 Remove all empty values from the bag
 ```php 
 $bag = new Utility(['Tor', 'Fred', '', null);
@@ -324,7 +326,7 @@ $bag->removeEmpty();
 // ['Tor', 'Fred']
 ```
 
-## remove(string|int $index): Utility
+### remove(string|int $index): Utility
 Remove a value from the bag via its index
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
@@ -336,7 +338,7 @@ $bag->remove('foo');
 // ['Tor']
 ```
 
-## resetIndex(): Utility
+### resetIndex(): Utility
 Resets the sequential index keys of the bag
 ```php
 $bag = new Utility([1 => 7, 7 => 'x', 49 => 7, 77 => 49]);
@@ -345,7 +347,7 @@ $bag->resetIndex();
 // [0 => 7, 1 => 'x', 2 => 7, 3 => 49];
 ```
 
-## set(string|int $index, mixed $value): Utility
+### set(string|int $index, mixed $value): Utility
 Set an array index with a given value
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
@@ -357,7 +359,7 @@ $bag->set('foo', 'Chris');
 // ['Tor', 'Fred', 'foo' => 'Chris']
 ```
 
-## toArray(): array
+### toArray(): array
 Get the bag as an array
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
@@ -366,7 +368,7 @@ $bag->toArray();
 // ['Tor', 'Fred', 'foo' => 'bar']
 ```
 
-## toKeyValueString(string $glue = ' ', string $keyPrefix = '', string $keyPostfix = '', string $keyJoint = '=', string $valuePrefix = '\'', string $valuePostfix = '\''): string
+### toKeyValueString(string $glue = ' ', string $keyPrefix = '', string $keyPostfix = '', string $keyJoint = '=', string $valuePrefix = '\'', string $valuePostfix = '\''): string
 Implode the bag to show a key=value string
 ```php 
 $bag = new Utility(['hello' => 'world', 'foo' => 'bar']);
@@ -378,10 +380,10 @@ $bag->toKeyValueString(', ', '*', '*', '~', '>', '<');
 // "*hello*~>world<, *foo*~>bar<"
 ```
 
-## toObject(): object
+### toObject(): object
 Get the bag as an stdClass object
 
-## value()
+### value()
 Get the bags current value
 ```php 
 $bag = new Utility(['Tor', 'Fred', 'foo' => 'bar']);
@@ -390,7 +392,7 @@ $bag->value();
 // ['Tor', 'Fred', 'foo' => 'bar']
 ```
 
-## values()
+### values()
 Get the bags values (ignoring indexes)
 ```php 
 $bag = new Utility([77 => 49, 'corgi' => 'Gerald', 'owner' => 'Fred']);
