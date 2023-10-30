@@ -414,6 +414,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     *  Return a new bag with only the given ones
+     *
+     * @param  array|Utility  $onlyKeys
+     *
+     * @return Utility
+     */
+    public function only(array|Utility $onlyKeys): Utility
+    {
+        return new self(array_intersect_key($this->bag, array_flip((array)$onlyKeys)));
+    }
+
+    /**
      * @inheritDoc
      */
     public function offsetExists($offset): bool
