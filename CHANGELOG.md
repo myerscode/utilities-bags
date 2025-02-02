@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [2025.0.0](https://github.com/myerscode/utilities-bags/releases/tag/2025.0.0) - 2025-02-02
+
+- [`4479b77`](https://github.com/myerscode/utilities-bags/commit/4479b7714d0fe848aacce7a4a72cdc47492fe82b) chore(core): added changelog
+- [`5796922`](https://github.com/myerscode/utilities-bags/commit/5796922ed764ac50b0e9c47baed616e5ba8a79c9) chore(core): updated codebase and dependancies for 2025 release
+
 ## [2.2.0](https://github.com/myerscode/utilities-bags/releases/tag/2.2.0) - 2023-10-31
 
 - [`c3738f6`](https://github.com/myerscode/utilities-bags/commit/c3738f672c874932ff078245d40ccc5f94428884) Merge branch 'release/2.2.0'
