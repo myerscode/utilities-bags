@@ -16,16 +16,12 @@ class FilterTest extends BaseBagSuite
     public function testBagFiltersBasedOnProvidedValueCondition(): void
     {
         $values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-        $this->assertEquals([1,2,3,4, 9 => 0], $this->utility($values)->filter(function ($value) {
-            return $value < 5;
-        })->value());
+        $this->assertEquals([1,2,3,4, 9 => 0], $this->utility($values)->filter(fn($value): bool => $value < 5)->value());
     }
 
     public function testBagFiltersBasedOnProvidedKeyCondition(): void
     {
         $values = ['corgi' => 'Gerald', 'owner' => 'Fred'];
-        $this->assertEquals(['owner' => 'Fred'], $this->utility($values)->filter(function ($value, $key) {
-            return $key === 'owner';
-        })->value());
+        $this->assertEquals(['owner' => 'Fred'], $this->utility($values)->filter(fn($value, $key): bool => $key === 'owner')->value());
     }
 }

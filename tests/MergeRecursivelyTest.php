@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Myerscode\Utilities\Bags\Utility;
 use Myerscode\Utilities\Bags\DotUtility;
 use stdClass;
 use Tests\Support\BaseBagSuite;
@@ -89,7 +90,7 @@ class MergeRecursivelyTest extends BaseBagSuite
     /**
      * @dataProvider __validData
      */
-    public function testDotUtilityCanMergeArrayRecursively($bag, $merge, $expected): void
+    public function testDotUtilityCanMergeArrayRecursively(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
@@ -98,7 +99,7 @@ class MergeRecursivelyTest extends BaseBagSuite
     /**
      * @dataProvider __validDotData
      */
-    public function testDotUtilityCanMergeDotArraysRecursively($bag, $merge, $expected): void
+    public function testDotUtilityCanMergeDotArraysRecursively(array $bag, DotUtility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
@@ -115,7 +116,7 @@ class MergeRecursivelyTest extends BaseBagSuite
     /**
      * @dataProvider __validData
      */
-    public function testUtilityCanMergeArrayRecursively($bag, $merge, $expected): void
+    public function testUtilityCanMergeArrayRecursively(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->utility($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);

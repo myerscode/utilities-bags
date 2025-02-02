@@ -11,12 +11,12 @@ class ToKeyValueStringTest extends BaseBagSuite
      *
      * @dataProvider validDataProvider
      */
-    public function testValidValueSetViaConstructor($bag, $glued): void
+    public function testValidValueSetViaConstructor(array $bag, string $glued): void
     {
         $this->assertEquals($glued, $this->utility($bag)->toKeyValueString());
     }
 
-    public function validDataProvider(): array
+    public static function validDataProvider(): array
     {
         return [
             [

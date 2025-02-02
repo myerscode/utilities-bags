@@ -9,7 +9,10 @@ class BagConstructorTestCase implements Stringable
 {
     public stdClass $var4;
 
-    public array $var5;
+    public array $var5 = [
+        'hello',
+        'world',
+    ];
 
     public int $var1 = 1;
 
@@ -20,11 +23,6 @@ class BagConstructorTestCase implements Stringable
     public function __construct()
     {
         $this->var4 = new stdClass();
-
-        $this->var5 = [
-            'hello',
-            'world',
-        ];
     }
 
     public function __toString(): string

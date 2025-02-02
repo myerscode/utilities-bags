@@ -7,7 +7,7 @@ use Tests\Support\BaseBagSuite;
 class ExceptTest extends BaseBagSuite
 {
 
-    public function testExceptReturnsArrayWithKeysThatAreNotGiven()
+    public function testExceptReturnsArrayWithKeysThatAreNotGiven(): void
     {
         $bag = $this->utility([
             'foo' => 'bar',

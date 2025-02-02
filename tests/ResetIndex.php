@@ -10,9 +10,7 @@ class ResetIndex extends BaseBagSuite
     {
         $values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-        $bag = $this->utility($values)->filter(function ($value) {
-            return ($value >= 4 && $value <= 6);
-        });
+        $bag = $this->utility($values)->filter(fn($value): bool => $value >= 4 && $value <= 6);
 
         $this->assertNotEquals([4, 5, 6], $bag->value());
 

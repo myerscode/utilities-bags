@@ -12,7 +12,7 @@ class MapTest extends BaseBagSuite
 
         $expectedValues = [7, 14, 21, 28, 35, 42, 49, 56, 63, 70];
 
-        $mapped = $this->utility($rawValues)->map(fn($value) => $value * 7)->value();
+        $mapped = $this->utility($rawValues)->map(fn($value): int|float => $value * 7)->value();
 
         $this->assertEquals($expectedValues, $mapped);
     }

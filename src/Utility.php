@@ -39,8 +39,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      * Create a new instance of the bag utility
      *
      * @param $bag
-     *
-     * @return Utility
      */
     public static function make($bag): Utility
     {
@@ -52,8 +50,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      *
      * @param $index
      * @param $value
-     *
-     * @return Utility
      */
     public function add($index, $value): Utility
     {
@@ -68,8 +64,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      * Alias of contains any
      *
      * @param $needles
-     *
-     * @return bool
      */
     public function contains($needles): bool
     {
@@ -79,9 +73,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Are all the values in the needle bag in the haystack bag
      *
-     * @param  mixed  $needles
      *
-     * @return bool
      */
     public function containsAll(mixed $needles): bool
     {
@@ -94,8 +86,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      * Are any of the needle values in the haystack bag
      *
      * @param $needles
-     *
-     * @return bool
      */
     public function containsAny($needles): bool
     {
@@ -115,9 +105,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Pass each value in the bag to a closure so an action can be performed on it
      *
-     * @param  callable  $eachCallable
      *
-     * @return $this
      */
     public function each(callable $eachCallable): Utility
     {
@@ -131,9 +119,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Return a new bag with all keys except the given ones
      *
-     * @param  array|Utility  $exceptKeys
      *
-     * @return Utility
      */
     public function except(array|Utility $exceptKeys): Utility
     {
@@ -143,10 +129,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Pass each value in the bag to a closure until a specific value is returned
      *
-     * @param  callable  $eachCallable
-     * @param  mixed  $stopOn
      *
-     * @return $this
      */
     public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
     {
@@ -162,9 +145,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Check if an index exists in the bag
      *
-     * @param  string|int  $index
      *
-     * @return bool
      */
     public function exists(string|int $index): bool
     {
@@ -195,7 +176,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function filter(callable|null $filter = null, int $mode = ARRAY_FILTER_USE_BOTH): Utility
     {
-        if ($filter) {
+        if ($filter !== null) {
             return new static(array_filter($this->bag, $filter, $mode));
         }
 
@@ -205,9 +186,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Flatten a multidimensional array
      *
-     * @param  string  $separator
      *
-     * @return Utility
      */
     public function flatten(string $separator = '.'): Utility
     {
@@ -222,23 +201,22 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             }
         }
 
-        return $this->make($flattened);
+        return static::make($flattened);
     }
 
     /**
      * Get a value from a given index or return a default value
      *
      * @param $index
-     * @param  null  $default
      *
-     * @return mixed
      */
     public function get($index, $default = null): mixed
     {
         if ($this->exists($index)) {
-            if (is_integer($index) || count(explode('.', $index)) == 1) {
+            if (is_int($index) || count(explode('.', (string) $index)) == 1) {
                 return $this->bag[$index];
             }
+
             $this->dotGet($index, $default);
         }
 
@@ -256,8 +234,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Is the bag holding associative data
      * key=value opposed to 123=value
-     *
-     * @return bool
      */
     public function isAssociative(): bool
     {
@@ -271,8 +247,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Is the bag a indexed array
      * e.g. $arr[0], $arr[7], $arr[49]
-     *
-     * @return bool
      */
     public function isIndexed(): bool
     {
@@ -281,8 +255,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Is the bag holding multidimensional data
-     *
-     * @return bool
      */
     public function isMultiDimensional(): bool
     {
@@ -296,8 +268,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Is the bag a sequential array
      * e.g. $arr[0], $arr[1], $arr[2]
-     *
-     * @return bool
      */
     public function isSequential(): bool
     {
@@ -307,10 +277,8 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Join the values of an array
      *
-     * @param  string  $joinGlue
      * @param  string|null  $lastGlue
      *
-     * @return string
      */
     public function join(string $joinGlue, string $lastGlue = null): string
     {
@@ -325,8 +293,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Return items for JSON serialization
-     *
-     * @return array
      */
     #[ReturnTypeWillChange]
     public function jsonSerialize(): array
@@ -336,8 +302,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Return array of root keys from the bag
-     *
-     * @return array
      */
     public function keys(): array
     {
@@ -347,9 +311,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Create new bag containing the results of applying the callback to each value in the current bag
      *
-     * @param  callable  $mapper
      *
-     * @return Utility
      */
     public function map(callable $mapper): Utility
     {
@@ -365,16 +327,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      *
      * The mapper should return an key/value pair array with a single value
      *
-     * @param  callable  $mapper
      *
-     * @return Utility
      */
     public function mapKeys(callable $mapper): Utility
     {
-        $mapped = array_reduce(array_map($mapper, array_keys($this->bag), $this->bag), function (array $newBag, array $mappedValue) {
+        $mapped = array_reduce(array_map($mapper, array_keys($this->bag), $this->bag), function (array $newBag, array $mappedValue): array {
             if (count($mappedValue) > 1) {
                 throw new InvalidMappedValueException();
             }
+
             return $newBag + $mappedValue;
         }, []);
 
@@ -385,8 +346,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      * Merge an array or bag Utility into the current bag
      *
      * @param $bag
-     *
-     * @return Utility
      */
     public function merge($bag): Utility
     {
@@ -401,8 +360,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      * Recursively merge an array or bag Utility into the current bag
      *
      * @param $bag
-     *
-     * @return Utility
      */
     public function mergeRecursively($bag): Utility
     {
@@ -416,9 +373,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      *  Return a new bag with only the given ones
      *
-     * @param  array|Utility  $onlyKeys
      *
-     * @return Utility
      */
     public function only(array|Utility $onlyKeys): Utility
     {
@@ -466,9 +421,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Push a value onto the end of the bag
      *
-     * @param  mixed  $values
      *
-     * @return Utility
      */
     public function push(mixed ...$values): Utility
     {
@@ -484,9 +437,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Remove a value from the bag via its index
      *
-     * @param  string|int  $index
      *
-     * @return Utility
      */
     public function remove(string|int $index): Utility
     {
@@ -502,19 +453,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Resets the sequential index keys of the bag
-     *
-     * @return Utility
      */
     public function resetIndex(): Utility
     {
         if ($this->isIndexed() || $this->isSequential()) {
             return new static(array_values($this->bag));
         }
-        $assocKeys = $this->filter(fn ($value, $key) => !is_int($key))->keys();
-        $indexedKeys = $this->filter(fn ($value, $key) => is_int($key))->keys();
 
-        $assocValues = $this->filter(fn ($key) => in_array($key, $assocKeys), ARRAY_FILTER_USE_KEY)->value();
-        $indexedValues = $this->filter(fn ($key) => in_array($key, $indexedKeys), ARRAY_FILTER_USE_KEY)->values();
+        $assocKeys = $this->filter(fn ($value, $key): bool => !is_int($key))->keys();
+        $indexedKeys = $this->filter(fn ($value, $key): bool => is_int($key))->keys();
+
+        $assocValues = $this->filter(fn ($key): bool => in_array($key, $assocKeys), ARRAY_FILTER_USE_KEY)->value();
+        $indexedValues = $this->filter(fn ($key): bool => in_array($key, $indexedKeys), ARRAY_FILTER_USE_KEY)->values();
 
         return new static($assocValues + $indexedValues);
     }
@@ -522,8 +472,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Remove all empty values from the bag
      * An empty value could be null, 0, '', false
-     *
-     * @return Utility
      */
     public function removeEmpty(): Utility
     {
@@ -539,10 +487,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Set an array index with a given value
      *
-     * @param  string|int  $index
-     * @param  mixed  $value
      *
-     * @return Utility
      */
     public function set(string|int $index, mixed $value): Utility
     {
@@ -555,8 +500,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Get the bag as an array
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -566,14 +509,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Implode the the bag to show a key=value string
      *
-     * @param  string  $glue
-     * @param  string  $keyPrefix
-     * @param  string  $keyPostfix
-     * @param  string  $keyJoint
-     * @param  string  $valuePrefix
-     * @param  string  $valuePostfix
      *
-     * @return string
      */
     public function toKeyValueString(
         string $glue = ' ',
@@ -610,8 +546,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Get the bags current value
-     *
-     * @return array
      */
     public function value(): array
     {
@@ -620,8 +554,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Get the values of the array (ignoring any indexes)
-     *
-     * @return array
      */
     public function values(): array
     {
@@ -646,8 +578,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      * Transform the constructor parameter to a usable array for the utility to use
      *
      * @param $bag
-     *
-     * @return array
      */
     protected function transformToBag($bag): array
     {
@@ -655,12 +585,12 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             $bag = $bag->value();
         }
 
-        if (is_object($bag) && $bag instanceof stdClass) {
+        if ($bag instanceof stdClass) {
             $bag = get_object_vars($bag);
         }
 
         $bag = is_array($bag) ? $bag : [$bag];
 
-        return array_map(fn ($e) => ((is_object($e) && $e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
+        return array_map(fn ($e) => (($e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
     }
 }

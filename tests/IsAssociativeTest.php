@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class IsAssociativeTest extends BaseBagSuite
 {
-    public function __validData(): array
+    public static function __validData(): array
     {
         return [
             [
@@ -53,7 +53,7 @@ class IsAssociativeTest extends BaseBagSuite
      *
      * @dataProvider __validData
      */
-    public function testBagIsAssociative($expected, $bag): void
+    public function testBagIsAssociative(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isAssociative());
     }

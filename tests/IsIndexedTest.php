@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class IsIndexedTest extends BaseBagSuite
 {
-    public function __validData(): array
+    public static function __validData(): array
     {
         return [
             'associative keys' => [
@@ -41,7 +41,7 @@ class IsIndexedTest extends BaseBagSuite
      *
      * @dataProvider __validData
      */
-    public function testBagIsIndexed($expected, $bag): void
+    public function testBagIsIndexed(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isIndexed());
     }

@@ -33,6 +33,6 @@ class MapKeysTest extends BaseBagSuite
 
         $this->expectException(InvalidMappedValueException::class);
 
-        $this->utility($rawValues)->mapKeys(fn($key, $value) => [...$value])->value();
+        $this->utility($rawValues)->mapKeys(fn($key, $value): array => [...$value])->value();
     }
 }

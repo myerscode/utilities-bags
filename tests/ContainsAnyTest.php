@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class ContainsAnyTest extends BaseBagSuite
 {
-    public function __invalidData(): array
+    public static function __invalidData(): array
     {
         return [
             [
@@ -28,7 +28,7 @@ class ContainsAnyTest extends BaseBagSuite
         ];
     }
 
-    public function __validData(): array
+    public static function __validData(): array
     {
         return [
             [
@@ -55,7 +55,7 @@ class ContainsAnyTest extends BaseBagSuite
      *
      * @dataProvider __invalidData
      */
-    public function testReturnsFalseIfNoValuesArePresent($needles, $bag): void
+    public function testReturnsFalseIfNoValuesArePresent(array $needles, $bag): void
     {
         $this->assertFalse($this->utility($bag)->containsAny($needles));
         $this->assertFalse($this->utility($bag)->contains($needles));
@@ -64,7 +64,7 @@ class ContainsAnyTest extends BaseBagSuite
     /**
      * @dataProvider __validData
      */
-    public function testReturnsTrueIfSomeValuesArePresent($needles, $bag): void
+    public function testReturnsTrueIfSomeValuesArePresent(array $needles, $bag): void
     {
         $this->assertTrue($this->utility($bag)->containsAny($needles));
         $this->assertTrue($this->utility($bag)->contains($needles));

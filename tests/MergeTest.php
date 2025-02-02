@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use Myerscode\Utilities\Bags\Utility;
+use Myerscode\Utilities\Bags\DotUtility;
 use stdClass;
 use Tests\Support\BaseBagSuite;
 
@@ -93,7 +95,7 @@ class MergeTest extends BaseBagSuite
     /**
      * @dataProvider __validData
      */
-    public function testDotUtilityCanMergeArray($bag, $merge, $expected): void
+    public function testDotUtilityCanMergeArray(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
@@ -102,7 +104,7 @@ class MergeTest extends BaseBagSuite
     /**
      * @dataProvider __validDotData
      */
-    public function testDotUtilityCanMergeDotArrays($bag, $merge, $expected): void
+    public function testDotUtilityCanMergeDotArrays(array $bag, DotUtility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
@@ -111,7 +113,7 @@ class MergeTest extends BaseBagSuite
     /**
      * @dataProvider __validData
      */
-    public function testUtilityCanMergeArray($bag, $merge, $expected): void
+    public function testUtilityCanMergeArray(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->utility($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);

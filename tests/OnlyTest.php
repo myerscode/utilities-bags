@@ -7,7 +7,7 @@ use Tests\Support\BaseBagSuite;
 class OnlyTest extends BaseBagSuite
 {
 
-    public function testOnlyReturnsArrayWithKeysThatAreGiven()
+    public function testOnlyReturnsArrayWithKeysThatAreGiven(): void
     {
         $bag = $this->utility([
             'foo' => 'bar',

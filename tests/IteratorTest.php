@@ -7,7 +7,7 @@ use Tests\Support\BaseBagSuite;
 
 class IteratorTest extends BaseBagSuite
 {
-    public function __validData(): array
+    public static function __validData(): array
     {
         return [
             [
@@ -33,7 +33,7 @@ class IteratorTest extends BaseBagSuite
     {
         foreach ($this->utility($bag) as $index => $utility) {
             $this->assertArrayHasKey($index, $bag);
-            $this->assertEquals(array_search($utility, $bag), $index);
+            $this->assertEquals(array_search($utility, $bag, true), $index);
             $this->assertEquals($bag[$index], $utility);
         }
     }

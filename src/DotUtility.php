@@ -22,7 +22,7 @@ class DotUtility extends Utility
             return $default;
         }
 
-        foreach (explode('.', $index) as $segment) {
+        foreach (explode('.', (string) $index) as $segment) {
             if (isset($array[$segment])) {
                 $array = $array[$segment];
             } else {

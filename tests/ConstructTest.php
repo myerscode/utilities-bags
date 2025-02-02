@@ -10,7 +10,7 @@ use Tests\Support\BaseBagSuite;
 
 class ConstructTest extends BaseBagSuite
 {
-    public function __validData(): array
+    public static function __validData(): array
     {
         $bagConstructorTestCase = new BagConstructorTestCase();
 
@@ -56,7 +56,7 @@ class ConstructTest extends BaseBagSuite
         ];
     }
 
-    public function __validDotData(): array
+    public static function __validDotData(): array
     {
         return [
             [
@@ -87,7 +87,7 @@ class ConstructTest extends BaseBagSuite
     /**
      * @dataProvider __validDotData
      */
-    public function testBagConstructsFromFlaDotNotationArray($bag, $expected): void
+    public function testBagConstructsFromFlaDotNotationArray(array $bag, array $expected): void
     {
         $this->assertEquals($expected, $this->dot($bag)->value());
     }
@@ -97,7 +97,7 @@ class ConstructTest extends BaseBagSuite
      *
      * @dataProvider __validData
      */
-    public function testBagIsSetViaConstructor($expected, $bag): void
+    public function testBagIsSetViaConstructor(array $expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->value());
     }
@@ -107,7 +107,7 @@ class ConstructTest extends BaseBagSuite
      *
      * @dataProvider  __validData
      */
-    public function testBagIsSetViaMake($expected, $bag): void
+    public function testBagIsSetViaMake(array $expected, $bag): void
     {
         $this->assertEquals($expected, Utility::make($bag)->value());
     }
@@ -115,7 +115,7 @@ class ConstructTest extends BaseBagSuite
     /**
      * @dataProvider __validDotData
      */
-    public function testBagMakesFromFlaDotNotationArray($bag, $expected): void
+    public function testBagMakesFromFlaDotNotationArray(array $bag, array $expected): void
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }

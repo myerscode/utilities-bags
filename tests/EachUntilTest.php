@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class EachUntilTest extends BaseBagSuite
 {
-    public function __testData(): array
+    public static function __testData(): array
     {
         return [
             [
@@ -25,7 +25,7 @@ class EachUntilTest extends BaseBagSuite
     /**
      * @dataProvider  __testData
      */
-    public function testBagIteratesOverEachValueUtilStopValueIsReturned($expected, $stopOn, $values): void
+    public function testBagIteratesOverEachValueUtilStopValueIsReturned(int $expected, int $stopOn, array $values): void
     {
         $counter = 0;
 

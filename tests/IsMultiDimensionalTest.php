@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class IsMultiDimensionalTest extends BaseBagSuite
 {
-    public function __validData(): array
+    public static function __validData(): array
     {
         return [
             [
@@ -61,7 +61,7 @@ class IsMultiDimensionalTest extends BaseBagSuite
      *
      * @dataProvider __validData
      */
-    public function testBagIsMultiDimensional($expected, $bag): void
+    public function testBagIsMultiDimensional(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isMultiDimensional());
     }
