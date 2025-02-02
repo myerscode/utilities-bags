@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Myerscode\Utilities\Bags\DotUtility;
 use Myerscode\Utilities\Bags\Utility;
 use stdClass;
@@ -84,9 +85,7 @@ class ConstructTest extends BaseBagSuite
         ];
     }
 
-    /**
-     * @dataProvider __validDotData
-     */
+    #[DataProvider('__validDotData')]
     public function testBagConstructsFromFlaDotNotationArray(array $bag, array $expected): void
     {
         $this->assertEquals($expected, $this->dot($bag)->value());
@@ -94,9 +93,8 @@ class ConstructTest extends BaseBagSuite
 
     /**
      * Test that the constructor takes value and sets it internally
-     *
-     * @dataProvider __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsSetViaConstructor(array $expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->value());
@@ -104,17 +102,14 @@ class ConstructTest extends BaseBagSuite
 
     /**
      * Test that the static make method takes value and sets it internally
-     *
-     * @dataProvider  __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsSetViaMake(array $expected, $bag): void
     {
         $this->assertEquals($expected, Utility::make($bag)->value());
     }
 
-    /**
-     * @dataProvider __validDotData
-     */
+    #[DataProvider('__validDotData')]
     public function testBagMakesFromFlaDotNotationArray(array $bag, array $expected): void
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());

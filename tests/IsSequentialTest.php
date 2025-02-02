@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
 
 class IsSequentialTest extends BaseBagSuite
@@ -46,9 +47,8 @@ class IsSequentialTest extends BaseBagSuite
 
     /**
      * Test that isSequential returns true if the bag is a sequentialy indexed array
-     *
-     * @dataProvider __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsSequential(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isSequential());

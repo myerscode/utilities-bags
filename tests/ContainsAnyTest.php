@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
 
 class ContainsAnyTest extends BaseBagSuite
@@ -52,18 +53,15 @@ class ContainsAnyTest extends BaseBagSuite
 
     /**
      * Check false is returned when none of the values in needles are not found in the bag
-     *
-     * @dataProvider __invalidData
      */
+    #[DataProvider('__invalidData')]
     public function testReturnsFalseIfNoValuesArePresent(array $needles, $bag): void
     {
         $this->assertFalse($this->utility($bag)->containsAny($needles));
         $this->assertFalse($this->utility($bag)->contains($needles));
     }
 
-    /**
-     * @dataProvider __validData
-     */
+    #[DataProvider('__validData')]
     public function testReturnsTrueIfSomeValuesArePresent(array $needles, $bag): void
     {
         $this->assertTrue($this->utility($bag)->containsAny($needles));

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
 
@@ -31,9 +32,8 @@ class CountTest extends BaseBagSuite
 
     /**
      * Test that bag knows its length
-     *
-     * @dataProvider __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsCanBeIteratedOver(int $expected, BagConstructorTestCase|array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->count());

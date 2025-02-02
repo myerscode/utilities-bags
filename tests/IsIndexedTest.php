@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
 
 class IsIndexedTest extends BaseBagSuite
@@ -38,9 +39,8 @@ class IsIndexedTest extends BaseBagSuite
 
     /**
      * Test that isIndexed returns true if the bag is an indexed array
-     *
-     * @dataProvider __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsIndexed(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isIndexed());

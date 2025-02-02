@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use IteratorAggregate;
 use Tests\Support\BaseBagSuite;
 
@@ -25,10 +26,10 @@ class IteratorTest extends BaseBagSuite
     /**
      * Test that bag can be iterated over
      *
-     * @dataProvider __validData
      *
      * @param  int[]|string[]|array<string, string>  $bag
      */
+    #[DataProvider('__validData')]
     public function testBagIsCanBeIteratedOver(array $bag): void
     {
         foreach ($this->utility($bag) as $index => $utility) {

@@ -2,6 +2,8 @@
 
 namespace Myerscode\Utilities\Bags;
 
+use Override;
+
 class DotUtility extends Utility
 {
     public function __construct($bag)
@@ -14,6 +16,7 @@ class DotUtility extends Utility
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function get($index, $default = null): mixed
     {
         $array = $this->toArray();
@@ -36,6 +39,7 @@ class DotUtility extends Utility
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function merge($bag): Utility
     {
         if (is_array($bag)) {
@@ -52,6 +56,7 @@ class DotUtility extends Utility
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function mergeRecursively($bag): Utility
     {
         if (is_array($bag)) {
@@ -68,6 +73,7 @@ class DotUtility extends Utility
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function set($index, $value): DotUtility
     {
         $array = &$this->bag;

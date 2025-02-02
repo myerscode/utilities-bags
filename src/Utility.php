@@ -277,10 +277,11 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Join the values of an array
      *
-     * @param  string|null  $lastGlue
-     *
+     * @param string $joinGlue
+     * @param string|null $lastGlue
+     * @return string
      */
-    public function join(string $joinGlue, string $lastGlue = null): string
+    public function join(string $joinGlue, ?string $lastGlue = null): string
     {
         $values = $this->values();
 

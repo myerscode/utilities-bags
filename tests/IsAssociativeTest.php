@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
 
 class IsAssociativeTest extends BaseBagSuite
@@ -50,9 +51,8 @@ class IsAssociativeTest extends BaseBagSuite
 
     /**
      * Test that isAssociative returns true if the bag is an associative array
-     *
-     * @dataProvider __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsAssociative(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isAssociative());

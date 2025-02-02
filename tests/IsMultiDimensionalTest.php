@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
 
 class IsMultiDimensionalTest extends BaseBagSuite
@@ -58,9 +59,8 @@ class IsMultiDimensionalTest extends BaseBagSuite
 
     /**
      * Test that isMultiDimensional returns true if the bag is contains multidimensional data
-     *
-     * @dataProvider __validData
      */
+    #[DataProvider('__validData')]
     public function testBagIsMultiDimensional(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isMultiDimensional());

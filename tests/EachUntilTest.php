@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
 
 class EachUntilTest extends BaseBagSuite
@@ -22,9 +23,7 @@ class EachUntilTest extends BaseBagSuite
         ];
     }
 
-    /**
-     * @dataProvider  __testData
-     */
+    #[DataProvider('__testData')]
     public function testBagIteratesOverEachValueUtilStopValueIsReturned(int $expected, int $stopOn, array $values): void
     {
         $counter = 0;
