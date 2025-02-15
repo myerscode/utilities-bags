@@ -14,7 +14,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     #[Override]
     public function get($index, $default = null): mixed
@@ -37,7 +37,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     #[Override]
     public function merge($bag): Utility
@@ -54,7 +54,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     #[Override]
     public function mergeRecursively($bag): Utility
@@ -71,7 +71,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     #[Override]
     public function set($index, $value): DotUtility
