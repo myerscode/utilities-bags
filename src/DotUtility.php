@@ -14,14 +14,14 @@ class DotUtility extends Utility
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     #[Override]
     public function get($index, $default = null): mixed
     {
         $array = $this->toArray();
 
-        if (!$this->exists($index)) {
+        if (! $this->exists($index)) {
             return $default;
         }
 
@@ -37,7 +37,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     #[Override]
     public function merge($bag): Utility
@@ -54,7 +54,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     #[Override]
     public function mergeRecursively($bag): Utility
@@ -71,7 +71,7 @@ class DotUtility extends Utility
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     #[Override]
     public function set($index, $value): DotUtility
@@ -83,7 +83,7 @@ class DotUtility extends Utility
         while (count($keys) > 1) {
             $key = array_shift($keys);
 
-            if (!isset($array[$key])) {
+            if (! isset($array[$key])) {
                 $array[$key] = [];
             }
 
@@ -107,7 +107,7 @@ class DotUtility extends Utility
         $new = [];
 
         foreach ($items as $key => $value) {
-            if (!str_contains((string) $key, $delimiter)) {
+            if (! str_contains((string) $key, $delimiter)) {
                 $new[$key] = is_array($value) ? $this->normalizeArray($value, $delimiter) : $value;
 
                 continue;

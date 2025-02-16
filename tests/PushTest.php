@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class PushTest extends BaseBagSuite
 {
-    public function testValueAddedToBag(): void
+    public function test_value_added_to_bag(): void
     {
         $bag = $this->utility([])->push('foo')->value();
         $this->assertEquals(['foo'], $bag);

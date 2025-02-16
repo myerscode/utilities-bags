@@ -83,7 +83,7 @@ class ContainsAllTest extends BaseBagSuite
      * Check false is returned when all values in needles are not found in the bag
      */
     #[DataProvider('__invalidData')]
-    public function testReturnsFalseIfSomeValuesAreMissing(int|string|array $needles, $bag): void
+    public function test_returns_false_if_some_values_are_missing(int|string|array $needles, $bag): void
     {
         $this->assertFalse($this->utility($bag)->containsAll($needles));
     }
@@ -92,7 +92,7 @@ class ContainsAllTest extends BaseBagSuite
      * Check true is returned when all values in needles are found in the bag
      */
     #[DataProvider('__validData')]
-    public function testReturnsTrueIfSomeValuesArePresent(int|string|array $needles, $bag): void
+    public function test_returns_true_if_some_values_are_present(int|string|array $needles, $bag): void
     {
         $this->assertTrue($this->utility($bag)->containsAll($needles));
     }

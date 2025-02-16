@@ -55,14 +55,14 @@ class ContainsAnyTest extends BaseBagSuite
      * Check false is returned when none of the values in needles are not found in the bag
      */
     #[DataProvider('__invalidData')]
-    public function testReturnsFalseIfNoValuesArePresent(array $needles, $bag): void
+    public function test_returns_false_if_no_values_are_present(array $needles, $bag): void
     {
         $this->assertFalse($this->utility($bag)->containsAny($needles));
         $this->assertFalse($this->utility($bag)->contains($needles));
     }
 
     #[DataProvider('__validData')]
-    public function testReturnsTrueIfSomeValuesArePresent(array $needles, $bag): void
+    public function test_returns_true_if_some_values_are_present(array $needles, $bag): void
     {
         $this->assertTrue($this->utility($bag)->containsAny($needles));
         $this->assertTrue($this->utility($bag)->contains($needles));

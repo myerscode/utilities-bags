@@ -6,13 +6,13 @@ use Tests\Support\BaseBagSuite;
 
 class AddTest extends BaseBagSuite
 {
-    public function testValueAddedToBag(): void
+    public function test_value_added_to_bag(): void
     {
         // check can add to empty bag
         $bag = $this->utility([])->add(0, 'foo')->value();
         $this->assertEquals([0 => 'foo'], $bag);
 
-        //check value is not overwritten
+        // check value is not overwritten
         $bag = $this->utility([0 => 'foo'])->add(0, 'bar')->value();
         $this->assertEquals([0 => 'foo'], $bag);
 

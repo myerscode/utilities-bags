@@ -22,7 +22,7 @@ class BagConstructorTestCase implements Stringable
 
     public function __construct()
     {
-        $this->var4 = new stdClass();
+        $this->var4 = new stdClass;
     }
 
     public function __toString(): string

@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use Myerscode\Utilities\Bags\Utility;
 use Myerscode\Utilities\Bags\DotUtility;
+use Myerscode\Utilities\Bags\Utility;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\Support\BaseBagSuite;
 
@@ -12,7 +12,7 @@ class MergeTest extends BaseBagSuite
 {
     public static function __validData(): array
     {
-        $stdC = new stdClass();
+        $stdC = new stdClass;
         $stdC->hello = 'goodbye';
 
         return [
@@ -61,7 +61,7 @@ class MergeTest extends BaseBagSuite
 
     public static function __validDotData(): array
     {
-        $stdC = new stdClass();
+        $stdC = new stdClass;
         $stdC->hello = 'goodbye';
 
         return [
@@ -94,21 +94,21 @@ class MergeTest extends BaseBagSuite
     }
 
     #[DataProvider('__validData')]
-    public function testDotUtilityCanMergeArray(array $bag, Utility|stdClass|array $merge, array $expected): void
+    public function test_dot_utility_can_merge_array(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     #[DataProvider('__validDotData')]
-    public function testDotUtilityCanMergeDotArrays(array $bag, DotUtility|stdClass|array $merge, array $expected): void
+    public function test_dot_utility_can_merge_dot_arrays(array $bag, DotUtility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     #[DataProvider('__validData')]
-    public function testUtilityCanMergeArray(array $bag, Utility|stdClass|array $merge, array $expected): void
+    public function test_utility_can_merge_array(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->utility($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);

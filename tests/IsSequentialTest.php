@@ -49,7 +49,7 @@ class IsSequentialTest extends BaseBagSuite
      * Test that isSequential returns true if the bag is a sequentialy indexed array
      */
     #[DataProvider('__validData')]
-    public function testBagIsSequential(bool $expected, array $bag): void
+    public function test_bag_is_sequential(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isSequential());
     }

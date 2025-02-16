@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class SetTest extends BaseBagSuite
 {
-    public function testSetValueByDotNotation(): void
+    public function test_set_value_by_dot_notation(): void
     {
         $values = [
             'deep' => [
@@ -44,14 +44,14 @@ class SetTest extends BaseBagSuite
         ], $bag->value());
     }
 
-    public function testValueSetToBagViaOffsetSet(): void
+    public function test_value_set_to_bag_via_offset_set(): void
     {
         // check can add to empty bag
         $bag = $this->utility([]);
         $bag->offsetSet(0, 'foo');
         $this->assertEquals([0 => 'foo'], $bag->value());
 
-        //check value is not overwritten
+        // check value is not overwritten
         $bag = $this->utility([0 => 'foo']);
         $bag->offsetSet(0, 'bar');
         $this->assertEquals([0 => 'bar'], $bag->value());
@@ -72,13 +72,13 @@ class SetTest extends BaseBagSuite
         $this->assertEquals(['foo' => 'bar', 0 => 'foo'], $bag->value());
     }
 
-    public function testValueSetToBagViaSet(): void
+    public function test_value_set_to_bag_via_set(): void
     {
         // check can add to empty bag
         $bag = $this->utility([])->set(0, 'foo')->value();
         $this->assertEquals([0 => 'foo'], $bag);
 
-        //check value is not overwritten
+        // check value is not overwritten
         $bag = $this->utility([0 => 'foo'])->set(0, 'bar')->value();
         $this->assertEquals([0 => 'bar'], $bag);
 

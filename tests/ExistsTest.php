@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class ExistsTest extends BaseBagSuite
 {
-    public function testExists(): void
+    public function test_exists(): void
     {
         $this->assertTrue($this->utility([0 => 'hello', 100 => 'foo'])->exists(100));
 
@@ -19,7 +19,7 @@ class ExistsTest extends BaseBagSuite
         $this->assertFalse($this->utility(['hello' => 'world', 0 => 'foo'])->exists('foo'));
     }
 
-    public function testOffsetExists(): void
+    public function test_offset_exists(): void
     {
         $this->assertTrue($this->utility([0 => 'hello', 100 => 'foo'])->offsetExists(100));
 

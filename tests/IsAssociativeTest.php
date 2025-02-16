@@ -53,7 +53,7 @@ class IsAssociativeTest extends BaseBagSuite
      * Test that isAssociative returns true if the bag is an associative array
      */
     #[DataProvider('__validData')]
-    public function testBagIsAssociative(bool $expected, array $bag): void
+    public function test_bag_is_associative(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isAssociative());
     }

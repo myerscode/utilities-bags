@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use Myerscode\Utilities\Bags\DotUtility;
 use Myerscode\Utilities\Bags\Utility;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
@@ -13,7 +13,7 @@ class ConstructTest extends BaseBagSuite
 {
     public static function __validData(): array
     {
-        $bagConstructorTestCase = new BagConstructorTestCase();
+        $bagConstructorTestCase = new BagConstructorTestCase;
 
         return [
             'array with integers' => [
@@ -42,7 +42,7 @@ class ConstructTest extends BaseBagSuite
             ],
             'empty class' => [
                 [],
-                new stdClass(),
+                new stdClass,
             ],
             'empty array' => [
                 [],
@@ -64,7 +64,7 @@ class ConstructTest extends BaseBagSuite
                 [
                     'foo.bar' => 'hello world',
                     'testing.dot.notation' => [
-                        'works.deep' => ['123', '456', '789',],
+                        'works.deep' => ['123', '456', '789'],
                     ],
                 ],
                 [
@@ -75,7 +75,7 @@ class ConstructTest extends BaseBagSuite
                         'dot' => [
                             'notation' => [
                                 'works' => [
-                                    'deep' => ['123', '456', '789',],
+                                    'deep' => ['123', '456', '789'],
                                 ],
                             ],
                         ],
@@ -86,7 +86,7 @@ class ConstructTest extends BaseBagSuite
     }
 
     #[DataProvider('__validDotData')]
-    public function testBagConstructsFromFlaDotNotationArray(array $bag, array $expected): void
+    public function test_bag_constructs_from_fla_dot_notation_array(array $bag, array $expected): void
     {
         $this->assertEquals($expected, $this->dot($bag)->value());
     }
@@ -95,7 +95,7 @@ class ConstructTest extends BaseBagSuite
      * Test that the constructor takes value and sets it internally
      */
     #[DataProvider('__validData')]
-    public function testBagIsSetViaConstructor(array $expected, $bag): void
+    public function test_bag_is_set_via_constructor(array $expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->value());
     }
@@ -104,13 +104,13 @@ class ConstructTest extends BaseBagSuite
      * Test that the static make method takes value and sets it internally
      */
     #[DataProvider('__validData')]
-    public function testBagIsSetViaMake(array $expected, $bag): void
+    public function test_bag_is_set_via_make(array $expected, $bag): void
     {
         $this->assertEquals($expected, Utility::make($bag)->value());
     }
 
     #[DataProvider('__validDotData')]
-    public function testBagMakesFromFlaDotNotationArray(array $bag, array $expected): void
+    public function test_bag_makes_from_fla_dot_notation_array(array $bag, array $expected): void
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }

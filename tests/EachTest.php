@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class EachTest extends BaseBagSuite
 {
-    public function testBagIteratesOverEachValue(): void
+    public function test_bag_iterates_over_each_value(): void
     {
         $counter = 0;
         $values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -20,4 +20,3 @@ class EachTest extends BaseBagSuite
         $this->assertEquals(10, $counter);
     }
 }
-

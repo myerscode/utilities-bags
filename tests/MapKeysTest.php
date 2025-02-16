@@ -7,7 +7,7 @@ use Tests\Support\BaseBagSuite;
 
 class MapKeysTest extends BaseBagSuite
 {
-    public function testCanRemapKeys(): void
+    public function test_can_remap_keys(): void
     {
         $rawValues = [
             ['abc', 'xyz'],
@@ -19,12 +19,12 @@ class MapKeysTest extends BaseBagSuite
             'foo' => 'bar',
         ];
 
-        $mapped = $this->utility($rawValues)->mapKeys(fn($key, $value) => [$value[0] => $value[1]])->value();
+        $mapped = $this->utility($rawValues)->mapKeys(fn ($key, $value) => [$value[0] => $value[1]])->value();
 
         $this->assertEquals($expectedValues, $mapped);
     }
 
-    public function testThrowsErrorIfMoreThanOneValueReturned(): void
+    public function test_throws_error_if_more_than_one_value_returned(): void
     {
         $rawValues = [
             ['abc', 'xyz'],
@@ -33,6 +33,6 @@ class MapKeysTest extends BaseBagSuite
 
         $this->expectException(InvalidMappedValueException::class);
 
-        $this->utility($rawValues)->mapKeys(fn($key, $value): array => [...$value])->value();
+        $this->utility($rawValues)->mapKeys(fn ($key, $value): array => [...$value])->value();
     }
 }

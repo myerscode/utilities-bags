@@ -6,7 +6,7 @@ use Tests\Support\BaseBagSuite;
 
 class FlattenTest extends BaseBagSuite
 {
-    public function testCanFlattenWithCustomSeparator(): void
+    public function test_can_flatten_with_custom_separator(): void
     {
         $values = [
             'deep' => [
@@ -29,7 +29,7 @@ class FlattenTest extends BaseBagSuite
         $this->assertArrayHasKey('single_value', $flat);
     }
 
-    public function testFlatten(): void
+    public function test_flatten(): void
     {
         $values = [
             'deep' => [

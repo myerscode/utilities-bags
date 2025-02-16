@@ -11,7 +11,7 @@ class TransformToBagTest extends BaseBagSuite
     /**
      * Check that the transformToBag returns an array of values from a given user input
      */
-    public function testExpectedResults(): void
+    public function test_expected_results(): void
     {
         $class = $this->utility([]);
         $reflectionClass = new ReflectionClass($class::class);
@@ -32,7 +32,7 @@ class TransformToBagTest extends BaseBagSuite
         $this->assertEquals($bagArray, $reflectionMethod->invokeArgs($class, [$bagArray]));
         $this->assertEquals($bagArray, $reflectionMethod->invokeArgs($class, [$bagObject]));
 
-        $bagConstructorTestCase = new BagConstructorTestCase();
+        $bagConstructorTestCase = new BagConstructorTestCase;
         $classArray = [
             $bagConstructorTestCase,
         ];

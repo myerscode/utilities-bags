@@ -61,7 +61,7 @@ class IsMultiDimensionalTest extends BaseBagSuite
      * Test that isMultiDimensional returns true if the bag is contains multidimensional data
      */
     #[DataProvider('__validData')]
-    public function testBagIsMultiDimensional(bool $expected, array $bag): void
+    public function test_bag_is_multi_dimensional(bool $expected, array $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->isMultiDimensional());
     }

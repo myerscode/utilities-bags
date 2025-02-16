@@ -11,7 +11,7 @@ class ToKeyValueStringTest extends BaseBagSuite
      * Check that arrays correct glue with default values
      */
     #[DataProvider('validDataProvider')]
-    public function testValidValueSetViaConstructor(array $bag, string $glued): void
+    public function test_valid_value_set_via_constructor(array $bag, string $glued): void
     {
         $this->assertEquals($glued, $this->utility($bag)->toKeyValueString());
     }
