@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [2025.1.0](https://github.com/myerscode/utilities-bags/releases/tag/2025.1.0) - 2025-02-16
+
+- [`4c8ac09`](https://github.com/myerscode/utilities-bags/commit/4c8ac09226e16086b3853ea066779097a5be839e) chore(github): updated badges
+- [`4b46efa`](https://github.com/myerscode/utilities-bags/commit/4b46efac47c34bd640c768bc2beb5f7f7ef9f63f) fix(phpunit): updated config to remove deprecated options
+- [`d38cf25`](https://github.com/myerscode/utilities-bags/commit/d38cf25aaaadee5703b3a1be7ecf31d2b8a58d25) feat(core): accept empty bag to build utility
+- [`3003bd7`](https://github.com/myerscode/utilities-bags/commit/3003bd7119763068950992f930125394ca2c77a3) feat(core): added global helper
+- [`316fcd0`](https://github.com/myerscode/utilities-bags/commit/316fcd0400d07fb7d438705f5248476e9caadbdb) chore(core): added linting and tidied up files
+- [`328d151`](https://github.com/myerscode/utilities-bags/commit/328d15145bf1edc3c41830d1e19999da5b1cfe4a) chore(core): tidy up docblocks
+- [`38dcd05`](https://github.com/myerscode/utilities-bags/commit/38dcd0549fe5d60b248a9be2a98d98df4638cd4f) chore(core): removed unused phpcs
+- [`b8cc335`](https://github.com/myerscode/utilities-bags/commit/b8cc3350a90ca074a470b9848a67aee340bf7d6d) ci(uplift): uplifted for version 2025.0.0
+- [`1a7b80f`](https://github.com/myerscode/utilities-bags/commit/1a7b80fde0fac5b5db3a68d1c0f1aae0b4b7aa38) chore(core): more updates for php 84
+
 ## [2025.0.0](https://github.com/myerscode/utilities-bags/releases/tag/2025.0.0) - 2025-02-02
 
 - [`4479b77`](https://github.com/myerscode/utilities-bags/commit/4479b7714d0fe848aacce7a4a72cdc47492fe82b) chore(core): added changelog
