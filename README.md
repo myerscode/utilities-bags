@@ -4,7 +4,9 @@
 [![Latest Stable Version](https://poser.pugx.org/myerscode/utilities-bags/v/stable)](https://packagist.org/packages/myerscode/utilities-bags)
 [![Total Downloads](https://poser.pugx.org/myerscode/utilities-bags/downloads)](https://packagist.org/packages/myerscode/utilities-bags)
 [![License](https://poser.pugx.org/myerscode/utilities-bags/license)](https://packagist.org/packages/myerscode/utilities-bags)
-![Tests](https://github.com/myerscode/utilities-bags/workflows/tests/badge.svg?branch=main)
+![Tests](https://github.com/myerscode/utilities-bags/actions/workflows/tests.yml/badge.svg?branch=main)
+[![codecov](https://codecov.io/gh/myerscode/utilities-bags/graph/badge.svg?token=YR0YHVERNV)](https://codecov.io/gh/myerscode/utilities-bags)
+
 
 
 ## Install
