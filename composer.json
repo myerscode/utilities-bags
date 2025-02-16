@@ -37,6 +37,9 @@
     "laravel/pint": "^1.20"
   },
   "autoload": {
+    "files": [
+      "src/Helper.php"
+    ],
     "psr-4": {
       "Myerscode\\Utilities\\Bags\\": "src"
     }
