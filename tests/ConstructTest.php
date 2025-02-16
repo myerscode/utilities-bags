@@ -114,4 +114,14 @@ class ConstructTest extends BaseBagSuite
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }
+
+    public function test_bag_accepts_nothing_and_creates_empty_bag(): void
+    {
+        $this->assertEquals([], Utility::make()->value());
+    }
+
+    public function test_dot_bag_accepts_nothing_and_creates_empty_bag(): void
+    {
+        $this->assertEquals([], DotUtility::make()->value());
+    }
 }

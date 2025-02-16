@@ -20,7 +20,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     protected array $bag;
 
-    public function __construct(mixed $bag)
+    public function __construct(mixed $bag = [])
     {
         $this->bag = $this->transformToBag($bag);
     }
@@ -28,7 +28,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Create a new instance of the bag utility
      */
-    public static function make(mixed $bag): Utility
+    public static function make(mixed $bag = []): Utility
     {
         return new static($bag);
     }

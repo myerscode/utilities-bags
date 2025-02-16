@@ -6,7 +6,7 @@ use Override;
 
 class DotUtility extends Utility
 {
-    public function __construct($bag)
+    public function __construct(mixed $bag = [])
     {
         $bag = $this->normalizeArray($this->transformToBag($bag));
 
