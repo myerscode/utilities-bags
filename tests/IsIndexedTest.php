@@ -1,39 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class IsIndexedTest extends BaseBagSuite
+final class IsIndexedTest extends BaseBagSuite
 {
-    public static function __validData(): array
+    public static function __validData(): Iterator
     {
-        return [
-            'associative keys' => [
-                false,
-                ['foo' => 'bar', 'hello' => 'world'],
-            ],
-            'empty' => [
-                true,
-                [],
-            ],
-            'indexed keys 1' => [
-                true,
-                [1, 2, 3, 4],
-            ],
-            'indexed keys 2' => [
-                true,
-                ['foo', 'bar', 'hello', 'world'],
-            ],
-            'indexed keys 3' => [
-                true,
-                [1 => 'foo', 2 => 'bar', 7 => 'hello', 49 => 'world'],
-            ],
-            'indexed keys with a string numerical index' => [
-                true,
-                [0 => 'hello', '1' => 'world'],
-            ],
+        yield 'associative keys' => [
+            false,
+            ['foo' => 'bar', 'hello' => 'world'],
+        ];
+        yield 'empty' => [
+            true,
+            [],
+        ];
+        yield 'indexed keys 1' => [
+            true,
+            [1, 2, 3, 4],
+        ];
+        yield 'indexed keys 2' => [
+            true,
+            ['foo', 'bar', 'hello', 'world'],
+        ];
+        yield 'indexed keys 3' => [
+            true,
+            [1 => 'foo', 2 => 'bar', 7 => 'hello', 49 => 'world'],
+        ];
+        yield 'indexed keys with a string numerical index' => [
+            true,
+            [0 => 'hello', '1' => 'world'],
         ];
     }
 
@@ -43,6 +44,6 @@ class IsIndexedTest extends BaseBagSuite
     #[DataProvider('__validData')]
     public function test_bag_is_indexed(bool $expected, array $bag): void
     {
-        $this->assertEquals($expected, $this->utility($bag)->isIndexed());
+        $this->assertSame($expected, $this->utility($bag)->isIndexed());
     }
 }

@@ -7,6 +7,11 @@ use Stringable;
 
 class BagConstructorTestCase implements Stringable
 {
+    public int $var1 = 1;
+
+    public string $var2 = 'two';
+
+    public $var3;
     public stdClass $var4;
 
     public array $var5 = [
@@ -14,15 +19,9 @@ class BagConstructorTestCase implements Stringable
         'world',
     ];
 
-    public int $var1 = 1;
-
-    public string $var2 = 'two';
-
-    public $var3;
-
     public function __construct()
     {
-        $this->var4 = new stdClass;
+        $this->var4 = new stdClass();
     }
 
     public function __toString(): string

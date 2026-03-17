@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class ExceptTest extends BaseBagSuite
+final class ExceptTest extends BaseBagSuite
 {
     public function test_except_returns_array_with_keys_that_are_not_given(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             'foo' => 'bar',
             'hello' => 'world',
             'fluffy' => 'corgi',
@@ -18,12 +20,12 @@ class ExceptTest extends BaseBagSuite
             'gerald',
         ]);
 
-        $this->assertEquals([
+        $this->assertSame([
             'hello' => 'world',
             7,
             'rupert',
             49,
             'gerald',
-        ], $bag->except(['fluffy', 'foo'])->toArray());
+        ], $utility->except(['fluffy', 'foo'])->toArray());
     }
 }

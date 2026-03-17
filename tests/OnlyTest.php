@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class OnlyTest extends BaseBagSuite
+final class OnlyTest extends BaseBagSuite
 {
     public function test_only_returns_array_with_keys_that_are_given(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             'foo' => 'bar',
             'hello' => 'world',
             'fluffy' => 'corgi',
@@ -18,6 +20,6 @@ class OnlyTest extends BaseBagSuite
             'gerald',
         ]);
 
-        $this->assertEquals(['fluffy' => 'corgi', 'foo' => 'bar'], $bag->only(['fluffy', 'foo'])->toArray());
+        $this->assertSame(['foo' => 'bar', 'fluffy' => 'corgi'], $utility->only(['fluffy', 'foo'])->toArray());
     }
 }

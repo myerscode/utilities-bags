@@ -1,51 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class IsAssociativeTest extends BaseBagSuite
+final class IsAssociativeTest extends BaseBagSuite
 {
-    public static function __validData(): array
+    public static function __validData(): Iterator
     {
-        return [
-            [
-                true,
-                ['foo' => 'bar', 'hello' => 'world'],
-            ],
-            [
-                true,
-                ['foo' => ['hello' => 'world']],
-            ],
-            [
-                true,
-                ['foo' => ['bar', 'hello', 'world']],
-            ],
-            [
-                true,
-                [0 => 'hello', 'one' => 'world'],
-            ],
-            [
-                false,
-                [1, 2, 3, 4],
-            ],
-            [
-                false,
-                ['foo', 'bar', 'hello', 'world'],
-            ],
-            [
-                false,
-                [0 => 'hello', '1' => 'world'],
-            ],
-            [
-                false,
-                [['hello' => 'world']],
-            ],
-            [
-                false,
-                [],
-            ],
+        yield [
+            true,
+            ['foo' => 'bar', 'hello' => 'world'],
+        ];
+        yield [
+            true,
+            ['foo' => ['hello' => 'world']],
+        ];
+        yield [
+            true,
+            ['foo' => ['bar', 'hello', 'world']],
+        ];
+        yield [
+            true,
+            [0 => 'hello', 'one' => 'world'],
+        ];
+        yield [
+            false,
+            [1, 2, 3, 4],
+        ];
+        yield [
+            false,
+            ['foo', 'bar', 'hello', 'world'],
+        ];
+        yield [
+            false,
+            [0 => 'hello', '1' => 'world'],
+        ];
+        yield [
+            false,
+            [['hello' => 'world']],
+        ];
+        yield [
+            false,
+            [],
         ];
     }
 
@@ -55,6 +56,6 @@ class IsAssociativeTest extends BaseBagSuite
     #[DataProvider('__validData')]
     public function test_bag_is_associative(bool $expected, array $bag): void
     {
-        $this->assertEquals($expected, $this->utility($bag)->isAssociative());
+        $this->assertSame($expected, $this->utility($bag)->isAssociative());
     }
 }

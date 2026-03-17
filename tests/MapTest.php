@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class MapTest extends BaseBagSuite
+final class MapTest extends BaseBagSuite
 {
     public function test_can_map_values(): void
     {
@@ -14,6 +16,6 @@ class MapTest extends BaseBagSuite
 
         $mapped = $this->utility($rawValues)->map(fn ($value): int|float => $value * 7)->value();
 
-        $this->assertEquals($expectedValues, $mapped);
+        $this->assertSame($expectedValues, $mapped);
     }
 }

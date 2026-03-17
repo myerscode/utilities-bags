@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+### Changed
+- Upgrade minimum PHP version to ^8.5
+- Modernise codebase with Rector (typed properties, strict types, first-class callables, yield data providers)
+- Replace `InvalidMappedValueException` with native `InvalidArgumentException` in `mapKeys()`
+- Update PHPUnit to ^13.0 and fix phpunit.xml schema
+- Fix test assertions for PHP 8.5 array key ordering behaviour
+- Add type hints to `DotUtility` overridden methods
+
+### Added
+- PHPStan static analysis at level 8
+- Laravel Pint code style enforcement
+- Security audit CI workflow
+- Dependabot configuration for automated dependency updates
+- PHP version badge and Requirements section in README
+
+### Removed
+- `InvalidMappedValueException` class (replaced by native `InvalidArgumentException`)
+- Empty `Exceptions/` directory
+
 ## [2025.1.0](https://github.com/myerscode/utilities-bags/releases/tag/2025.1.0) - 2025-02-16
 
 - [`4c8ac09`](https://github.com/myerscode/utilities-bags/commit/4c8ac09226e16086b3853ea066779097a5be839e) chore(github): updated badges

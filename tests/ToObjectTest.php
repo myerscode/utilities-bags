@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class ToObjectTest extends BaseBagSuite
+final class ToObjectTest extends BaseBagSuite
 {
     /**
      * Test that toObject returns all the bag data as an object

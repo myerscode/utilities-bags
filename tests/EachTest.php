@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class EachTest extends BaseBagSuite
+final class EachTest extends BaseBagSuite
 {
     public function test_bag_iterates_over_each_value(): void
     {
@@ -17,6 +19,6 @@ class EachTest extends BaseBagSuite
             return $value;
         });
 
-        $this->assertEquals(10, $counter);
+        $this->assertSame(10, $counter);
     }
 }

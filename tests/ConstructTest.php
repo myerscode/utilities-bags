@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Myerscode\Utilities\Bags\DotUtility;
@@ -8,81 +10,82 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Tests\Support\BagConstructorTestCase;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class ConstructTest extends BaseBagSuite
+final class ConstructTest extends BaseBagSuite
 {
-    public static function __validData(): array
+    public static function __validData(): Iterator
     {
-        $bagConstructorTestCase = new BagConstructorTestCase;
-
-        return [
-            'array with integers' => [
-                [1, 2, 3, 4, 5],
-                [1, 2, 3, 4, 5],
-            ],
-            'single integer' => [
-                [1],
-                1,
-            ],
-            'array with string integers' => [
-                ['1', '2', '3', '4', '5'],
-                ['1', '2', '3', '4', '5'],
-            ],
-            'single string integers' => [
-                ['2'],
-                '2',
-            ],
-            'associative array' => [
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            'json' => [
-                ['1', '2', '3', '4', '5'],
-                json_decode(json_encode([1, 2, 3, 4, 5]), false, 512, JSON_THROW_ON_ERROR),
-            ],
-            'empty class' => [
-                [],
-                new stdClass,
-            ],
-            'empty array' => [
-                [],
-                [],
-            ],
-            'class with toArray' => [
-                [
-                    $bagConstructorTestCase,
-                ],
+        $bagConstructorTestCase = new BagConstructorTestCase();
+        yield 'array with integers' => [
+            [1, 2, 3, 4, 5],
+            [1, 2, 3, 4, 5],
+        ];
+        yield 'single integer' => [
+            [1],
+            1,
+        ];
+        yield 'array with string integers' => [
+            ['1', '2', '3', '4', '5'],
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield 'single string integers' => [
+            ['2'],
+            '2',
+        ];
+        yield 'associative array' => [
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield 'json' => [
+            ['1', '2', '3', '4', '5'],
+            json_decode(json_encode([1, 2, 3, 4, 5]), false, 512, JSON_THROW_ON_ERROR),
+        ];
+        yield 'empty class' => [
+            [],
+            new stdClass(),
+        ];
+        yield 'empty array' => [
+            [],
+            [],
+        ];
+        yield 'class with toArray' => [
+            [
                 $bagConstructorTestCase,
             ],
+            $bagConstructorTestCase,
         ];
     }
 
-    public static function __validDotData(): array
+    public static function __validDotData(): Iterator
     {
-        return [
+        yield [
             [
-                [
-                    'foo.bar' => 'hello world',
-                    'testing.dot.notation' => [
-                        'works.deep' => ['123', '456', '789'],
-                    ],
+                'foo.bar' => 'hello world',
+                'testing.dot.notation' => [
+                    'works.deep' => ['123', '456', '789'],
                 ],
-                [
-                    'foo' => [
-                        'bar' => 'hello world',
-                    ],
-                    'testing' => [
-                        'dot' => [
-                            'notation' => [
-                                'works' => [
-                                    'deep' => ['123', '456', '789'],
-                                ],
+            ],
+            [
+                'foo' => [
+                    'bar' => 'hello world',
+                ],
+                'testing' => [
+                    'dot' => [
+                        'notation' => [
+                            'works' => [
+                                'deep' => ['123', '456', '789'],
                             ],
                         ],
                     ],
                 ],
             ],
         ];
+    }
+
+    public function test_bag_accepts_nothing_and_creates_empty_bag(): void
+    {
+        $this->assertSame([], Utility::make()->value());
     }
 
     #[DataProvider('__validDotData')]
@@ -115,13 +118,8 @@ class ConstructTest extends BaseBagSuite
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }
 
-    public function test_bag_accepts_nothing_and_creates_empty_bag(): void
-    {
-        $this->assertEquals([], Utility::make()->value());
-    }
-
     public function test_dot_bag_accepts_nothing_and_creates_empty_bag(): void
     {
-        $this->assertEquals([], DotUtility::make()->value());
+        $this->assertSame([], DotUtility::make()->value());
     }
 }

@@ -8,7 +8,7 @@ use Countable;
 use IteratorAggregate;
 use JsonException;
 use JsonSerializable;
-use Myerscode\Utilities\Bags\Exceptions\InvalidMappedValueException;
+use InvalidArgumentException;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 use stdClass;
@@ -94,14 +94,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
-     * Return a new bag with all keys except the given ones
-     */
-    public function except(array|Utility $exceptKeys): Utility
-    {
-        return new self(array_diff_key($this->bag, array_flip((array) $exceptKeys)));
-    }
-
-    /**
      * Pass each value in the bag to a closure until a specific value is returned
      */
     public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
@@ -116,6 +108,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return a new bag with all keys except the given ones
+     */
+    public function except(array|Utility $exceptKeys): Utility
+    {
+        return new self(array_diff_key($this->bag, array_flip((array) $exceptKeys)));
+    }
+
+    /**
      * Check if an index exists in the bag
      */
     public function exists(string|int $index): bool
@@ -124,7 +124,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return true;
         }
 
-        if (count($segments = explode('.', $index)) == 1) {
+        if (count($segments = explode('.', (string) $index)) === 1) {
             return false;
         }
 
@@ -179,7 +179,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function get(int|string $index, mixed $default = null): mixed
     {
         if ($this->exists($index)) {
-            if (is_int($index) || count(explode('.', $index)) == 1) {
+            if (is_int($index) || count(explode('.', $index)) === 1) {
                 return $this->bag[$index];
             }
 
@@ -216,7 +216,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function isIndexed(): bool
     {
-        return array_is_list($this->bag) || array_filter(array_keys($this->bag), 'is_int') === array_keys($this->bag);
+        return array_is_list($this->bag) || array_filter(array_keys($this->bag), is_int(...)) === array_keys($this->bag);
     }
 
     /**
@@ -291,7 +291,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $mapped = array_reduce(array_map($mapper, array_keys($this->bag), $this->bag), function (array $newBag, array $mappedValue): array {
             if (count($mappedValue) > 1) {
-                throw new InvalidMappedValueException;
+                throw new InvalidArgumentException('Mapped value must be a single key/value pair.');
             }
 
             return $newBag + $mappedValue;
@@ -309,7 +309,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return new static(array_merge($this->bag, $bag->toArray()));
         }
 
-        return new static(array_merge($this->bag, (new static($bag))->toArray()));
+        return new static(array_merge($this->bag, new static($bag)->toArray()));
     }
 
     /**
@@ -321,15 +321,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return new static(array_merge_recursive($this->bag, $bag->toArray()));
         }
 
-        return new static(array_merge_recursive($this->bag, (new static($bag))->toArray()));
-    }
-
-    /**
-     *  Return a new bag with only the given ones
-     */
-    public function only(array|Utility $onlyKeys): Utility
-    {
-        return new self(array_intersect_key($this->bag, array_flip((array) $onlyKeys)));
+        return new static(array_merge_recursive($this->bag, new static($bag)->toArray()));
     }
 
     /**
@@ -371,6 +363,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     *  Return a new bag with only the given ones
+     */
+    public function only(array|Utility $onlyKeys): Utility
+    {
+        return new self(array_intersect_key($this->bag, array_flip((array) $onlyKeys)));
+    }
+
+    /**
      * Push a value onto the end of the bag
      */
     public function push(mixed ...$values): Utility
@@ -400,6 +400,21 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Remove all empty values from the bag
+     * An empty value could be null, 0, '', false
+     */
+    public function removeEmpty(): Utility
+    {
+        $filteredBag = array_filter($this->bag, fn ($value): bool => ! empty($value));
+
+        if (! $this->isAssociative()) {
+            $filteredBag = array_values($filteredBag);
+        }
+
+        return new static($filteredBag);
+    }
+
+    /**
      * Resets the sequential index keys of the bag
      */
     public function resetIndex(): Utility
@@ -415,21 +430,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $indexedValues = $this->filter(fn ($key): bool => in_array($key, $indexedKeys), ARRAY_FILTER_USE_KEY)->values();
 
         return new static($assocValues + $indexedValues);
-    }
-
-    /**
-     * Remove all empty values from the bag
-     * An empty value could be null, 0, '', false
-     */
-    public function removeEmpty(): Utility
-    {
-        $filteredBag = array_filter($this->bag, fn ($value): bool => ! empty($value));
-
-        if (! $this->isAssociative()) {
-            $filteredBag = array_values($filteredBag);
-        }
-
-        return new static($filteredBag);
     }
 
     /**
@@ -466,7 +466,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         return implode(
             $glue,
             array_map(
-                fn ($v, $k): string => sprintf(
+                fn ($v, string $k): string => sprintf(
                     $keyPrefix.'%s'.$keyPostfix.$keyJoint.$valuePrefix.'%s'.$valuePostfix,
                     $k,
                     $v
@@ -479,8 +479,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Get the bag as an stdClass object
-     *
-     * @return object
      *
      * @throws JsonException
      */
@@ -505,7 +503,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         return array_values($this->value());
     }
 
-    protected function dotGet(string $index, $default = null): mixed
+    protected function dotGet(string $index, mixed $default = null): mixed
     {
         $value = $this->value();
         foreach (explode('.', $index) as $segment) {
@@ -534,6 +532,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         $bag = is_array($bag) ? $bag : [$bag];
 
-        return array_map(fn ($e) => (($e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
+        return array_map(fn ($e): mixed => (($e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
     }
 }

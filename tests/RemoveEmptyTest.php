@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class RemoveEmptyTest extends BaseBagSuite
+final class RemoveEmptyTest extends BaseBagSuite
 {
     /**
      * Test that bag knows its length
@@ -24,7 +26,7 @@ class RemoveEmptyTest extends BaseBagSuite
             false,
         ];
 
-        $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());
+        $this->assertSame($expected, $this->utility($bag)->removeEmpty()->value());
 
         $expected = [
             'foo' => 'bar',
@@ -40,6 +42,6 @@ class RemoveEmptyTest extends BaseBagSuite
             0,
         ];
 
-        $this->assertEquals($expected, $this->utility($bag)->removeEmpty()->value());
+        $this->assertSame($expected, $this->utility($bag)->removeEmpty()->value());
     }
 }

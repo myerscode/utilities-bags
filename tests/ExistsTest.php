@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class ExistsTest extends BaseBagSuite
+final class ExistsTest extends BaseBagSuite
 {
     public function test_exists(): void
     {

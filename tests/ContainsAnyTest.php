@@ -1,53 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class ContainsAnyTest extends BaseBagSuite
+final class ContainsAnyTest extends BaseBagSuite
 {
-    public static function __invalidData(): array
+    public static function __invalidData(): Iterator
     {
-        return [
-            [
-                [9, 10, 11],
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                ['9', '10', '11'],
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                ['foo' => 'bar'],
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                ['9', '10', '11'],
-                json_decode(json_encode([1, 2, 3]), false, 512, JSON_THROW_ON_ERROR),
-            ],
+        yield [
+            [9, 10, 11],
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            ['9', '10', '11'],
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            ['foo' => 'bar'],
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            ['9', '10', '11'],
+            json_decode(json_encode([1, 2, 3]), false, 512, JSON_THROW_ON_ERROR),
         ];
     }
 
-    public static function __validData(): array
+    public static function __validData(): Iterator
     {
-        return [
-            [
-                [1, 2, 3],
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                ['1', '2', '3'],
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                ['hello' => 'world', 'fox' => ''],
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                ['1', '5'],
-                json_decode(json_encode([1, 2, 3]), false, 512, JSON_THROW_ON_ERROR),
-            ],
+        yield [
+            [1, 2, 3],
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            ['1', '2', '3'],
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            ['hello' => 'world', 'fox' => ''],
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            ['1', '5'],
+            json_decode(json_encode([1, 2, 3]), false, 512, JSON_THROW_ON_ERROR),
         ];
     }
 

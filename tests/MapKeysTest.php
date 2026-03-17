@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-use Myerscode\Utilities\Bags\Exceptions\InvalidMappedValueException;
+use InvalidArgumentException;
 use Tests\Support\BaseBagSuite;
 
-class MapKeysTest extends BaseBagSuite
+final class MapKeysTest extends BaseBagSuite
 {
     public function test_can_remap_keys(): void
     {
@@ -19,9 +21,9 @@ class MapKeysTest extends BaseBagSuite
             'foo' => 'bar',
         ];
 
-        $mapped = $this->utility($rawValues)->mapKeys(fn ($key, $value) => [$value[0] => $value[1]])->value();
+        $mapped = $this->utility($rawValues)->mapKeys(fn ($key, $value): array => [$value[0] => $value[1]])->value();
 
-        $this->assertEquals($expectedValues, $mapped);
+        $this->assertSame($expectedValues, $mapped);
     }
 
     public function test_throws_error_if_more_than_one_value_returned(): void
@@ -31,7 +33,7 @@ class MapKeysTest extends BaseBagSuite
             ['foo', 'bar'],
         ];
 
-        $this->expectException(InvalidMappedValueException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->utility($rawValues)->mapKeys(fn ($key, $value): array => [...$value])->value();
     }

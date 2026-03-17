@@ -1,81 +1,80 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class ContainsAllTest extends BaseBagSuite
+final class ContainsAllTest extends BaseBagSuite
 {
-    public static function __invalidData(): array
+    public static function __invalidData(): Iterator
     {
-        return [
-            [
-                [3, 6, 9],
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                9,
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                ['3', '6', '9'],
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                '6',
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                ['foo' => 'bar', 'fox' => '', 'quick'],
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                'bar',
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                ['1', '5', '9'],
-                json_decode(json_encode([1, 3, 5]), false, 512, JSON_THROW_ON_ERROR),
-            ],
+        yield [
+            [3, 6, 9],
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            9,
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            ['3', '6', '9'],
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            '6',
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            ['foo' => 'bar', 'fox' => '', 'quick'],
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            'bar',
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            ['1', '5', '9'],
+            json_decode(json_encode([1, 3, 5]), false, 512, JSON_THROW_ON_ERROR),
         ];
     }
 
-    public static function __validData(): array
+    public static function __validData(): Iterator
     {
-        return [
-            [
-                [1, 2, 3],
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                1,
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                ['1', '2', '3'],
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                '2',
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                ['hello' => 'world', 'fox' => ''],
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                'world',
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                '',
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
-            [
-                ['1', '5'],
-                json_decode(json_encode([1, 3, 5]), false, 512, JSON_THROW_ON_ERROR),
-            ],
+        yield [
+            [1, 2, 3],
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            1,
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            ['1', '2', '3'],
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            '2',
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            ['hello' => 'world', 'fox' => ''],
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            'world',
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            '',
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
+        ];
+        yield [
+            ['1', '5'],
+            json_decode(json_encode([1, 3, 5]), false, 512, JSON_THROW_ON_ERROR),
         ];
     }
 

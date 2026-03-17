@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use IteratorAggregate;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class IteratorTest extends BaseBagSuite
+final class IteratorTest extends BaseBagSuite
 {
-    public static function __validData(): array
+    public static function __validData(): Iterator
     {
-        return [
-            [
-                [1, 2, 3, 4, 5],
-            ],
-            [
-                ['1', '2', '3', '4', '5'],
-            ],
-            [
-                ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
-            ],
+        yield [
+            [1, 2, 3, 4, 5],
+        ];
+        yield [
+            ['1', '2', '3', '4', '5'],
+        ];
+        yield [
+            ['hello' => 'world', 'quick' => 'brown', 'fox' => ''],
         ];
     }
 

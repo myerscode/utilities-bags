@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Support\BaseBagSuite;
+use Iterator;
 
-class EachUntilTest extends BaseBagSuite
+final class EachUntilTest extends BaseBagSuite
 {
-    public static function __testData(): array
+    public static function __testData(): Iterator
     {
-        return [
-            [
-                7,
-                7,
-                [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            ],
-            [
-                10,
-                49,
-                [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            ],
+        yield [
+            7,
+            7,
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        ];
+        yield [
+            10,
+            49,
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
         ];
     }
 
@@ -34,6 +35,6 @@ class EachUntilTest extends BaseBagSuite
             return $value;
         }, $stopOn);
 
-        $this->assertEquals($expected, $counter);
+        $this->assertSame($expected, $counter);
     }
 }

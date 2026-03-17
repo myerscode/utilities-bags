@@ -3,6 +3,7 @@
 namespace Myerscode\Utilities\Bags;
 
 use Override;
+use stdClass;
 
 class DotUtility extends Utility
 {
@@ -17,7 +18,7 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
-    public function get($index, $default = null): mixed
+    public function get(int|string $index, mixed $default = null): mixed
     {
         $array = $this->toArray();
 
@@ -40,7 +41,7 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
-    public function merge($bag): Utility
+    public function merge(array|stdClass|Utility $bag): Utility
     {
         if (is_array($bag)) {
             return parent::merge($this->normalizeArray($bag));
@@ -57,7 +58,7 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
-    public function mergeRecursively($bag): Utility
+    public function mergeRecursively(mixed $bag): Utility
     {
         if (is_array($bag)) {
             return parent::mergeRecursively($this->normalizeArray($bag));
@@ -74,7 +75,7 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
-    public function set($index, $value): DotUtility
+    public function set(string|int $index, mixed $value): DotUtility
     {
         $array = &$this->bag;
 
@@ -102,6 +103,13 @@ class DotUtility extends Utility
      *
      * @return mixed[]
      */
+    /**
+     * Destruct an array that has dot notation
+     *
+     * @param  array<mixed>  $items
+     * @param  non-empty-string  $delimiter
+     * @return array<mixed>
+     */
     protected function normalizeArray(array $items, string $delimiter = '.'): array
     {
         $new = [];
@@ -118,7 +126,7 @@ class DotUtility extends Utility
             $last = &$new[$segments[0]];
 
             foreach ($segments as $k => $segment) {
-                if ($k != 0) {
+                if ($k !== 0) {
                     $last = &$last[$segment];
                 }
             }

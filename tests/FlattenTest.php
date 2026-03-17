@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class FlattenTest extends BaseBagSuite
+final class FlattenTest extends BaseBagSuite
 {
     public function test_can_flatten_with_custom_separator(): void
     {
@@ -21,12 +23,12 @@ class FlattenTest extends BaseBagSuite
             'single' => ['value' => 49],
         ];
 
-        $flat = $this->utility($values)->flatten('_');
+        $utility = $this->utility($values)->flatten('_');
 
-        $this->assertArrayHasKey('deep_nested_values_0', $flat);
-        $this->assertArrayHasKey('deep_nested_values_1', $flat);
-        $this->assertArrayHasKey('foo', $flat);
-        $this->assertArrayHasKey('single_value', $flat);
+        $this->assertArrayHasKey('deep_nested_values_0', $utility);
+        $this->assertArrayHasKey('deep_nested_values_1', $utility);
+        $this->assertArrayHasKey('foo', $utility);
+        $this->assertArrayHasKey('single_value', $utility);
     }
 
     public function test_flatten(): void
@@ -44,10 +46,10 @@ class FlattenTest extends BaseBagSuite
             'single' => ['value' => 49],
         ];
 
-        $flat = $this->utility($values)->flatten();
-        $this->assertArrayHasKey('deep.nested.values.0', $flat);
-        $this->assertArrayHasKey('deep.nested.values.1', $flat);
-        $this->assertArrayHasKey('foo', $flat);
-        $this->assertArrayHasKey('single.value', $flat);
+        $utility = $this->utility($values)->flatten();
+        $this->assertArrayHasKey('deep.nested.values.0', $utility);
+        $this->assertArrayHasKey('deep.nested.values.1', $utility);
+        $this->assertArrayHasKey('foo', $utility);
+        $this->assertArrayHasKey('single.value', $utility);
     }
 }

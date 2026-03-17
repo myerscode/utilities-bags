@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class GetTest extends BaseBagSuite
+final class GetTest extends BaseBagSuite
 {
     public function test_dot_value_retrieved_from_get(): void
     {

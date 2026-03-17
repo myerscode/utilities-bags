@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Myerscode\Utilities\Bags\Utility;
@@ -7,10 +9,9 @@ use Tests\Support\BaseBagSuite;
 
 use function Myerscode\Utilities\Bags\bag;
 
-class HelperTest extends BaseBagSuite
+final class HelperTest extends BaseBagSuite
 {
-
-    function test_helper_function()
+    public function test_helper_function(): void
     {
         $this->assertInstanceOf(Utility::class, bag());
     }

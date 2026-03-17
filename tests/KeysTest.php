@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-class KeysTest extends BaseBagSuite
+final class KeysTest extends BaseBagSuite
 {
     public function test_can_get_keys(): void
     {
         $values = [1, 2, 7 => 49, 49 => 7, 'corgi_1' => 'Gerald', 'corgi_2' => 'Rupert'];
 
-        $this->assertEquals([0, 1, 7, 49, 'corgi_1', 'corgi_2'], $this->utility($values)->keys());
+        $this->assertSame([0, 1, 7, 49, 'corgi_1', 'corgi_2'], $this->utility($values)->keys());
     }
 }
