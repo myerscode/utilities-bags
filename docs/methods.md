@@ -460,3 +460,17 @@ $bag->last(fn ($value) => $value < 4);
 $bag->last(fn ($value) => $value > 10, 'fallback');
 // 'fallback'
 ```
+
+### reduce(callable $callback, mixed $initial = null): mixed
+Reduce the bag to a single value using a callback
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->reduce(fn ($carry, $item) => $carry + $item, 0);
+// 15
+
+$bag = new Utility(['a', 'b', 'c']);
+
+$bag->reduce(fn ($carry, $item) => $carry . $item, '');
+// 'abc'
+```

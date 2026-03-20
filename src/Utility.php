@@ -425,6 +425,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Reduce the bag to a single value using a callback
+     */
+    public function reduce(callable $callback, mixed $initial = null): mixed
+    {
+        return array_reduce($this->bag, $callback, $initial);
+    }
+
+    /**
      * Remove a value from the bag via its index
      */
     public function remove(string|int $index): Utility
