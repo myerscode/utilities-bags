@@ -592,6 +592,30 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return a new bag with only unique values
+     */
+    public function unique(?callable $callback = null): Utility
+    {
+        if ($callback === null) {
+            return new static(array_unique($this->bag, SORT_REGULAR));
+        }
+
+        $seen = [];
+        $result = [];
+
+        foreach ($this->bag as $key => $value) {
+            $computed = $callback($value, $key);
+
+            if (! in_array($computed, $seen, true)) {
+                $seen[] = $computed;
+                $result[$key] = $value;
+            }
+        }
+
+        return new static($result);
+    }
+
+    /**
      * Get the bags current value
      */
     public function value(): array

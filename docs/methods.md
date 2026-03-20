@@ -530,3 +530,21 @@ $bag->sortBy('age');
 $bag->sortBy('age', descending: true);
 // [['name' => 'Chris', ...], ['name' => 'Fred', ...], ['name' => 'Tor', ...]]
 ```
+
+### unique(?callable $callback = null): Utility
+Return a new bag with only unique values
+```php
+$bag = new Utility([1, 2, 2, 3, 3, 3]);
+
+$bag->unique();
+// [1, 2, 3]
+
+$bag = new Utility([
+    ['name' => 'Fred', 'role' => 'dev'],
+    ['name' => 'Tor', 'role' => 'dev'],
+    ['name' => 'Chris', 'role' => 'design'],
+]);
+
+$bag->unique(fn ($item) => $item['role']);
+// [['name' => 'Fred', ...], ['name' => 'Chris', ...]]
+```
