@@ -22,12 +22,6 @@ final class ToKeyValueStringTest extends BaseBagSuite
         ];
     }
 
-    #[DataProvider('__defaultGlueData')]
-    public function test_default_glue(array $bag, string $expected): void
-    {
-        $this->assertSame($expected, $this->utility($bag)->toKeyValueString());
-    }
-
     public function test_custom_parameters(): void
     {
         $bag = ['host' => 'localhost', 'port' => '3306'];
@@ -36,5 +30,11 @@ final class ToKeyValueStringTest extends BaseBagSuite
             '--host="localhost" --port="3306"',
             $this->utility($bag)->toKeyValueString(' ', '--', '', '=', '"', '"')
         );
+    }
+
+    #[DataProvider('__defaultGlueData')]
+    public function test_default_glue(array $bag, string $expected): void
+    {
+        $this->assertSame($expected, $this->utility($bag)->toKeyValueString());
     }
 }

@@ -10,6 +10,35 @@ use Iterator;
 
 final class GetTest extends BaseBagSuite
 {
+    public static function __dotGetData(): Iterator
+    {
+        yield 'nested values' => [
+            ['hello', 'world'],
+            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
+            'deep.nested.values',
+        ];
+        yield 'dot key takes priority' => [
+            'lives here',
+            ['key' => ['with' => ['dot' => 'value']], 'key.with.dot' => 'lives here'],
+            'key.with.dot',
+        ];
+        yield 'missing nested returns null' => [
+            null,
+            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
+            'deep.nested.values.contains',
+        ];
+        yield 'top level key' => [
+            ['nested' => ['values' => ['hello', 'world']]],
+            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
+            'deep',
+        ];
+        yield 'missing with default' => [
+            'default-value',
+            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
+            'deep.nested.values.contains',
+            'default-value',
+        ];
+    }
     public static function __utilityGetData(): Iterator
     {
         yield 'missing index returns null' => [
@@ -51,46 +80,16 @@ final class GetTest extends BaseBagSuite
         ];
     }
 
-    #[DataProvider('__utilityGetData')]
-    public function test_value_retrieved_from_get(mixed $expected, array $bag, int|string $index, mixed $default = null): void
-    {
-        $this->assertEquals($expected, $this->utility($bag)->get($index, $default));
-    }
-
-    public static function __dotGetData(): Iterator
-    {
-        yield 'nested values' => [
-            ['hello', 'world'],
-            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
-            'deep.nested.values',
-        ];
-        yield 'dot key takes priority' => [
-            'lives here',
-            ['key' => ['with' => ['dot' => 'value']], 'key.with.dot' => 'lives here'],
-            'key.with.dot',
-        ];
-        yield 'missing nested returns null' => [
-            null,
-            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
-            'deep.nested.values.contains',
-        ];
-        yield 'top level key' => [
-            ['nested' => ['values' => ['hello', 'world']]],
-            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
-            'deep',
-        ];
-        yield 'missing with default' => [
-            'default-value',
-            ['deep' => ['nested' => ['values' => ['hello', 'world']]]],
-            'deep.nested.values.contains',
-            'default-value',
-        ];
-    }
-
     #[DataProvider('__dotGetData')]
     public function test_dot_value_retrieved_from_get(mixed $expected, array $bag, string $index, mixed $default = null): void
     {
         $this->assertEquals($expected, $this->dot($bag)->get($index, $default));
+    }
+
+    #[DataProvider('__utilityGetData')]
+    public function test_value_retrieved_from_get(mixed $expected, array $bag, int|string $index, mixed $default = null): void
+    {
+        $this->assertEquals($expected, $this->utility($bag)->get($index, $default));
     }
 
     public function test_value_retrieved_from_offset_get(): void
