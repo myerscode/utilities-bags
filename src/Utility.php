@@ -157,6 +157,24 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Get the first item in the bag, optionally the first matching a condition
+     */
+    public function first(?callable $callback = null, mixed $default = null): mixed
+    {
+        if ($callback === null) {
+            return $this->bag === [] ? $default : reset($this->bag);
+        }
+
+        foreach ($this->bag as $key => $value) {
+            if ($callback($value, $key)) {
+                return $value;
+            }
+        }
+
+        return $default;
+    }
+
+    /**
      * Flatten a multidimensional array
      */
     public function flatten(string $separator = '.'): Utility
@@ -270,6 +288,26 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function keys(): array
     {
         return array_keys($this->bag);
+    }
+
+    /**
+     * Get the last item in the bag, optionally the last matching a condition
+     */
+    public function last(?callable $callback = null, mixed $default = null): mixed
+    {
+        if ($callback === null) {
+            return $this->bag === [] ? $default : end($this->bag);
+        }
+
+        $result = $default;
+
+        foreach ($this->bag as $key => $value) {
+            if ($callback($value, $key)) {
+                $result = $value;
+            }
+        }
+
+        return $result;
     }
 
     /**

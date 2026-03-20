@@ -430,3 +430,33 @@ $bag = new Utility([77 => 49, 'corgi' => 'Gerald', 'owner' => 'Fred']);
 $bag->values();
 // [49, 'Gerald', 'Fred']
 ```
+
+### first(?callable $callback = null, mixed $default = null): mixed
+Get the first item in the bag, optionally the first matching a condition
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->first();
+// 1
+
+$bag->first(fn ($value) => $value > 3);
+// 4
+
+$bag->first(fn ($value) => $value > 10, 'fallback');
+// 'fallback'
+```
+
+### last(?callable $callback = null, mixed $default = null): mixed
+Get the last item in the bag, optionally the last matching a condition
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->last();
+// 5
+
+$bag->last(fn ($value) => $value < 4);
+// 3
+
+$bag->last(fn ($value) => $value > 10, 'fallback');
+// 'fallback'
+```
