@@ -6,7 +6,7 @@ namespace Tests;
 
 use Tests\Support\BaseBagSuite;
 
-final class ResetIndex extends BaseBagSuite
+final class ResetIndexTest extends BaseBagSuite
 {
     public function testBagCanResetIndexes(): void
     {
@@ -23,6 +23,6 @@ final class ResetIndex extends BaseBagSuite
     {
         $values = [1, 2, 3, 'owner' => 'Fred', 'corgi_1' => 'Gerald', 7 => 7, 49 => 49];
 
-        $this->assertSame([1, 2, 3, 7, 49, 'owner' => 'Fred', 'corgi_1' => 'Gerald'], $this->utility($values)->resetIndex()->value());
+        $this->assertSame(['owner' => 'Fred', 'corgi_1' => 'Gerald', 1, 2, 3, 7, 49], $this->utility($values)->resetIndex()->value());
     }
 }

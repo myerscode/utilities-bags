@@ -101,11 +101,6 @@ class DotUtility extends Utility
     /**
      * Destruct an array that has dot notation
      *
-     * @return mixed[]
-     */
-    /**
-     * Destruct an array that has dot notation
-     *
      * @param  array<mixed>  $items
      * @param  non-empty-string  $delimiter
      * @return array<mixed>

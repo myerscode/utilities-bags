@@ -183,7 +183,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
                 return $this->bag[$index];
             }
 
-            $this->dotGet($index, $default);
+            return $this->dotGet($index, $default);
         }
 
         return $default;
