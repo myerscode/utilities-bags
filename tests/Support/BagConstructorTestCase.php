@@ -12,6 +12,7 @@ class BagConstructorTestCase implements Stringable
     public string $var2 = 'two';
 
     public $var3;
+
     public stdClass $var4;
 
     public array $var5 = [

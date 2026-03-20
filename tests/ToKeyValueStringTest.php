@@ -21,6 +21,7 @@ final class ToKeyValueStringTest extends BaseBagSuite
             "hello='world' foo='bar'",
         ];
     }
+
     /**
      * Check that arrays correct glue with default values
      */

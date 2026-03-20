@@ -19,6 +19,7 @@ final class FilterTest extends BaseBagSuite
         $values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
         $this->assertSame([1, 2, 3, 4, 9 => 0], $this->utility($values)->filter(fn ($value): bool => $value < 5)->value());
     }
+
     public function test_bag_filters_empty_values(): void
     {
         $values = [7, 49, 42, 69, false, null, 0];
