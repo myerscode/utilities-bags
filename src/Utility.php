@@ -48,6 +48,21 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Split the bag into chunks of the given size
+     */
+    public function chunk(int $size): Utility
+    {
+        if ($size <= 0) {
+            return new static([]);
+        }
+
+        return new static(array_map(
+            fn (array $chunk): Utility => new static($chunk),
+            array_chunk($this->bag, $size, true)
+        ));
+    }
+
+    /**
      * @see containsAny
      */
     public function contains(mixed $needles): bool

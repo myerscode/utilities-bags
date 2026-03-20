@@ -646,3 +646,12 @@ $bag = new Utility(['a' => 1, 'b' => 2, 'c' => 3]);
 $bag->reverse(preserveKeys: true);
 // ['c' => 3, 'b' => 2, 'a' => 1]
 ```
+
+### chunk(int $size): Utility
+Split the bag into chunks of the given size
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->chunk(2);
+// [Utility([1, 2]), Utility([3, 4]), Utility([5])]
+```
