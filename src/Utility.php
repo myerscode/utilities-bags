@@ -427,6 +427,27 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Extract a single column of values from a multi-dimensional bag
+     */
+    public function pluck(string $valuePath, ?string $keyPath = null): Utility
+    {
+        $results = [];
+
+        foreach ($this->bag as $item) {
+            $item = is_array($item) ? $item : (array) $item;
+            $value = $item[$valuePath] ?? null;
+
+            if ($keyPath !== null) {
+                $results[$item[$keyPath] ?? null] = $value;
+            } else {
+                $results[] = $value;
+            }
+        }
+
+        return new static($results);
+    }
+
+    /**
      * Push a value onto the end of the bag
      */
     public function push(mixed ...$values): Utility

@@ -548,3 +548,18 @@ $bag = new Utility([
 $bag->unique(fn ($item) => $item['role']);
 // [['name' => 'Fred', ...], ['name' => 'Chris', ...]]
 ```
+
+### pluck(string $valuePath, ?string $keyPath = null): Utility
+Extract a single column of values from a multi-dimensional bag
+```php
+$bag = new Utility([
+    ['id' => 1, 'name' => 'Fred'],
+    ['id' => 2, 'name' => 'Tor'],
+]);
+
+$bag->pluck('name');
+// ['Fred', 'Tor']
+
+$bag->pluck('name', 'id');
+// [1 => 'Fred', 2 => 'Tor']
+```
