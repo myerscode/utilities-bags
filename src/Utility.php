@@ -394,6 +394,27 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Get the maximum value in the bag, optionally by key or callback
+     */
+    public function max(string|callable|null $callback = null): mixed
+    {
+        if ($this->bag === []) {
+            return null;
+        }
+
+        if ($callback === null) {
+            return max($this->bag);
+        }
+
+        if (is_string($callback)) {
+            $key = $callback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        }
+
+        return max(array_map($callback, $this->bag));
+    }
+
+    /**
      * Merge an array or bag Utility into the current bag
      */
     public function merge(array|stdClass|Utility $bag): Utility
@@ -415,27 +436,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return new static(array_merge_recursive($this->bag, new static($bag)->toArray()));
-    }
-
-    /**
-     * Get the maximum value in the bag, optionally by key or callback
-     */
-    public function max(string|callable|null $callback = null): mixed
-    {
-        if ($this->bag === []) {
-            return null;
-        }
-
-        if ($callback === null) {
-            return max($this->bag);
-        }
-
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
-
-        return max(array_map($callback, $this->bag));
     }
 
     /**
@@ -506,6 +506,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Pass the bag to a callback and return the result
+     */
+    public function pipe(callable $callback): mixed
+    {
+        return $callback($this);
+    }
+
+    /**
      * Extract a single column of values from a multi-dimensional bag
      */
     public function pluck(string $valuePath, ?string $keyPath = null): Utility
@@ -524,14 +532,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return new static($results);
-    }
-
-    /**
-     * Pass the bag to a callback and return the result
-     */
-    public function pipe(callable $callback): mixed
-    {
-        return $callback($this);
     }
 
     /**

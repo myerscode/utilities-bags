@@ -22,6 +22,28 @@ final class GroupByTest extends BaseBagSuite
     {
         $this->assertSame([], $this->utility([])->groupBy('key')->toArray());
     }
+
+    public function test_group_by_preserves_all_items(): void
+    {
+        $items = [
+            ['name' => 'Fred', 'role' => 'dev'],
+            ['name' => 'Tor', 'role' => 'dev'],
+            ['name' => 'Chris', 'role' => 'design'],
+        ];
+        $bag = $this->utility($items);
+        $grouped = $bag->groupBy('role');
+
+        $totalItems = $grouped->get('dev')->count() + $grouped->get('design')->count();
+        $this->assertSame(3, $totalItems);
+    }
+
+    public function test_group_by_single_item(): void
+    {
+        $bag = $this->utility([['name' => 'Fred', 'role' => 'dev']]);
+        $grouped = $bag->groupBy('role');
+        $this->assertCount(1, $grouped);
+        $this->assertCount(1, $grouped->get('dev'));
+    }
     public function test_group_by_string_key(): void
     {
         $bag = $this->utility([
@@ -36,5 +58,40 @@ final class GroupByTest extends BaseBagSuite
         $this->assertInstanceOf(Utility::class, $grouped->get('dev'));
         $this->assertCount(2, $grouped->get('dev'));
         $this->assertCount(1, $grouped->get('design'));
+    }
+
+    public function test_group_by_with_boolean_keys(): void
+    {
+        $bag = $this->utility([
+            ['name' => 'Fred', 'active' => true],
+            ['name' => 'Tor', 'active' => false],
+            ['name' => 'Chris', 'active' => true],
+        ]);
+        $grouped = $bag->groupBy(fn (array $item): string => $item['active'] ? 'active' : 'inactive');
+        $this->assertCount(2, $grouped->get('active'));
+        $this->assertCount(1, $grouped->get('inactive'));
+    }
+
+    public function test_group_by_with_missing_key(): void
+    {
+        $bag = $this->utility([
+            ['name' => 'Fred', 'role' => 'dev'],
+            ['name' => 'Tor'],
+            ['name' => 'Chris', 'role' => 'dev'],
+        ]);
+        $grouped = $bag->groupBy('role');
+        $this->assertCount(2, $grouped->get('dev'));
+    }
+
+    public function test_group_by_with_null_group_key(): void
+    {
+        $bag = $this->utility([
+            ['name' => 'Fred', 'team' => 'alpha'],
+            ['name' => 'Tor', 'team' => null],
+            ['name' => 'Chris', 'team' => 'alpha'],
+        ]);
+        $grouped = $bag->groupBy('team');
+        $this->assertCount(2, $grouped->get('alpha'));
+        $this->assertCount(1, $grouped->get(''));
     }
 }
