@@ -632,3 +632,17 @@ $bag = new Utility([
 $bag->max('age');
 // 35
 ```
+
+### reverse(bool $preserveKeys = false): Utility
+Reverse the order of items in the bag
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->reverse();
+// [3, 2, 1]
+
+$bag = new Utility(['a' => 1, 'b' => 2, 'c' => 3]);
+
+$bag->reverse(preserveKeys: true);
+// ['c' => 3, 'b' => 2, 'a' => 1]
+```

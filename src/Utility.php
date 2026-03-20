@@ -582,6 +582,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Reverse the order of items in the bag
+     */
+    public function reverse(bool $preserveKeys = false): Utility
+    {
+        return new static(array_reverse($this->bag, $preserveKeys));
+    }
+
+    /**
      * Set an array index with a given value
      */
     public function set(string|int $index, mixed $value): Utility
