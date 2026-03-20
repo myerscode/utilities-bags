@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class KeysTest extends BaseBagSuite
 {
-    public function test_can_get_keys(): void
+    public function testCanGetKeys(): void
     {
         $values = [1, 2, 7 => 49, 49 => 7, 'corgi_1' => 'Gerald', 'corgi_2' => 'Rupert'];
 

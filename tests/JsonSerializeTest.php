@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class JsonSerializeTest extends BaseBagSuite
 {
-    public function test_json_encoding_returns_json(): void
+    public function testJsonEncodingReturnsJson(): void
     {
         $values = ['foo' => 'bar'];
 

@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class EachTest extends BaseBagSuite
 {
-    public function test_bag_iterates_over_each_value(): void
+    public function testBagIteratesOverEachValue(): void
     {
         $counter = 0;
         $values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];

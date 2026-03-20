@@ -35,7 +35,7 @@ final class CountTest extends BaseBagSuite
      * Test that bag knows its length
      */
     #[DataProvider('__validData')]
-    public function test_bag_is_can_be_iterated_over(int $expected, BagConstructorTestCase|array $bag): void
+    public function testBagIsCanBeIteratedOver(int $expected, BagConstructorTestCase|array $bag): void
     {
         $this->assertCount($expected, $this->utility($bag));
         $this->assertCount($expected, $this->utility($bag));

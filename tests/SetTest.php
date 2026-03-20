@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class SetTest extends BaseBagSuite
 {
-    public function test_set_value_by_dot_notation(): void
+    public function testSetValueByDotNotation(): void
     {
         $values = [
             'deep' => [
@@ -46,7 +46,7 @@ final class SetTest extends BaseBagSuite
         ], $bag->value());
     }
 
-    public function test_value_set_to_bag_via_offset_set(): void
+    public function testValueSetToBagViaOffsetSet(): void
     {
         // check can add to empty bag
         $bag = $this->utility([]);
@@ -74,7 +74,7 @@ final class SetTest extends BaseBagSuite
         $this->assertSame([0 => 'foo', 'foo' => 'bar'], $bag->value());
     }
 
-    public function test_value_set_to_bag_via_set(): void
+    public function testValueSetToBagViaSet(): void
     {
         // check can add to empty bag
         $bag = $this->utility([])->set(0, 'foo')->value();

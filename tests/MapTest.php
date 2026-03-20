@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class MapTest extends BaseBagSuite
 {
-    public function test_can_map_values(): void
+    public function testCanMapValues(): void
     {
         $rawValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

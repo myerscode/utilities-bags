@@ -11,7 +11,7 @@ final class ToObjectTest extends BaseBagSuite
     /**
      * Test that toObject returns all the bag data as an object
      */
-    public function test_bag_returns_data_as_object(): void
+    public function testBagReturnsDataAsObject(): void
     {
         $this->assertEquals(
             json_decode(json_encode((object) [1, 2, 3], JSON_THROW_ON_ERROR), null, 512, JSON_THROW_ON_ERROR),

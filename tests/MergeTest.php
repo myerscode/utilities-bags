@@ -91,21 +91,21 @@ final class MergeTest extends BaseBagSuite
     }
 
     #[DataProvider('__validData')]
-    public function test_dot_utility_can_merge_array(array $bag, Utility|stdClass|array $merge, array $expected): void
+    public function testDotUtilityCanMergeArray(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     #[DataProvider('__validDotData')]
-    public function test_dot_utility_can_merge_dot_arrays(array $bag, DotUtility|stdClass|array $merge, array $expected): void
+    public function testDotUtilityCanMergeDotArrays(array $bag, DotUtility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     #[DataProvider('__validData')]
-    public function test_utility_can_merge_array(array $bag, Utility|stdClass|array $merge, array $expected): void
+    public function testUtilityCanMergeArray(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->utility($bag)->merge($merge)->value();
         $this->assertEquals($expected, $bag);

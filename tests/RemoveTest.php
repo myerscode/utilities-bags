@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class RemoveTest extends BaseBagSuite
 {
-    public function test_offset_unset(): void
+    public function testOffsetUnset(): void
     {
         $bag = $this->utility(['foo', 'bar']);
         $bag->offsetUnset(0);
@@ -23,7 +23,7 @@ final class RemoveTest extends BaseBagSuite
         $this->assertSame([0 => 'foo', 'hello' => 'world', 1 => 'bar'], $bag->value());
     }
 
-    public function test_remove(): void
+    public function testRemove(): void
     {
         $bag = $this->utility(['foo', 'bar'])->remove(0)->value();
         $this->assertSame([1 => 'bar'], $bag);

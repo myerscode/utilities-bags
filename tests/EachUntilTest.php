@@ -25,7 +25,7 @@ final class EachUntilTest extends BaseBagSuite
     }
 
     #[DataProvider('__testData')]
-    public function test_bag_iterates_over_each_value_util_stop_value_is_returned(int $expected, int $stopOn, array $values): void
+    public function testBagIteratesOverEachValueUtilStopValueIsReturned(int $expected, int $stopOn, array $values): void
     {
         $counter = 0;
 

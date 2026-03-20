@@ -86,20 +86,20 @@ final class MergeRecursivelyTest extends BaseBagSuite
     }
 
     #[DataProvider('__validData')]
-    public function test_dot_utility_can_merge_array_recursively(array $bag, Utility|stdClass|array $merge, array $expected): void
+    public function testDotUtilityCanMergeArrayRecursively(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
     #[DataProvider('__validDotData')]
-    public function test_dot_utility_can_merge_dot_arrays_recursively(array $bag, DotUtility|stdClass|array $merge, array $expected): void
+    public function testDotUtilityCanMergeDotArraysRecursively(array $bag, DotUtility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->dot($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);
     }
 
-    public function test_dot_utility_merge_returns_new_instance(): void
+    public function testDotUtilityMergeReturnsNewInstance(): void
     {
         $dotUtility = $this->dot([1, 2, 3]);
         $utility = $dotUtility->mergeRecursively([4, 5, 6]);
@@ -108,7 +108,7 @@ final class MergeRecursivelyTest extends BaseBagSuite
     }
 
     #[DataProvider('__validData')]
-    public function test_utility_can_merge_array_recursively(array $bag, Utility|stdClass|array $merge, array $expected): void
+    public function testUtilityCanMergeArrayRecursively(array $bag, Utility|stdClass|array $merge, array $expected): void
     {
         $bag = $this->utility($bag)->mergeRecursively($merge)->value();
         $this->assertEquals($expected, $bag);

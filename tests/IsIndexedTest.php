@@ -42,7 +42,7 @@ final class IsIndexedTest extends BaseBagSuite
      * Test that isIndexed returns true if the bag is an indexed array
      */
     #[DataProvider('__validData')]
-    public function test_bag_is_indexed(bool $expected, array $bag): void
+    public function testBagIsIndexed(bool $expected, array $bag): void
     {
         $this->assertSame($expected, $this->utility($bag)->isIndexed());
     }

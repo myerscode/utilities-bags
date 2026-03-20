@@ -83,13 +83,13 @@ final class ConstructTest extends BaseBagSuite
         ];
     }
 
-    public function test_bag_accepts_nothing_and_creates_empty_bag(): void
+    public function testBagAcceptsNothingAndCreatesEmptyBag(): void
     {
         $this->assertSame([], Utility::make()->value());
     }
 
     #[DataProvider('__validDotData')]
-    public function test_bag_constructs_from_fla_dot_notation_array(array $bag, array $expected): void
+    public function testBagConstructsFromFlaDotNotationArray(array $bag, array $expected): void
     {
         $this->assertEquals($expected, $this->dot($bag)->value());
     }
@@ -98,7 +98,7 @@ final class ConstructTest extends BaseBagSuite
      * Test that the constructor takes value and sets it internally
      */
     #[DataProvider('__validData')]
-    public function test_bag_is_set_via_constructor(array $expected, $bag): void
+    public function testBagIsSetViaConstructor(array $expected, $bag): void
     {
         $this->assertEquals($expected, $this->utility($bag)->value());
     }
@@ -107,18 +107,18 @@ final class ConstructTest extends BaseBagSuite
      * Test that the static make method takes value and sets it internally
      */
     #[DataProvider('__validData')]
-    public function test_bag_is_set_via_make(array $expected, $bag): void
+    public function testBagIsSetViaMake(array $expected, $bag): void
     {
         $this->assertEquals($expected, Utility::make($bag)->value());
     }
 
     #[DataProvider('__validDotData')]
-    public function test_bag_makes_from_fla_dot_notation_array(array $bag, array $expected): void
+    public function testBagMakesFromFlaDotNotationArray(array $bag, array $expected): void
     {
         $this->assertEquals($expected, DotUtility::make($bag)->value());
     }
 
-    public function test_dot_bag_accepts_nothing_and_creates_empty_bag(): void
+    public function testDotBagAcceptsNothingAndCreatesEmptyBag(): void
     {
         $this->assertSame([], DotUtility::make()->value());
     }

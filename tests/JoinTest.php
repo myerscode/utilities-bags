@@ -51,7 +51,7 @@ final class JoinTest extends BaseBagSuite
     }
 
     #[DataProvider('__joinData')]
-    public function test_bag_is_joined(string $expected, array $bag, string $glue, ?string $lastGlue): void
+    public function testBagIsJoined(string $expected, array $bag, string $glue, ?string $lastGlue): void
     {
         $this->assertSame($expected, $this->utility($bag)->join($glue, $lastGlue));
     }

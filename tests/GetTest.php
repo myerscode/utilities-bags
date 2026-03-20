@@ -81,18 +81,18 @@ final class GetTest extends BaseBagSuite
     }
 
     #[DataProvider('__dotGetData')]
-    public function test_dot_value_retrieved_from_get(mixed $expected, array $bag, string $index, mixed $default = null): void
+    public function testDotValueRetrievedFromGet(mixed $expected, array $bag, string $index, mixed $default = null): void
     {
         $this->assertEquals($expected, $this->dot($bag)->get($index, $default));
     }
 
     #[DataProvider('__utilityGetData')]
-    public function test_value_retrieved_from_get(mixed $expected, array $bag, int|string $index, mixed $default = null): void
+    public function testValueRetrievedFromGet(mixed $expected, array $bag, int|string $index, mixed $default = null): void
     {
         $this->assertEquals($expected, $this->utility($bag)->get($index, $default));
     }
 
-    public function test_value_retrieved_from_offset_get(): void
+    public function testValueRetrievedFromOffsetGet(): void
     {
         $this->assertEquals(null, $this->utility([])->offsetGet(100));
         $this->assertEquals(null, $this->utility(['foo', 'bar'])->offsetGet(2));

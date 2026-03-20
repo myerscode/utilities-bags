@@ -11,7 +11,7 @@ use function Myerscode\Utilities\Bags\bag;
 
 final class HelperTest extends BaseBagSuite
 {
-    public function test_helper_function(): void
+    public function testHelperFunction(): void
     {
         $this->assertInstanceOf(Utility::class, bag());
     }

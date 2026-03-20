@@ -11,7 +11,7 @@ final class RemoveEmptyTest extends BaseBagSuite
     /**
      * Test that bag knows its length
      */
-    public function test_bag_can_remove_empty_values(): void
+    public function testBagCanRemoveEmptyValues(): void
     {
         $expected = [
             'foo',

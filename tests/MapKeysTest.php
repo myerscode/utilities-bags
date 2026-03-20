@@ -9,7 +9,7 @@ use Tests\Support\BaseBagSuite;
 
 final class MapKeysTest extends BaseBagSuite
 {
-    public function test_can_remap_keys(): void
+    public function testCanRemapKeys(): void
     {
         $rawValues = [
             ['abc', 'xyz'],
@@ -26,7 +26,7 @@ final class MapKeysTest extends BaseBagSuite
         $this->assertSame($expectedValues, $mapped);
     }
 
-    public function test_throws_error_if_more_than_one_value_returned(): void
+    public function testThrowsErrorIfMoreThanOneValueReturned(): void
     {
         $rawValues = [
             ['abc', 'xyz'],

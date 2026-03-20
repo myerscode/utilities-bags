@@ -13,7 +13,7 @@ final class TransformToBagTest extends BaseBagSuite
     /**
      * Check that the transformToBag returns an array of values from a given user input
      */
-    public function test_expected_results(): void
+    public function testExpectedResults(): void
     {
         $utility = $this->utility([]);
         $reflectionClass = new ReflectionClass($utility::class);

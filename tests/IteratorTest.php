@@ -31,7 +31,7 @@ final class IteratorTest extends BaseBagSuite
      * @param  int[]|string[]|array<string, string>  $bag
      */
     #[DataProvider('__validData')]
-    public function test_bag_is_can_be_iterated_over(array $bag): void
+    public function testBagIsCanBeIteratedOver(array $bag): void
     {
         foreach ($this->utility($bag) as $index => $utility) {
             $this->assertArrayHasKey($index, $bag);
@@ -43,7 +43,7 @@ final class IteratorTest extends BaseBagSuite
     /**
      * Test that bag can be iterated over
      */
-    public function test_implements_iterator_aggregate(): void
+    public function testImplementsIteratorAggregate(): void
     {
         $this->assertInstanceOf(IteratorAggregate::class, $this->utility([]));
     }
