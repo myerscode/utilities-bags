@@ -403,6 +403,48 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Get the maximum value in the bag, optionally by key or callback
+     */
+    public function max(string|callable|null $callback = null): mixed
+    {
+        if ($this->bag === []) {
+            return null;
+        }
+
+        if ($callback === null) {
+            return max($this->bag);
+        }
+
+        if (is_string($callback)) {
+            $key = $callback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        }
+
+        return max(array_map($callback, $this->bag));
+    }
+
+    /**
+     * Get the minimum value in the bag, optionally by key or callback
+     */
+    public function min(string|callable|null $callback = null): mixed
+    {
+        if ($this->bag === []) {
+            return null;
+        }
+
+        if ($callback === null) {
+            return min($this->bag);
+        }
+
+        if (is_string($callback)) {
+            $key = $callback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        }
+
+        return min(array_map($callback, $this->bag));
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function offsetExists($offset): bool
@@ -589,6 +631,23 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         });
 
         return new static($bag);
+    }
+
+    /**
+     * Get the sum of values in the bag, optionally by key or callback
+     */
+    public function sum(string|callable|null $callback = null): int|float
+    {
+        if ($callback === null) {
+            return array_sum($this->bag);
+        }
+
+        if (is_string($callback)) {
+            $key = $callback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? 0) : 0;
+        }
+
+        return array_sum(array_map($callback, $this->bag));
     }
 
     /**

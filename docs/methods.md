@@ -581,3 +581,54 @@ $bag = new Utility([1, 2, 3, 4, 5, 6]);
 $bag->groupBy(fn ($value) => $value % 2 === 0 ? 'even' : 'odd');
 // ['odd' => Utility([1, 3, 5]), 'even' => Utility([2, 4, 6])]
 ```
+
+### sum(string|callable|null $callback = null): int|float
+Get the sum of values in the bag, optionally by key or callback
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->sum();
+// 15
+
+$bag = new Utility([
+    ['name' => 'Fred', 'score' => 10],
+    ['name' => 'Tor', 'score' => 20],
+]);
+
+$bag->sum('score');
+// 30
+```
+
+### min(string|callable|null $callback = null): mixed
+Get the minimum value in the bag, optionally by key or callback
+```php
+$bag = new Utility([3, 1, 4, 1, 5]);
+
+$bag->min();
+// 1
+
+$bag = new Utility([
+    ['name' => 'Fred', 'age' => 30],
+    ['name' => 'Tor', 'age' => 25],
+]);
+
+$bag->min('age');
+// 25
+```
+
+### max(string|callable|null $callback = null): mixed
+Get the maximum value in the bag, optionally by key or callback
+```php
+$bag = new Utility([3, 1, 4, 1, 5]);
+
+$bag->max();
+// 5
+
+$bag = new Utility([
+    ['name' => 'Fred', 'age' => 30],
+    ['name' => 'Chris', 'age' => 35],
+]);
+
+$bag->max('age');
+// 35
+```
