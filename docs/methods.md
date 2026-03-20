@@ -474,3 +474,31 @@ $bag = new Utility(['a', 'b', 'c']);
 $bag->reduce(fn ($carry, $item) => $carry . $item, '');
 // 'abc'
 ```
+
+### isEmpty(): bool
+Check if the bag is empty
+```php
+$bag = new Utility([]);
+
+$bag->isEmpty();
+// true
+
+$bag = new Utility([1]);
+
+$bag->isEmpty();
+// false
+```
+
+### isNotEmpty(): bool
+Check if the bag is not empty
+```php
+$bag = new Utility([1, 2]);
+
+$bag->isNotEmpty();
+// true
+
+$bag = new Utility([]);
+
+$bag->isNotEmpty();
+// false
+```

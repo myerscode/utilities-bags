@@ -231,6 +231,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Check if the bag is empty
+     */
+    public function isEmpty(): bool
+    {
+        return $this->bag === [];
+    }
+
+    /**
      * Is the bag a indexed array
      * e.g. $arr[0], $arr[7], $arr[49]
      */
@@ -249,6 +257,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return count($this->bag) !== count($this->bag, COUNT_RECURSIVE);
+    }
+
+    /**
+     * Check if the bag is not empty
+     */
+    public function isNotEmpty(): bool
+    {
+        return ! $this->isEmpty();
     }
 
     /**
