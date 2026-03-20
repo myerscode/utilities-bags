@@ -13,6 +13,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Update PHPUnit to ^13.0 and fix phpunit.xml schema
 - Fix test assertions for PHP 8.5 array key ordering behaviour
 - Add type hints to `DotUtility` overridden methods
+- Add `declare(strict_types=1)` to all source files
+- Replace `is_null()` with strict `=== null` comparisons
+- Standardise CI workflows with lint and static analysis jobs
+
+### Fixed
+- Fix missing `return` in `Utility::get()` for dot notation paths
+- Rename `ResetIndex.php` to `ResetIndexTest.php` so PHPUnit discovers tests
 
 ### Added
 - PHPStan static analysis at level 8
@@ -20,10 +27,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Security audit CI workflow
 - Dependabot configuration for automated dependency updates
 - PHP version badge and Requirements section in README
+- Strict PHPUnit configuration (failOnRisky, failOnWarning)
+- Coverage report configuration (HTML and Clover)
+- Improved test coverage with data providers
 
 ### Removed
 - `InvalidMappedValueException` class (replaced by native `InvalidArgumentException`)
 - Empty `Exceptions/` directory
+- Redundant `ext-json` requirement (bundled since PHP 8.0)
 
 ## [2025.1.0](https://github.com/myerscode/utilities-bags/releases/tag/2025.1.0) - 2025-02-16
 
