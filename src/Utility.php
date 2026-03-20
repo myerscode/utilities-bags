@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Myerscode\Utilities\Bags;
 
 use ArrayAccess;
@@ -38,7 +40,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function add(int|string $index, mixed $value): Utility
     {
-        if (is_null($this->get($index))) {
+        if ($this->get($index) === null) {
             return $this->set($index, $value);
         }
 
@@ -247,7 +249,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $values = $this->values();
 
-        if (is_null($lastGlue)) {
+        if ($lastGlue === null) {
             return implode($joinGlue, $values);
         }
 

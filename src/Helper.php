@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Myerscode\Utilities\Bags;
 
 if (!function_exists('bag')) {
