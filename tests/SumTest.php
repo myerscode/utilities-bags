@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class SumTest extends BaseBagSuite
 {
-    public function test_sum_by_callback(): void
+    public function testSumByCallback(): void
     {
         $bag = $this->utility([
             ['price' => 10, 'qty' => 2],
@@ -17,7 +17,7 @@ final class SumTest extends BaseBagSuite
         $this->assertSame(35, $bag->sum(fn (array $item): int => $item['price'] * $item['qty']));
     }
 
-    public function test_sum_by_key(): void
+    public function testSumByKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'score' => 10],
@@ -27,7 +27,7 @@ final class SumTest extends BaseBagSuite
         $this->assertSame(60, $bag->sum('score'));
     }
 
-    public function test_sum_by_key_with_missing_key(): void
+    public function testSumByKeyWithMissingKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'score' => 10],
@@ -37,31 +37,31 @@ final class SumTest extends BaseBagSuite
         $this->assertSame(40, $bag->sum('score'));
     }
 
-    public function test_sum_of_empty_bag(): void
+    public function testSumOfEmptyBag(): void
     {
         $this->assertSame(0, $this->utility([])->sum());
     }
-    public function test_sum_of_values(): void
+    public function testSumOfValues(): void
     {
         $this->assertSame(15, $this->utility([1, 2, 3, 4, 5])->sum());
     }
 
-    public function test_sum_single_element(): void
+    public function testSumSingleElement(): void
     {
         $this->assertSame(42, $this->utility([42])->sum());
     }
 
-    public function test_sum_with_floats(): void
+    public function testSumWithFloats(): void
     {
         $this->assertSame(6.6, $this->utility([1.1, 2.2, 3.3])->sum());
     }
 
-    public function test_sum_with_mixed_int_and_float(): void
+    public function testSumWithMixedIntAndFloat(): void
     {
         $this->assertSame(6.5, $this->utility([1, 2.5, 3])->sum());
     }
 
-    public function test_sum_with_negative_values(): void
+    public function testSumWithNegativeValues(): void
     {
         $this->assertSame(-3, $this->utility([-1, -2, 0])->sum());
     }

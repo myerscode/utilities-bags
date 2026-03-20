@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class MinTest extends BaseBagSuite
 {
-    public function test_min_by_callback(): void
+    public function testMinByCallback(): void
     {
         $bag = $this->utility([
             ['price' => 10],
@@ -18,7 +18,7 @@ final class MinTest extends BaseBagSuite
         $this->assertSame(5, $bag->min(fn (array $item): int => $item['price']));
     }
 
-    public function test_min_by_key(): void
+    public function testMinByKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'age' => 30],
@@ -28,7 +28,7 @@ final class MinTest extends BaseBagSuite
         $this->assertSame(25, $bag->min('age'));
     }
 
-    public function test_min_by_key_with_missing_key(): void
+    public function testMinByKeyWithMissingKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'age' => 30],
@@ -38,36 +38,36 @@ final class MinTest extends BaseBagSuite
         $this->assertNull($bag->min('age'));
     }
 
-    public function test_min_of_empty_bag_returns_null(): void
+    public function testMinOfEmptyBagReturnsNull(): void
     {
         $this->assertNull($this->utility([])->min());
     }
-    public function test_min_of_values(): void
+    public function testMinOfValues(): void
     {
         $this->assertSame(1, $this->utility([3, 1, 4, 1, 5])->min());
     }
 
-    public function test_min_single_element(): void
+    public function testMinSingleElement(): void
     {
         $this->assertSame(42, $this->utility([42])->min());
     }
 
-    public function test_min_with_floats(): void
+    public function testMinWithFloats(): void
     {
         $this->assertSame(0.1, $this->utility([3.5, 0.1, 2.7])->min());
     }
 
-    public function test_min_with_identical_values(): void
+    public function testMinWithIdenticalValues(): void
     {
         $this->assertSame(5, $this->utility([5, 5, 5])->min());
     }
 
-    public function test_min_with_negative_values(): void
+    public function testMinWithNegativeValues(): void
     {
         $this->assertSame(-5, $this->utility([3, -5, 1, -2])->min());
     }
 
-    public function test_min_with_strings(): void
+    public function testMinWithStrings(): void
     {
         $this->assertSame('apple', $this->utility(['cherry', 'apple', 'banana'])->min());
     }

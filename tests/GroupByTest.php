@@ -9,7 +9,7 @@ use Tests\Support\BaseBagSuite;
 
 final class GroupByTest extends BaseBagSuite
 {
-    public function test_group_by_callback(): void
+    public function testGroupByCallback(): void
     {
         $bag = $this->utility([1, 2, 3, 4, 5, 6]);
         $grouped = $bag->groupBy(fn (int $value): string => $value % 2 === 0 ? 'even' : 'odd');
@@ -18,12 +18,12 @@ final class GroupByTest extends BaseBagSuite
         $this->assertSame([2, 4, 6], $grouped->get('even')->toArray());
     }
 
-    public function test_group_by_on_empty_bag(): void
+    public function testGroupByOnEmptyBag(): void
     {
         $this->assertSame([], $this->utility([])->groupBy('key')->toArray());
     }
 
-    public function test_group_by_preserves_all_items(): void
+    public function testGroupByPreservesAllItems(): void
     {
         $items = [
             ['name' => 'Fred', 'role' => 'dev'],
@@ -37,14 +37,14 @@ final class GroupByTest extends BaseBagSuite
         $this->assertSame(3, $totalItems);
     }
 
-    public function test_group_by_single_item(): void
+    public function testGroupBySingleItem(): void
     {
         $bag = $this->utility([['name' => 'Fred', 'role' => 'dev']]);
         $grouped = $bag->groupBy('role');
         $this->assertCount(1, $grouped);
         $this->assertCount(1, $grouped->get('dev'));
     }
-    public function test_group_by_string_key(): void
+    public function testGroupByStringKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'role' => 'dev'],
@@ -60,7 +60,7 @@ final class GroupByTest extends BaseBagSuite
         $this->assertCount(1, $grouped->get('design'));
     }
 
-    public function test_group_by_with_boolean_keys(): void
+    public function testGroupByWithBooleanKeys(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'active' => true],
@@ -72,7 +72,7 @@ final class GroupByTest extends BaseBagSuite
         $this->assertCount(1, $grouped->get('inactive'));
     }
 
-    public function test_group_by_with_missing_key(): void
+    public function testGroupByWithMissingKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'role' => 'dev'],
@@ -83,7 +83,7 @@ final class GroupByTest extends BaseBagSuite
         $this->assertCount(2, $grouped->get('dev'));
     }
 
-    public function test_group_by_with_null_group_key(): void
+    public function testGroupByWithNullGroupKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'team' => 'alpha'],

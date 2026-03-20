@@ -8,16 +8,16 @@ use Tests\Support\BaseBagSuite;
 
 final class IsEmptyTest extends BaseBagSuite
 {
-    public function test_is_empty_returns_false_for_non_empty_bag(): void
+    public function testIsEmptyReturnsFalseForNonEmptyBag(): void
     {
         $this->assertFalse($this->utility([1])->isEmpty());
     }
-    public function test_is_empty_returns_true_for_empty_bag(): void
+    public function testIsEmptyReturnsTrueForEmptyBag(): void
     {
         $this->assertTrue($this->utility([])->isEmpty());
     }
 
-    public function test_is_empty_with_falsey_values_is_not_empty(): void
+    public function testIsEmptyWithFalseyValuesIsNotEmpty(): void
     {
         $this->assertFalse($this->utility([null])->isEmpty());
         $this->assertFalse($this->utility([false])->isEmpty());
@@ -25,17 +25,17 @@ final class IsEmptyTest extends BaseBagSuite
         $this->assertFalse($this->utility([''])->isEmpty());
     }
 
-    public function test_is_not_empty_returns_false_for_empty_bag(): void
+    public function testIsNotEmptyReturnsFalseForEmptyBag(): void
     {
         $this->assertFalse($this->utility([])->isNotEmpty());
     }
 
-    public function test_is_not_empty_returns_true_for_non_empty_bag(): void
+    public function testIsNotEmptyReturnsTrueForNonEmptyBag(): void
     {
         $this->assertTrue($this->utility([1])->isNotEmpty());
     }
 
-    public function test_is_not_empty_with_nested_empty_array(): void
+    public function testIsNotEmptyWithNestedEmptyArray(): void
     {
         $this->assertTrue($this->utility([[]])->isNotEmpty());
     }

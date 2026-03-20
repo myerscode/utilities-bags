@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class MaxTest extends BaseBagSuite
 {
-    public function test_max_by_callback(): void
+    public function testMaxByCallback(): void
     {
         $bag = $this->utility([
             ['price' => 10],
@@ -18,7 +18,7 @@ final class MaxTest extends BaseBagSuite
         $this->assertSame(20, $bag->max(fn (array $item): int => $item['price']));
     }
 
-    public function test_max_by_key(): void
+    public function testMaxByKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'age' => 30],
@@ -28,7 +28,7 @@ final class MaxTest extends BaseBagSuite
         $this->assertSame(35, $bag->max('age'));
     }
 
-    public function test_max_by_key_with_missing_key(): void
+    public function testMaxByKeyWithMissingKey(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'age' => 30],
@@ -38,36 +38,36 @@ final class MaxTest extends BaseBagSuite
         $this->assertSame(30, $bag->max('age'));
     }
 
-    public function test_max_of_empty_bag_returns_null(): void
+    public function testMaxOfEmptyBagReturnsNull(): void
     {
         $this->assertNull($this->utility([])->max());
     }
-    public function test_max_of_values(): void
+    public function testMaxOfValues(): void
     {
         $this->assertSame(9, $this->utility([3, 1, 4, 1, 5, 9])->max());
     }
 
-    public function test_max_single_element(): void
+    public function testMaxSingleElement(): void
     {
         $this->assertSame(42, $this->utility([42])->max());
     }
 
-    public function test_max_with_floats(): void
+    public function testMaxWithFloats(): void
     {
         $this->assertSame(3.5, $this->utility([3.5, 0.1, 2.7])->max());
     }
 
-    public function test_max_with_identical_values(): void
+    public function testMaxWithIdenticalValues(): void
     {
         $this->assertSame(5, $this->utility([5, 5, 5])->max());
     }
 
-    public function test_max_with_negative_values(): void
+    public function testMaxWithNegativeValues(): void
     {
         $this->assertSame(3, $this->utility([3, -5, 1, -2])->max());
     }
 
-    public function test_max_with_strings(): void
+    public function testMaxWithStrings(): void
     {
         $this->assertSame('cherry', $this->utility(['cherry', 'apple', 'banana'])->max());
     }

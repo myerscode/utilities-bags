@@ -8,7 +8,7 @@ use Tests\Support\BaseBagSuite;
 
 final class PluckTest extends BaseBagSuite
 {
-    public function test_pluck_extracts_values(): void
+    public function testPluckExtractsValues(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'age' => 30],
@@ -17,12 +17,12 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame(['Fred', 'Tor'], $bag->pluck('name')->toArray());
     }
 
-    public function test_pluck_on_empty_bag(): void
+    public function testPluckOnEmptyBag(): void
     {
         $this->assertSame([], $this->utility([])->pluck('name')->toArray());
     }
 
-    public function test_pluck_returns_null_for_missing_keys(): void
+    public function testPluckReturnsNullForMissingKeys(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred'],
@@ -31,7 +31,7 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame(['Fred', null], $bag->pluck('name')->toArray());
     }
 
-    public function test_pluck_with_boolean_values(): void
+    public function testPluckWithBooleanValues(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'active' => true],
@@ -40,7 +40,7 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame([true, false], $bag->pluck('active')->toArray());
     }
 
-    public function test_pluck_with_duplicate_key_path_values(): void
+    public function testPluckWithDuplicateKeyPathValues(): void
     {
         $bag = $this->utility([
             ['id' => 1, 'name' => 'Fred'],
@@ -50,7 +50,7 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame([1 => 'Tor'], $result->toArray());
     }
 
-    public function test_pluck_with_key_path(): void
+    public function testPluckWithKeyPath(): void
     {
         $bag = $this->utility([
             ['id' => 1, 'name' => 'Fred'],
@@ -59,7 +59,7 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame([1 => 'Fred', 2 => 'Tor'], $bag->pluck('name', 'id')->toArray());
     }
 
-    public function test_pluck_with_mixed_item_types(): void
+    public function testPluckWithMixedItemTypes(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred'],
@@ -69,7 +69,7 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame(['Fred', null, 'Tor'], $bag->pluck('name')->toArray());
     }
 
-    public function test_pluck_with_null_values_in_column(): void
+    public function testPluckWithNullValuesInColumn(): void
     {
         $bag = $this->utility([
             ['name' => 'Fred', 'email' => null],
@@ -78,7 +78,7 @@ final class PluckTest extends BaseBagSuite
         $this->assertSame([null, 'tor@example.com'], $bag->pluck('email')->toArray());
     }
 
-    public function test_pluck_with_numeric_string_keys(): void
+    public function testPluckWithNumericStringKeys(): void
     {
         $bag = $this->utility([
             ['0' => 'zero', '1' => 'one'],
