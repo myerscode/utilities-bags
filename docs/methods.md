@@ -502,3 +502,31 @@ $bag = new Utility([]);
 $bag->isNotEmpty();
 // false
 ```
+
+### sort(?callable $callback = null): Utility
+Sort the bag values, optionally with a custom comparison callback
+```php
+$bag = new Utility([3, 1, 4, 1, 5]);
+
+$bag->sort();
+// [1, 1, 3, 4, 5]
+
+$bag->sort(fn ($a, $b) => $b <=> $a);
+// [5, 4, 3, 1, 1]
+```
+
+### sortBy(string|callable $keyOrCallback, bool $descending = false): Utility
+Sort the bag by a given key or callback
+```php
+$bag = new Utility([
+    ['name' => 'Fred', 'age' => 30],
+    ['name' => 'Tor', 'age' => 25],
+    ['name' => 'Chris', 'age' => 35],
+]);
+
+$bag->sortBy('age');
+// [['name' => 'Tor', ...], ['name' => 'Fred', ...], ['name' => 'Chris', ...]]
+
+$bag->sortBy('age', descending: true);
+// [['name' => 'Chris', ...], ['name' => 'Fred', ...], ['name' => 'Tor', ...]]
+```

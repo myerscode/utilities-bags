@@ -509,6 +509,46 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Sort the bag values, optionally with a custom comparison callback
+     */
+    public function sort(?callable $callback = null): Utility
+    {
+        $bag = $this->bag;
+
+        if ($callback !== null) {
+            uasort($bag, $callback);
+        } else {
+            asort($bag);
+        }
+
+        return new static($bag);
+    }
+
+    /**
+     * Sort the bag by a given key or callback
+     */
+    public function sortBy(string|callable $keyOrCallback, bool $descending = false): Utility
+    {
+        if (is_string($keyOrCallback)) {
+            $key = $keyOrCallback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        } else {
+            $callback = $keyOrCallback;
+        }
+
+        $bag = $this->bag;
+
+        uasort($bag, function (mixed $a, mixed $b) use ($callback, $descending): int {
+            $valueA = $callback($a);
+            $valueB = $callback($b);
+
+            return $descending ? ($valueB <=> $valueA) : ($valueA <=> $valueB);
+        });
+
+        return new static($bag);
+    }
+
+    /**
      * Get the bag as an array
      */
     public function toArray(): array
