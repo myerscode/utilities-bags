@@ -10,24 +10,31 @@ use Iterator;
 
 final class ToKeyValueStringTest extends BaseBagSuite
 {
-    public static function validDataProvider(): Iterator
+    public static function __defaultGlueData(): Iterator
     {
-        yield [
+        yield 'indexed array' => [
             [1, 2, 3],
             "0='1' 1='2' 2='3'",
         ];
-        yield [
+        yield 'associative array' => [
             ['hello' => 'world', 'foo' => 'bar'],
             "hello='world' foo='bar'",
         ];
     }
 
-    /**
-     * Check that arrays correct glue with default values
-     */
-    #[DataProvider('validDataProvider')]
-    public function test_valid_value_set_via_constructor(array $bag, string $glued): void
+    #[DataProvider('__defaultGlueData')]
+    public function test_default_glue(array $bag, string $expected): void
     {
-        $this->assertSame($glued, $this->utility($bag)->toKeyValueString());
+        $this->assertSame($expected, $this->utility($bag)->toKeyValueString());
+    }
+
+    public function test_custom_parameters(): void
+    {
+        $bag = ['host' => 'localhost', 'port' => '3306'];
+
+        $this->assertSame(
+            '--host="localhost" --port="3306"',
+            $this->utility($bag)->toKeyValueString(' ', '--', '', '=', '"', '"')
+        );
     }
 }
