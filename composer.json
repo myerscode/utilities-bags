@@ -29,8 +29,7 @@
     }
   ],
   "require": {
-    "php": "^8.5",
-    "ext-json": "*"
+    "php": "^8.5"
   },
   "require-dev": {
     "phpunit/phpunit": "^13.0",
