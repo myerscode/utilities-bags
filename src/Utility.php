@@ -527,6 +527,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Pass the bag to a callback and return the result
+     */
+    public function pipe(callable $callback): mixed
+    {
+        return $callback($this);
+    }
+
+    /**
      * Push a value onto the end of the bag
      */
     public function push(mixed ...$values): Utility

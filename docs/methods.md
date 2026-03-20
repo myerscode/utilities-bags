@@ -655,3 +655,15 @@ $bag = new Utility([1, 2, 3, 4, 5]);
 $bag->chunk(2);
 // [Utility([1, 2]), Utility([3, 4]), Utility([5])]
 ```
+
+### pipe(callable $callback): mixed
+Pass the bag to a callback and return the result
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->pipe(fn ($bag) => $bag->count());
+// 3
+
+$bag->pipe(fn ($bag) => $bag->push(4));
+// Utility([1, 2, 3, 4])
+```
