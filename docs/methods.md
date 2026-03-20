@@ -563,3 +563,21 @@ $bag->pluck('name');
 $bag->pluck('name', 'id');
 // [1 => 'Fred', 2 => 'Tor']
 ```
+
+### groupBy(string|callable $keyOrCallback): Utility
+Group the bag items by a given key or callback
+```php
+$bag = new Utility([
+    ['name' => 'Fred', 'role' => 'dev'],
+    ['name' => 'Tor', 'role' => 'dev'],
+    ['name' => 'Chris', 'role' => 'design'],
+]);
+
+$bag->groupBy('role');
+// ['dev' => Utility([...]), 'design' => Utility([...])]
+
+$bag = new Utility([1, 2, 3, 4, 5, 6]);
+
+$bag->groupBy(fn ($value) => $value % 2 === 0 ? 'even' : 'odd');
+// ['odd' => Utility([1, 3, 5]), 'even' => Utility([2, 4, 6])]
+```

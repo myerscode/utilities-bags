@@ -218,6 +218,28 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Group the bag items by a given key or callback
+     */
+    public function groupBy(string|callable $keyOrCallback): Utility
+    {
+        if (is_string($keyOrCallback)) {
+            $key = $keyOrCallback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        } else {
+            $callback = $keyOrCallback;
+        }
+
+        $groups = [];
+
+        foreach ($this->bag as $key => $value) {
+            $groupKey = $callback($value, $key);
+            $groups[$groupKey][] = $value;
+        }
+
+        return new static(array_map(fn (array $group): Utility => new static($group), $groups));
+    }
+
+    /**
      * Is the bag holding associative data
      * key=value opposed to 123=value
      */
