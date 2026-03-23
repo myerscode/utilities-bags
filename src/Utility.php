@@ -17,9 +17,6 @@ use stdClass;
 
 class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {
-    /**
-     * The values of this collection
-     */
     protected array $bag;
 
     public function __construct(mixed $bag = [])
@@ -77,7 +74,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $needlesBag = $this->transformToBag($needles);
 
-        return ! array_diff($needlesBag, $this->bag);
+        return array_all($needlesBag, fn (mixed $needle): bool => in_array($needle, $this->bag, false));
     }
 
     /**
@@ -87,7 +84,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $needlesBag = $this->transformToBag($needles);
 
-        return (bool) array_intersect($needlesBag, $this->bag);
+        return array_any($needlesBag, fn (mixed $needle): bool => in_array($needle, $this->bag, false));
     }
 
     /**
@@ -141,13 +138,13 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return true;
         }
 
-        if (count($segments = explode('.', (string) $index)) === 1) {
+        if (! str_contains((string) $index, '.')) {
             return false;
         }
 
         $array = $this->value();
 
-        foreach ($segments as $segment) {
+        foreach (explode('.', (string) $index) as $segment) {
             if (isset($array[$segment])) {
                 $array = $array[$segment];
             } else {
@@ -214,7 +211,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function get(int|string $index, mixed $default = null): mixed
     {
         if ($this->exists($index)) {
-            if (is_int($index) || count(explode('.', $index)) === 1) {
+            if (is_int($index) || ! str_contains($index, '.')) {
                 return $this->bag[$index];
             }
 
@@ -264,7 +261,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return false;
         }
 
-        return array_keys($this->bag) !== range(0, count($this->bag) - 1);
+        return ! array_is_list($this->bag);
     }
 
     /**
@@ -540,10 +537,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function push(mixed ...$values): Utility
     {
         $newBag = $this->toArray();
-
-        foreach ($values as $value) {
-            $newBag[] = $value;
-        }
+        array_push($newBag, ...$values);
 
         return new self($newBag);
     }
