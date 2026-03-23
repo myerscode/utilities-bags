@@ -10,38 +10,39 @@ final class MinTest extends BaseBagSuite
 {
     public function testMinByCallback(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['price' => 10],
             ['price' => 5],
             ['price' => 20],
         ]);
-        $this->assertSame(5, $bag->min(fn (array $item): int => $item['price']));
+        $this->assertSame(5, $utility->min(fn (array $item): int => $item['price']));
     }
 
     public function testMinByKey(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['name' => 'Fred', 'age' => 30],
             ['name' => 'Tor', 'age' => 25],
             ['name' => 'Chris', 'age' => 35],
         ]);
-        $this->assertSame(25, $bag->min('age'));
+        $this->assertSame(25, $utility->min('age'));
     }
 
     public function testMinByKeyWithMissingKey(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['name' => 'Fred', 'age' => 30],
             ['name' => 'Tor'],
             ['name' => 'Chris', 'age' => 25],
         ]);
-        $this->assertNull($bag->min('age'));
+        $this->assertNull($utility->min('age'));
     }
 
     public function testMinOfEmptyBagReturnsNull(): void
     {
         $this->assertNull($this->utility([])->min());
     }
+
     public function testMinOfValues(): void
     {
         $this->assertSame(1, $this->utility([3, 1, 4, 1, 5])->min());
@@ -54,7 +55,7 @@ final class MinTest extends BaseBagSuite
 
     public function testMinWithFloats(): void
     {
-        $this->assertSame(0.1, $this->utility([3.5, 0.1, 2.7])->min());
+        $this->assertEqualsWithDelta(0.1, $this->utility([3.5, 0.1, 2.7])->min(), PHP_FLOAT_EPSILON);
     }
 
     public function testMinWithIdenticalValues(): void

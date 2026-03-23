@@ -12,6 +12,7 @@ final class FirstTest extends BaseBagSuite
     {
         $this->assertSame(42, $this->utility([42])->first());
     }
+
     public function testFirstReturnsDefaultWhenEmpty(): void
     {
         $this->assertNull($this->utility([])->first());
@@ -27,6 +28,7 @@ final class FirstTest extends BaseBagSuite
     {
         $this->assertFalse($this->utility([false, true, true])->first());
     }
+
     public function testFirstReturnsFirstItem(): void
     {
         $this->assertSame('Tor', $this->utility(['Tor', 'Fred', 'Chris'])->first());
@@ -44,31 +46,31 @@ final class FirstTest extends BaseBagSuite
 
     public function testFirstWithCallback(): void
     {
-        $bag = $this->utility([1, 2, 3, 4, 5]);
-        $this->assertSame(4, $bag->first(fn (int $value): bool => $value > 3));
+        $utility = $this->utility([1, 2, 3, 4, 5]);
+        $this->assertSame(4, $utility->first(fn (int $value): bool => $value > 3));
     }
 
     public function testFirstWithCallbackReceivesKey(): void
     {
-        $bag = $this->utility(['a' => 1, 'b' => 2, 'c' => 3]);
-        $this->assertSame(2, $bag->first(fn (int $value, string $key): bool => $key === 'b'));
+        $utility = $this->utility(['a' => 1, 'b' => 2, 'c' => 3]);
+        $this->assertSame(2, $utility->first(fn (int $value, string $key): bool => $key === 'b'));
     }
 
     public function testFirstWithCallbackReturnsDefaultWhenNoMatch(): void
     {
-        $bag = $this->utility([1, 2, 3]);
-        $this->assertSame('nope', $bag->first(fn (int $value): bool => $value > 10, 'nope'));
+        $utility = $this->utility([1, 2, 3]);
+        $this->assertSame('nope', $utility->first(fn (int $value): bool => $value > 10, 'nope'));
     }
 
     public function testFirstWithMixedTypes(): void
     {
-        $bag = $this->utility([null, false, 0, '', 'hello']);
-        $this->assertSame('hello', $bag->first(fn (mixed $value): bool => is_string($value) && $value !== ''));
+        $utility = $this->utility([null, false, 0, '', 'hello']);
+        $this->assertSame('hello', $utility->first(fn (mixed $value): bool => is_string($value) && $value !== ''));
     }
 
     public function testFirstWithNestedArrays(): void
     {
-        $bag = $this->utility([['a' => 1], ['b' => 2]]);
-        $this->assertSame(['a' => 1], $bag->first());
+        $utility = $this->utility([['a' => 1], ['b' => 2]]);
+        $this->assertSame(['a' => 1], $utility->first());
     }
 }

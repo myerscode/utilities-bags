@@ -39,6 +39,7 @@ final class GetTest extends BaseBagSuite
             'default-value',
         ];
     }
+
     public static function __utilityGetData(): Iterator
     {
         yield 'missing index returns null' => [

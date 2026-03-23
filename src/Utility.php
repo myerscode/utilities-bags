@@ -247,7 +247,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $groups = [];
 
         foreach ($this->bag as $key => $value) {
-            $groupKey = $callback($value, $key);
+            $groupKey = $callback($value, $key) ?? '';
             $groups[$groupKey][] = $value;
         }
 

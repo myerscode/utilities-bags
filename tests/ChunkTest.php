@@ -16,29 +16,30 @@ final class ChunkTest extends BaseBagSuite
 
     public function testChunkOfSizeOne(): void
     {
-        $bag = $this->utility([1, 2, 3]);
-        $chunks = $bag->chunk(1);
+        $utility = $this->utility([1, 2, 3]);
+        $chunks = $utility->chunk(1);
         $this->assertCount(3, $chunks);
     }
 
     public function testChunkPreservesAssociativeKeys(): void
     {
-        $bag = $this->utility(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
-        $chunks = $bag->chunk(2);
+        $utility = $this->utility(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
+        $chunks = $utility->chunk(2);
         $this->assertSame(['a' => 1, 'b' => 2], $chunks->get(0)->toArray());
         $this->assertSame(['c' => 3, 'd' => 4], $chunks->get(1)->toArray());
     }
 
     public function testChunkSingleElement(): void
     {
-        $chunks = $this->utility([42])->chunk(5);
-        $this->assertCount(1, $chunks);
-        $this->assertSame([0 => 42], $chunks->get(0)->toArray());
+        $utility = $this->utility([42])->chunk(5);
+        $this->assertCount(1, $utility);
+        $this->assertSame([0 => 42], $utility->get(0)->toArray());
     }
+
     public function testChunkSplitsBag(): void
     {
-        $bag = $this->utility([1, 2, 3, 4, 5]);
-        $chunks = $bag->chunk(2);
+        $utility = $this->utility([1, 2, 3, 4, 5]);
+        $chunks = $utility->chunk(2);
 
         $this->assertCount(3, $chunks);
         $this->assertInstanceOf(Utility::class, $chunks->get(0));
@@ -49,15 +50,15 @@ final class ChunkTest extends BaseBagSuite
 
     public function testChunkWithExactDivision(): void
     {
-        $bag = $this->utility([1, 2, 3, 4]);
-        $chunks = $bag->chunk(2);
+        $utility = $this->utility([1, 2, 3, 4]);
+        $chunks = $utility->chunk(2);
         $this->assertCount(2, $chunks);
     }
 
     public function testChunkWithMixedTypes(): void
     {
-        $bag = $this->utility([null, 'hello', 42, true]);
-        $chunks = $bag->chunk(2);
+        $utility = $this->utility([null, 'hello', 42, true]);
+        $chunks = $utility->chunk(2);
         $this->assertCount(2, $chunks);
         $this->assertSame([0 => null, 1 => 'hello'], $chunks->get(0)->toArray());
         $this->assertSame([2 => 42, 3 => true], $chunks->get(1)->toArray());
@@ -70,8 +71,8 @@ final class ChunkTest extends BaseBagSuite
 
     public function testChunkWithSizeLargerThanBag(): void
     {
-        $bag = $this->utility([1, 2]);
-        $chunks = $bag->chunk(10);
+        $utility = $this->utility([1, 2]);
+        $chunks = $utility->chunk(10);
         $this->assertCount(1, $chunks);
         $this->assertSame([0 => 1, 1 => 2], $chunks->get(0)->toArray());
     }

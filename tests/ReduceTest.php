@@ -10,13 +10,14 @@ final class ReduceTest extends BaseBagSuite
 {
     public function testReduceBuildsAssociativeArray(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['id' => 1, 'name' => 'Fred'],
             ['id' => 2, 'name' => 'Tor'],
         ]);
-        $result = $bag->reduce(fn (array $carry, array $item): array => $carry + [$item['id'] => $item['name']], []);
+        $result = $utility->reduce(fn (array $carry, array $item): array => $carry + [$item['id'] => $item['name']], []);
         $this->assertSame([1 => 'Fred', 2 => 'Tor'], $result);
     }
+
     public function testReduceConcatenatesStrings(): void
     {
         $result = $this->utility(['a', 'b', 'c'])->reduce(fn (string $carry, string $item): string => $carry . $item, '');
@@ -28,6 +29,7 @@ final class ReduceTest extends BaseBagSuite
         $result = $this->utility([])->reduce(fn (int $carry, int $item): int => $carry + $item, 42);
         $this->assertSame(42, $result);
     }
+
     public function testReduceSumsValues(): void
     {
         $result = $this->utility([1, 2, 3, 4, 5])->reduce(fn (int $carry, int $item): int => $carry + $item, 0);
@@ -36,15 +38,15 @@ final class ReduceTest extends BaseBagSuite
 
     public function testReduceWithMixedTypes(): void
     {
-        $bag = $this->utility(['a', 1, true, null]);
-        $result = $bag->reduce(fn (array $carry, mixed $item): array => [...$carry, gettype($item)], []);
+        $utility = $this->utility(['a', 1, true, null]);
+        $result = $utility->reduce(fn (array $carry, mixed $item): array => [...$carry, gettype($item)], []);
         $this->assertSame(['string', 'integer', 'boolean', 'NULL'], $result);
     }
 
     public function testReduceWithNestedArrays(): void
     {
-        $bag = $this->utility([[1, 2], [3, 4], [5]]);
-        $result = $bag->reduce(fn (array $carry, array $item): array => [...$carry, ...$item], []);
+        $utility = $this->utility([[1, 2], [3, 4], [5]]);
+        $result = $utility->reduce(fn (array $carry, array $item): array => [...$carry, ...$item], []);
         $this->assertSame([1, 2, 3, 4, 5], $result);
     }
 

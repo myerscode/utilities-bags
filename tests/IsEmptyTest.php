@@ -12,6 +12,7 @@ final class IsEmptyTest extends BaseBagSuite
     {
         $this->assertFalse($this->utility([1])->isEmpty());
     }
+
     public function testIsEmptyReturnsTrueForEmptyBag(): void
     {
         $this->assertTrue($this->utility([])->isEmpty());

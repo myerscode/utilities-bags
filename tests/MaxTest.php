@@ -10,38 +10,39 @@ final class MaxTest extends BaseBagSuite
 {
     public function testMaxByCallback(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['price' => 10],
             ['price' => 5],
             ['price' => 20],
         ]);
-        $this->assertSame(20, $bag->max(fn (array $item): int => $item['price']));
+        $this->assertSame(20, $utility->max(fn (array $item): int => $item['price']));
     }
 
     public function testMaxByKey(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['name' => 'Fred', 'age' => 30],
             ['name' => 'Tor', 'age' => 25],
             ['name' => 'Chris', 'age' => 35],
         ]);
-        $this->assertSame(35, $bag->max('age'));
+        $this->assertSame(35, $utility->max('age'));
     }
 
     public function testMaxByKeyWithMissingKey(): void
     {
-        $bag = $this->utility([
+        $utility = $this->utility([
             ['name' => 'Fred', 'age' => 30],
             ['name' => 'Tor'],
             ['name' => 'Chris', 'age' => 25],
         ]);
-        $this->assertSame(30, $bag->max('age'));
+        $this->assertSame(30, $utility->max('age'));
     }
 
     public function testMaxOfEmptyBagReturnsNull(): void
     {
         $this->assertNull($this->utility([])->max());
     }
+
     public function testMaxOfValues(): void
     {
         $this->assertSame(9, $this->utility([3, 1, 4, 1, 5, 9])->max());
@@ -54,7 +55,7 @@ final class MaxTest extends BaseBagSuite
 
     public function testMaxWithFloats(): void
     {
-        $this->assertSame(3.5, $this->utility([3.5, 0.1, 2.7])->max());
+        $this->assertEqualsWithDelta(3.5, $this->utility([3.5, 0.1, 2.7])->max(), PHP_FLOAT_EPSILON);
     }
 
     public function testMaxWithIdenticalValues(): void
