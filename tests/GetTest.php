@@ -79,6 +79,12 @@ final class GetTest extends BaseBagSuite
             'deep.nested.missing',
             'fallback',
         ];
+        yield 'literal dot key falls back via dotGet' => [
+            'fallback',
+            ['a.b' => 'value'],
+            'a.b',
+            'fallback',
+        ];
     }
 
     #[DataProvider('__dotGetData')]
