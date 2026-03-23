@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026.1.0](https://github.com/myerscode/utilities-bags/releases/tag/2026.1.0) - 2026-03-23
+
+### Changed
+- Modernise codebase with Rector (variable naming, newlines, float assertions, array_first)
+- Use PHP 8.5 `array_any`/`array_all` for contains methods
+- Use `array_is_list` in `isAssociative` check
+- Use `str_contains` instead of explode/count patterns
+- Simplify `push` with `array_push` spread
+- Fix null array offset deprecation in `groupBy`
+
+### Fixed
+- Resolve PHP deprecation for null array offset in `groupBy` method
+
+### Improved
+- Utility.php at 100% line and method coverage
+- Overall coverage at 99.62%
+
 ## [2026.0.0](https://github.com/myerscode/utilities-bags/releases/tag/2026.0.0) - 2026-03-20
 
 ### Changed
