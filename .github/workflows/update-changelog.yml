@@ -1,12 +1,10 @@
 name: Update Changelog
 
 on:
-  release:
-    types: [released]
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version to update changelog for'
+        description: 'Release version to regenerate changelog for'
         required: true
         type: string
 
@@ -25,27 +23,25 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Determine version
-        id: version
+      - name: Get previous tag
+        id: previous
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "tag=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "tag=${{ github.event.release.name }}" >> "$GITHUB_OUTPUT"
-          fi
+          PREVIOUS=$(git tag --sort=-v:refname | grep -E '^[0-9]{4}\.' | grep -v "^${{ github.event.inputs.version }}$" | head -1)
+          echo "tag=$PREVIOUS" >> "$GITHUB_OUTPUT"
 
       - name: Generate changelog
-        id: changelog
         uses: requarks/changelog-action@v1
         with:
           token: ${{ github.token }}
-          tag: ${{ steps.version.outputs.tag }}
-          excludeTypes: build,docs,other,style
+          fromTag: ${{ github.event.inputs.version }}
+          toTag: ${{ steps.previous.outputs.tag }}
+          excludeTypes: build,docs,other,style,ci,chore
           useGitmojis: false
+          writeToFile: true
 
       - name: Commit updated CHANGELOG
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
-          commit_message: "docs: update CHANGELOG for ${{ steps.version.outputs.tag }}"
+          commit_message: "docs: update CHANGELOG for ${{ github.event.inputs.version }}"
           file_pattern: CHANGELOG.md
