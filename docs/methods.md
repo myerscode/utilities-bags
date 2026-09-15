@@ -7,23 +7,23 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
-| [chunk](#chunkint-size-utility) | [isAssociative](#isassociative-bool) | [offsetExists](#offsetexistsoffset-bool) | [skip](#skipint-count-utility) |
-| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [slice](#sliceint-offset-int-length--null-utility) |
-| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [some](#somecallable-callback-bool) |
-| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetUnset](#offsetunsetoffset-void) | [sort](#sortcallable-callback--null-utility) |
-| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [partition](#partitioncallable-callback-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [take](#takeint-limit-utility) |
-| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toArray](#toarray-array) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [exists](#existsstringint-index-bool) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [toObject](#toobject-object) |
-| [filter](#filter) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [unique](#uniquecallable-callback--null-utility) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [value](#value) |
+| [add](#addindex-value-utility) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [removeEmpty](#removeempty-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [chunk](#chunkint-size-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
+| [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [offsetExists](#offsetexistsoffset-bool) | [skip](#skipint-count-utility) |
+| [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [slice](#sliceint-offset-int-length--null-utility) |
+| [containsAny](#containsanyneedles-bool) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [some](#somecallable-callback-bool) |
+| [count](#count-int) | [isMultiDimensional](#ismultidimensional-bool) | [offsetUnset](#offsetunsetoffset-void) | [sort](#sortcallable-callback--null-utility) |
+| [each](#eachcallable-eachcallable-utility) | [isNotEmpty](#isnotempty-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [isSequential](#issequential-bool) | [partition](#partitioncallable-callback-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [every](#everycallable-callback-bool) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [take](#takeint-limit-utility) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toArray](#toarray-array) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [toObject](#toobject-object) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [unique](#uniquecallable-callback--null-utility) |
+| [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [value](#value) |
 | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) | [values](#values) |
-| [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [removeEmpty](#removeempty-utility) |  |
 
 ---
 
@@ -265,6 +265,22 @@ $bag->first(fn ($value) => $value > 3);
 
 $bag->first(fn ($value) => $value > 10, 'fallback');
 // 'fallback'
+```
+
+### flatMap(callable $callback): Utility
+> Returns `Utility`
+
+Map each value with the callback then flatten the result by one level. The callback receives the value and key. Array results are merged into the output; other results are kept as single values.
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->flatMap(fn ($value) => [$value, $value * 10])->toArray();
+// [1, 10, 2, 20, 3, 30]
+
+$bag = new Utility(['a' => 1, 'b' => 2]);
+
+$bag->flatMap(fn ($value, $key) => [$key, $value])->toArray();
+// ['a', 1, 'b', 2]
 ```
 
 ### flatten(string $separator = '.')

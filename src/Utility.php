@@ -229,6 +229,29 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Map each value with the callback then flatten the result by one level
+     * The callback receives the value and key
+     */
+    public function flatMap(callable $callback): Utility
+    {
+        $result = [];
+
+        foreach ($this->bag as $key => $value) {
+            $mapped = $callback($value, $key);
+
+            if (is_array($mapped)) {
+                foreach ($mapped as $item) {
+                    $result[] = $item;
+                }
+            } else {
+                $result[] = $mapped;
+            }
+        }
+
+        return new static($result);
+    }
+
+    /**
      * Flatten a multidimensional array
      */
     public function flatten(string $separator = '.'): Utility
