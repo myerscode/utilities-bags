@@ -384,6 +384,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return a new bag with only the values that are also present in the given bag
+     * Keys are preserved
+     */
+    public function intersect(array|Utility $bag): Utility
+    {
+        return new static(array_intersect($this->bag, $this->transformToBag($bag)));
+    }
+
+    /**
      * Is the bag holding associative data
      * key=value opposed to 123=value
      */
