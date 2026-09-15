@@ -406,6 +406,28 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Re-index the bag by a given key or callback
+     * When two items resolve to the same key, the last one wins
+     */
+    public function keyBy(string|callable $keyOrCallback): Utility
+    {
+        if (is_string($keyOrCallback)) {
+            $key = $keyOrCallback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        } else {
+            $callback = $keyOrCallback;
+        }
+
+        $result = [];
+
+        foreach ($this->bag as $key => $value) {
+            $result[$callback($value, $key)] = $value;
+        }
+
+        return new static($result);
+    }
+
+    /**
      * Return array of root keys from the bag
      */
     public function keys(): array
