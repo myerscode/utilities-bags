@@ -129,6 +129,31 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Count the occurrences of values in the bag, grouped by a key or callback
+     * With no argument, the values themselves are counted
+     */
+    public function countBy(string|callable|null $keyOrCallback = null): Utility
+    {
+        if ($keyOrCallback === null) {
+            $callback = fn (mixed $value): mixed => $value;
+        } elseif (is_string($keyOrCallback)) {
+            $key = $keyOrCallback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        } else {
+            $callback = $keyOrCallback;
+        }
+
+        $counts = [];
+
+        foreach ($this->bag as $key => $value) {
+            $group = $callback($value, $key);
+            $counts[$group] = ($counts[$group] ?? 0) + 1;
+        }
+
+        return new static($counts);
+    }
+
+    /**
      * Pass each value in the bag to a closure so an action can be performed on it
      */
     public function each(callable $eachCallable): Utility
