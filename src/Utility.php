@@ -553,6 +553,27 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Split the bag into two bags: values for which the callback returns true, and those for which it returns false
+     * Returns a bag containing the matching bag followed by the non-matching bag
+     * Keys are preserved within each bag
+     */
+    public function partition(callable $callback): Utility
+    {
+        $passed = [];
+        $failed = [];
+
+        foreach ($this->bag as $key => $value) {
+            if ($callback($value, $key)) {
+                $passed[$key] = $value;
+            } else {
+                $failed[$key] = $value;
+            }
+        }
+
+        return new static([new static($passed), new static($failed)]);
+    }
+
+    /**
      * Pass the bag to a callback and return the result
      */
     public function pipe(callable $callback): mixed
