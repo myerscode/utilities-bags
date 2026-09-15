@@ -155,6 +155,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Check that every value in the bag satisfies the callback
+     * An empty bag returns true
+     */
+    public function every(callable $callback): bool
+    {
+        return array_all($this->bag, $callback);
+    }
+
+    /**
      * Return a new bag with all keys except the given ones
      */
     public function except(array|Utility $exceptKeys): Utility
