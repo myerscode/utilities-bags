@@ -11,17 +11,17 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [average](#averagestringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
 | [avg](#avgstringcallablenull-callback--null-intfloatnull) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
 | [chunk](#chunkint-size-utility) | [isAssociative](#isassociative-bool) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
-| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [sort](#sortcallable-callback--null-utility) |
-| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [keys](#keys-array) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [exists](#existsstringint-index-bool) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
-| [filter](#filter) | [make](#makebag-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
+| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [some](#somecallable-callback-bool) |
+| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
+| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetUnset](#offsetunsetoffset-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [take](#takeint-limit-utility) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toArray](#toarray-array) |
+| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [keys](#keys-array) | [push](#pushvalues-utility) | [toObject](#toobject-object) |
+| [exists](#existsstringint-index-bool) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [unique](#uniquecallable-callback--null-utility) |
+| [filter](#filter) | [make](#makebag-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [value](#value) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) | [values](#values) |
 | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |  |
 | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |  |
 
@@ -796,6 +796,20 @@ $bag->slice(1, 2)->toArray();
 
 $bag->slice(-2)->toArray();
 // [3 => 4, 4 => 5]
+```
+
+### some(callable $callback): bool
+> Returns `bool`
+
+Check that at least one value in the bag satisfies the callback. The callback receives the value and key. An empty bag returns `false`.
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->some(fn ($value) => $value === 2);
+// true
+
+$bag->some(fn ($value) => $value > 5);
+// false
 ```
 
 ### sort(?callable $callback = null): Utility

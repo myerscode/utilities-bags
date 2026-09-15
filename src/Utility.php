@@ -726,6 +726,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Check that at least one value in the bag satisfies the callback
+     * An empty bag returns false
+     */
+    public function some(callable $callback): bool
+    {
+        return array_any($this->bag, $callback);
+    }
+
+    /**
      * Sort the bag values, optionally with a custom comparison callback
      */
     public function sort(?callable $callback = null): Utility
