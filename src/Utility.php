@@ -697,6 +697,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Skip the given number of items from the start of the bag
+     * A negative count keeps only that many items from the end
+     * Keys are preserved
+     */
+    public function skip(int $count): Utility
+    {
+        return $this->slice($count);
+    }
+
+    /**
      * Return a slice of the bag, starting at the given offset
      * A negative offset starts the slice that far from the end of the bag
      * Keys are preserved

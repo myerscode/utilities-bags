@@ -11,18 +11,18 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [average](#averagestringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
 | [avg](#avgstringcallablenull-callback--null-intfloatnull) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
 | [chunk](#chunkint-size-utility) | [isAssociative](#isassociative-bool) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
-| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
-| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetGet](#offsetgetoffset-mixed) | [sort](#sortcallable-callback--null-utility) |
-| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
-| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
-| [flatten](#flattenstring-separator---) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
-| [flip](#flip-utility) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
+| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetExists](#offsetexistsoffset-bool) | [skip](#skipint-count-utility) |
+| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetGet](#offsetgetoffset-mixed) | [slice](#sliceint-offset-int-length--null-utility) |
+| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
+| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [offsetUnset](#offsetunsetoffset-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [take](#takeint-limit-utility) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toArray](#toarray-array) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [toObject](#toobject-object) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [unique](#uniquecallable-callback--null-utility) |
+| [flatten](#flattenstring-separator---) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [value](#value) |
+| [flip](#flip-utility) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) | [values](#values) |
 
 ---
 
@@ -750,6 +750,20 @@ $bag->set(1, 'Chris');
 
 $bag->set('foo', 'Chris');
 // ['Tor', 'Fred', 'foo' => 'Chris']
+```
+
+### skip(int $count): Utility
+> Returns `Utility`
+
+Skip the given number of items from the start of the bag. A negative count keeps only that many items from the end. Keys are preserved.
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->skip(2)->toArray();
+// [2 => 3, 3 => 4, 4 => 5]
+
+$bag->skip(-2)->toArray();
+// [3 => 4, 4 => 5]
 ```
 
 ### slice(int $offset, ?int $length = null): Utility
