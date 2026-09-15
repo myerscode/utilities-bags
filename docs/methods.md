@@ -7,10 +7,11 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
-| [chunk](#chunkint-size-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
+| [add](#addindex-value-utility) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [chunk](#chunkint-size-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
+| [collapse](#collapse-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
 | [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
 | [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [some](#somecallable-callback-bool) |
 | [containsAny](#containsanyneedles-bool) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
@@ -24,7 +25,6 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
 | [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
 | [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
-| [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |  |
 
 ---
 
@@ -91,6 +91,17 @@ $bag = new Utility([1, 2, 3, 4, 5]);
 
 $bag->chunk(2);
 // [Utility([1, 2]), Utility([3, 4]), Utility([5])]
+```
+
+### collapse(): Utility
+> Returns `Utility`
+
+Collapse a bag of arrays or bags into a single bag, one level deep. Values that are not arrays or bags are kept as-is.
+```php
+$bag = new Utility([[1, 2], [3, 4], [5]]);
+
+$bag->collapse()->toArray();
+// [1, 2, 3, 4, 5]
 ```
 
 ### contains($needles): bool

@@ -93,6 +93,31 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Collapse a bag of arrays or bags into a single bag, one level deep
+     * Values that are not arrays or bags are kept as-is
+     */
+    public function collapse(): Utility
+    {
+        $result = [];
+
+        foreach ($this->bag as $value) {
+            if ($value instanceof self) {
+                $value = $value->toArray();
+            }
+
+            if (is_array($value)) {
+                foreach ($value as $item) {
+                    $result[] = $item;
+                }
+            } else {
+                $result[] = $value;
+            }
+        }
+
+        return new static($result);
+    }
+
+    /**
      * @see containsAny
      */
     public function contains(mixed $needles): bool
