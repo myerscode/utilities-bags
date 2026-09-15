@@ -206,6 +206,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Swap the keys and values of the bag
+     */
+    public function flip(): Utility
+    {
+        return new static(array_flip($this->bag));
+    }
+
+    /**
      * Get a value from a given index or return a default value
      */
     public function get(int|string $index, mixed $default = null): mixed

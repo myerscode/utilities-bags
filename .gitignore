@@ -3,3 +3,4 @@ composer.lock
 coverage
 coverage.xml
 .phpunit.cache
+.build
