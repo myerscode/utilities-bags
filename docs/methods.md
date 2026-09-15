@@ -7,7 +7,9 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [getIterator](#getiterator-arrayiterator) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
+| [add](#addindex-value-utility) | [flip](#flip-utility) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
 | [chunk](#chunkint-size-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
 | [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
 | [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [min](#minstringcallablenull-callback--null-mixed) | [sort](#sortcallable-callback--null-utility) |
@@ -20,8 +22,6 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [filter](#filter) | [keys](#keys-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [value](#value) |
 | [first](#firstcallable-callback--null-mixed-default--null-mixed) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [values](#values) |
 | [flatten](#flattenstring-separator---) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) |  |
-| [flip](#flip-utility) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
-| [get](#getindex-default--null) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |  |
 
 ---
 
@@ -38,6 +38,45 @@ $bag->add(3, 'Chris')->value();
 
 $bag->add(0, 'Chris')->value();
 // ['Tor', 'Fred'] — index 0 already exists, so it's unchanged
+```
+
+### average(string|callable|null $callback = null): int|float|null
+> Returns `int|float|null`
+
+Alias of [avg](#avgstringcallablenull-callback--null-intfloatnull)
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->average();
+// 2
+```
+
+### avg(string|callable|null $callback = null): int|float|null
+> Returns `int|float|null`
+
+Get the average of the values in the bag. Optionally pass a key or callback to average a column of a multidimensional bag. Returns `null` for an empty bag. Like PHP division, a whole result is returned as an `int` and a fractional result as a `float`.
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->avg();
+// 2
+
+$bag = new Utility([1, 2, 3, 4]);
+
+$bag->avg();
+// 2.5
+
+$bag = new Utility([
+    ['score' => 10],
+    ['score' => 20],
+    ['score' => 60],
+]);
+
+$bag->avg('score');
+// 30
+
+$bag->avg(fn ($item) => $item['score']);
+// 30
 ```
 
 ### chunk(int $size): Utility

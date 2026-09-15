@@ -45,6 +45,39 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Get the average of the values in the bag, optionally by key or callback
+     *
+     * @see avg
+     */
+    public function average(string|callable|null $callback = null): int|float|null
+    {
+        return $this->avg($callback);
+    }
+
+    /**
+     * Get the average of the values in the bag, optionally by key or callback
+     */
+    public function avg(string|callable|null $callback = null): int|float|null
+    {
+        if ($this->bag === []) {
+            return null;
+        }
+
+        if ($callback === null) {
+            return array_sum($this->bag) / count($this->bag);
+        }
+
+        if (is_string($callback)) {
+            $key = $callback;
+            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
+        }
+
+        $values = array_map($callback, $this->bag);
+
+        return array_sum($values) / count($values);
+    }
+
+    /**
      * Split the bag into chunks of the given size
      */
     public function chunk(int $size): Utility
