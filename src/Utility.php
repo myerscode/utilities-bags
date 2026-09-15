@@ -764,6 +764,20 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Take the first given number of items from the bag
+     * A negative limit takes that many items from the end
+     * Keys are preserved
+     */
+    public function take(int $limit): Utility
+    {
+        if ($limit < 0) {
+            return $this->slice($limit);
+        }
+
+        return $this->slice(0, $limit);
+    }
+
+    /**
      * Get the bag as an array
      */
     public function toArray(): array

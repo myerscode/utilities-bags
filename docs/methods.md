@@ -15,13 +15,13 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetGet](#offsetgetoffset-mixed) | [sort](#sortcallable-callback--null-utility) |
 | [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
 | [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [toArray](#toarray-array) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toObject](#toobject-object) |
-| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [value](#value) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [values](#values) |
-| [flatten](#flattenstring-separator---) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) |  |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
+| [flatten](#flattenstring-separator---) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
 | [flip](#flip-utility) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
 
 ---
@@ -818,6 +818,20 @@ $bag = new Utility([
 
 $bag->sum('score');
 // 30
+```
+
+### take(int $limit): Utility
+> Returns `Utility`
+
+Take the first given number of items from the bag. A negative limit takes that many items from the end. Keys are preserved.
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->take(3)->toArray();
+// [1, 2, 3]
+
+$bag->take(-2)->toArray();
+// [3 => 4, 4 => 5]
 ```
 
 ### toArray(): array
