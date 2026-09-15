@@ -7,21 +7,21 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [flip](#flip-utility) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
-| [chunk](#chunkint-size-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
-| [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
-| [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [min](#minstringcallablenull-callback--null-mixed) | [sort](#sortcallable-callback--null-utility) |
-| [containsAny](#containsanyneedles-bool) | [isIndexed](#isindexed-bool) | [offsetExists](#offsetexistsoffset-bool) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [count](#count-int) | [isMultiDimensional](#ismultidimensional-bool) | [offsetGet](#offsetgetoffset-mixed) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [each](#eachcallable-eachcallable-utility) | [isNotEmpty](#isnotempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [toArray](#toarray-array) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [isSequential](#issequential-bool) | [offsetUnset](#offsetunsetoffset-void) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [only](#onlyarrayutility-onlykeys-utility) | [toObject](#toobject-object) |
-| [exists](#existsstringint-index-bool) | [jsonSerialize](#jsonserialize-array) | [pipe](#pipecallable-callback-mixed) | [unique](#uniquecallable-callback--null-utility) |
-| [filter](#filter) | [keys](#keys-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [value](#value) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [values](#values) |
-| [flatten](#flattenstring-separator---) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) |  |
+| [add](#addindex-value-utility) | [flip](#flip-utility) | [map](#mapcallable-mapper-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [max](#maxstringcallablenull-callback--null-mixed) | [removeEmpty](#removeempty-utility) |
+| [chunk](#chunkint-size-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
+| [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
+| [containsAny](#containsanyneedles-bool) | [isIndexed](#isindexed-bool) | [offsetExists](#offsetexistsoffset-bool) | [sort](#sortcallable-callback--null-utility) |
+| [count](#count-int) | [isMultiDimensional](#ismultidimensional-bool) | [offsetGet](#offsetgetoffset-mixed) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [each](#eachcallable-eachcallable-utility) | [isNotEmpty](#isnotempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [isSequential](#issequential-bool) | [offsetUnset](#offsetunsetoffset-void) | [toArray](#toarray-array) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [only](#onlyarrayutility-onlykeys-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [exists](#existsstringint-index-bool) | [jsonSerialize](#jsonserialize-array) | [pipe](#pipecallable-callback-mixed) | [toObject](#toobject-object) |
+| [filter](#filter) | [keys](#keys-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [unique](#uniquecallable-callback--null-utility) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [prepend](#prependvalue-key--null-utility) | [value](#value) |
+| [flatten](#flattenstring-separator---) | [make](#makebag-utility) | [push](#pushvalues-utility) | [values](#values) |
 
 ---
 
@@ -621,6 +621,22 @@ $bag->pluck('name');
 
 $bag->pluck('name', 'id');
 // [1 => 'Fred', 2 => 'Tor']
+```
+
+### prepend($value, $key = null): Utility
+> Returns `Utility`
+
+Add a value onto the beginning of the bag. Optionally supply a key to prepend under; a provided key that already exists is moved to the front with the new value.
+```php
+$bag = new Utility(['Fred', 'Chris']);
+
+$bag->prepend('Tor')->toArray();
+// ['Tor', 'Fred', 'Chris']
+
+$bag = new Utility(['b' => 2, 'c' => 3]);
+
+$bag->prepend(1, 'a')->toArray();
+// ['a' => 1, 'b' => 2, 'c' => 3]
 ```
 
 ### push(...$values): Utility

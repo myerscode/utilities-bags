@@ -573,6 +573,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Add a value onto the beginning of the bag, optionally with a key
+     */
+    public function prepend(mixed $value, int|string|null $key = null): Utility
+    {
+        if ($key === null) {
+            return new static([$value, ...array_values($this->bag)]);
+        }
+
+        return new static([$key => $value] + $this->bag);
+    }
+
+    /**
      * Push a value onto the end of the bag
      */
     public function push(mixed ...$values): Utility
