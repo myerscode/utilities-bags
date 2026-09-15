@@ -11,16 +11,16 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [average](#averagestringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
 | [avg](#avgstringcallablenull-callback--null-intfloatnull) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
 | [chunk](#chunkint-size-utility) | [isAssociative](#isassociative-bool) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
-| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetExists](#offsetexistsoffset-bool) | [sort](#sortcallable-callback--null-utility) |
-| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetGet](#offsetgetoffset-mixed) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetSet](#offsetsetoffset-value-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [offsetUnset](#offsetunsetoffset-void) | [toArray](#toarray-array) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toObject](#toobject-object) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [value](#value) |
-| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [values](#values) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) |  |
+| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
+| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetGet](#offsetgetoffset-mixed) | [sort](#sortcallable-callback--null-utility) |
+| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [toArray](#toarray-array) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toObject](#toobject-object) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [unique](#uniquecallable-callback--null-utility) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [value](#value) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [values](#values) |
 | [flatten](#flattenstring-separator---) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) |  |
 | [flip](#flip-utility) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
 
@@ -750,6 +750,23 @@ $bag->set(1, 'Chris');
 
 $bag->set('foo', 'Chris');
 // ['Tor', 'Fred', 'foo' => 'Chris']
+```
+
+### slice(int $offset, ?int $length = null): Utility
+> Returns `Utility`
+
+Return a slice of the bag starting at the given offset. A negative offset starts the slice that far from the end; a negative length stops the slice that far from the end. Keys are preserved.
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->slice(2)->toArray();
+// [2 => 3, 3 => 4, 4 => 5]
+
+$bag->slice(1, 2)->toArray();
+// [1 => 2, 2 => 3]
+
+$bag->slice(-2)->toArray();
+// [3 => 4, 4 => 5]
 ```
 
 ### sort(?callable $callback = null): Utility

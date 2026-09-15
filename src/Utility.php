@@ -697,6 +697,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return a slice of the bag, starting at the given offset
+     * A negative offset starts the slice that far from the end of the bag
+     * Keys are preserved
+     */
+    public function slice(int $offset, ?int $length = null): Utility
+    {
+        return new static(array_slice($this->bag, $offset, $length, true));
+    }
+
+    /**
      * Sort the bag values, optionally with a custom comparison callback
      */
     public function sort(?callable $callback = null): Utility
