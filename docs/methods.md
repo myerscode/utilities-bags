@@ -7,16 +7,17 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
-| [chunk](#chunkint-size-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
-| [collapse](#collapse-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
-| [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
-| [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [some](#somecallable-callback-bool) |
-| [containsAny](#containsanyneedles-bool) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
-| [count](#count-int) | [isMultiDimensional](#ismultidimensional-bool) | [offsetUnset](#offsetunsetoffset-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isNotEmpty](#isnotempty-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [add](#addindex-value-utility) | [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [removeEmpty](#removeempty-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
+| [chunk](#chunkint-size-utility) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [collapse](#collapse-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
+| [contains](#containsneedles-bool) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
+| [containsAll](#containsallneedles-bool) | [isAssociative](#isassociative-bool) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
+| [containsAny](#containsanyneedles-bool) | [isEmpty](#isempty-bool) | [offsetGet](#offsetgetoffset-mixed) | [some](#somecallable-callback-bool) |
+| [count](#count-int) | [isIndexed](#isindexed-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
+| [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [offsetUnset](#offsetunsetoffset-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
 | [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [partition](#partitioncallable-callback-utility) | [take](#takeint-limit-utility) |
 | [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
 | [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
@@ -24,7 +25,6 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [exists](#existsstringint-index-bool) | [keys](#keys-array) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
 | [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
 | [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
-| [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
 
 ---
 
@@ -177,6 +177,17 @@ $bag = new Utility([1, 2, 3, 4]);
 
 $bag->countBy(fn ($value) => $value % 2 === 0 ? 'even' : 'odd')->toArray();
 // ['odd' => 2, 'even' => 2]
+```
+
+### diff(array|Utility $bag): Utility
+> Returns `Utility`
+
+Return a new bag with the values that are not present in the given array or bag. Keys are preserved.
+```php
+$bag = new Utility([1, 2, 3, 4, 5]);
+
+$bag->diff([2, 4])->toArray();
+// [0 => 1, 2 => 3, 4 => 5]
 ```
 
 ### each(callable $eachCallable): Utility

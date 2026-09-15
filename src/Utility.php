@@ -179,6 +179,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Return a new bag with the values that are not present in the given bag
+     * Keys are preserved
+     */
+    public function diff(array|Utility $bag): Utility
+    {
+        return new static(array_diff($this->bag, $this->transformToBag($bag)));
+    }
+
+    /**
      * Pass each value in the bag to a closure so an action can be performed on it
      */
     public function each(callable $eachCallable): Utility
