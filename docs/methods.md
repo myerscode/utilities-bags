@@ -17,13 +17,13 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [containsAny](#containsanyneedles-bool) | [isEmpty](#isempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
 | [count](#count-int) | [isIndexed](#isindexed-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
 | [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
-| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [toArray](#toarray-array) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toObject](#toobject-object) |
-| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [value](#value) |
-| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [values](#values) |
-| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) |  |
+| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [tap](#tapcallable-callback-utility) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
 | [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [remove](#removestringint-index-utility) |  |
 | [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [removeEmpty](#removeempty-utility) |  |
 
@@ -975,6 +975,18 @@ $bag->take(3)->toArray();
 
 $bag->take(-2)->toArray();
 // [3 => 4, 4 => 5]
+```
+
+### tap(callable $callback): Utility
+> Returns `Utility`
+
+Pass the bag to a callback for a side effect and return the same bag, letting you tap into a chain without changing it. The callback's return value is ignored.
+```php
+$bag = new Utility([1, 2, 3]);
+
+$bag->tap(fn ($bag) => logger($bag->count()))
+    ->map(fn ($value) => $value * 2);
+// logs 3, then continues the chain with [2, 4, 6]
 ```
 
 ### toArray(): array

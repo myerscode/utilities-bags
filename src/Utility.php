@@ -940,6 +940,17 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Pass the bag to a callback for a side effect and return the same bag
+     * Useful for tapping into a chain without changing the bag
+     */
+    public function tap(callable $callback): Utility
+    {
+        $callback($this);
+
+        return $this;
+    }
+
+    /**
      * Get the bag as an array
      */
     public function toArray(): array
