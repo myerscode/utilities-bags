@@ -604,6 +604,31 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Filter the bag, keeping only the values for which the callback returns false
+     * The inverse of filter
+     */
+    public function reject(callable $callback, int $mode = ARRAY_FILTER_USE_BOTH): Utility
+    {
+        if ($mode === ARRAY_FILTER_USE_KEY) {
+            return new static(array_filter(
+                $this->bag,
+                fn (int|string $key): bool => ! $callback($key),
+                ARRAY_FILTER_USE_KEY
+            ));
+        }
+
+        if ($mode === ARRAY_FILTER_USE_BOTH) {
+            return new static(array_filter(
+                $this->bag,
+                fn (mixed $value, int|string $key): bool => ! $callback($value, $key),
+                ARRAY_FILTER_USE_BOTH
+            ));
+        }
+
+        return new static(array_filter($this->bag, fn (mixed $value): bool => ! $callback($value)));
+    }
+
+    /**
      * Remove a value from the bag via its index
      */
     public function remove(string|int $index): Utility

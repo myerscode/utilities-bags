@@ -7,21 +7,22 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [flip](#flip-utility) | [map](#mapcallable-mapper-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [max](#maxstringcallablenull-callback--null-mixed) | [removeEmpty](#removeempty-utility) |
-| [chunk](#chunkint-size-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
-| [contains](#containsneedles-bool) | [isAssociative](#isassociative-bool) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
-| [containsAll](#containsallneedles-bool) | [isEmpty](#isempty-bool) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
-| [containsAny](#containsanyneedles-bool) | [isIndexed](#isindexed-bool) | [offsetExists](#offsetexistsoffset-bool) | [sort](#sortcallable-callback--null-utility) |
-| [count](#count-int) | [isMultiDimensional](#ismultidimensional-bool) | [offsetGet](#offsetgetoffset-mixed) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [each](#eachcallable-eachcallable-utility) | [isNotEmpty](#isnotempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [isSequential](#issequential-bool) | [offsetUnset](#offsetunsetoffset-void) | [toArray](#toarray-array) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [only](#onlyarrayutility-onlykeys-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [exists](#existsstringint-index-bool) | [jsonSerialize](#jsonserialize-array) | [pipe](#pipecallable-callback-mixed) | [toObject](#toobject-object) |
-| [filter](#filter) | [keys](#keys-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [prepend](#prependvalue-key--null-utility) | [value](#value) |
-| [flatten](#flattenstring-separator---) | [make](#makebag-utility) | [push](#pushvalues-utility) | [values](#values) |
+| [add](#addindex-value-utility) | [get](#getindex-default--null) | [max](#maxstringcallablenull-callback--null-mixed) | [removeEmpty](#removeempty-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [getIterator](#getiterator-arrayiterator) | [merge](#mergebag-utility) | [resetIndex](#resetindex-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [mergeRecursively](#mergerecursivelybag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [chunk](#chunkint-size-utility) | [isAssociative](#isassociative-bool) | [min](#minstringcallablenull-callback--null-mixed) | [set](#setstringint-index-mixed-value-utility) |
+| [contains](#containsneedles-bool) | [isEmpty](#isempty-bool) | [offsetExists](#offsetexistsoffset-bool) | [sort](#sortcallable-callback--null-utility) |
+| [containsAll](#containsallneedles-bool) | [isIndexed](#isindexed-bool) | [offsetGet](#offsetgetoffset-mixed) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [containsAny](#containsanyneedles-bool) | [isMultiDimensional](#ismultidimensional-bool) | [offsetSet](#offsetsetoffset-value-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [count](#count-int) | [isNotEmpty](#isnotempty-bool) | [offsetUnset](#offsetunsetoffset-void) | [toArray](#toarray-array) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [only](#onlyarrayutility-onlykeys-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pipe](#pipecallable-callback-mixed) | [toObject](#toobject-object) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [jsonSerialize](#jsonserialize-array) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [unique](#uniquecallable-callback--null-utility) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [prepend](#prependvalue-key--null-utility) | [value](#value) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [push](#pushvalues-utility) | [values](#values) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) |  |
+| [flatten](#flattenstring-separator---) | [map](#mapcallable-mapper-utility) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) |  |
+| [flip](#flip-utility) | [mapKeys](#mapkeyscallable-mapper-utility) | [remove](#removestringint-index-utility) |  |
 
 ---
 
@@ -667,6 +668,22 @@ $bag = new Utility(['a', 'b', 'c']);
 
 $bag->reduce(fn ($carry, $item) => $carry . $item, '');
 // 'abc'
+```
+
+### reject(callable $callback, int $mode = ARRAY_FILTER_USE_BOTH): Utility
+> Returns `Utility`
+
+The inverse of [filter](#filter). Keep only the values for which the callback returns a falsey value. Like `filter`, the `$mode` controls what the callback receives (`ARRAY_FILTER_USE_BOTH` passes value and key, `ARRAY_FILTER_USE_KEY` passes only the key, `0` passes only the value).
+```php
+$bag = new Utility([1, 2, 3, 4, 5, 6]);
+
+$bag->reject(fn ($value) => $value % 2 === 0)->toArray();
+// [0 => 1, 2 => 3, 4 => 5]
+
+$bag = new Utility(['keep' => 1, 'drop' => 2]);
+
+$bag->reject(fn ($key) => $key === 'drop', ARRAY_FILTER_USE_KEY)->toArray();
+// ['keep' => 1]
 ```
 
 ### remove(string|int $index): Utility
