@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [2026.0.1] - 2026-10-31
+### New Features
+- [`c38b4d2`](https://github.com/myerscode/utilities-bags/commit/c38b4d2899589353e403e0b131b6dde33456adc7) - add flip method to swap keys and values *(commit by [@oniice](https://github.com/oniice))*
+- [`2df1e01`](https://github.com/myerscode/utilities-bags/commit/2df1e01e16df2158f7f1775b46ac8d659ddc47ee) - add avg and average methods for averaging bag values *(commit by [@oniice](https://github.com/oniice))*
+- [`1829d0b`](https://github.com/myerscode/utilities-bags/commit/1829d0b1c96644312e1cf1da77d0a29358e6cf8f) - add prepend method to add a value to the front of the bag *(commit by [@oniice](https://github.com/oniice))*
+- [`b43041a`](https://github.com/myerscode/utilities-bags/commit/b43041ab3dc7fee1ecd0035e89e22186583eefaf) - add reject method as the inverse of filter *(commit by [@oniice](https://github.com/oniice))*
+- [`9a1de93`](https://github.com/myerscode/utilities-bags/commit/9a1de93caf27077a9e37b280ab2d1ac31fc96428) - add slice method to return a sub-range of the bag *(commit by [@oniice](https://github.com/oniice))*
+- [`5c7aa60`](https://github.com/myerscode/utilities-bags/commit/5c7aa600af4671e0c111b31e6bd7a6a2bb1b0127) - add take method to take the first or last N items *(commit by [@oniice](https://github.com/oniice))*
+- [`b410676`](https://github.com/myerscode/utilities-bags/commit/b410676489297731e65248a86085b3a075acfaf5) - add skip method to drop items from the start of the bag *(commit by [@oniice](https://github.com/oniice))*
+- [`d886d48`](https://github.com/myerscode/utilities-bags/commit/d886d48e96305a33bbf536ccb4baca9c41d37d65) - add every method to test all values against a predicate *(commit by [@oniice](https://github.com/oniice))*
+- [`71f34ee`](https://github.com/myerscode/utilities-bags/commit/71f34eeecb5ef2c24162654f6292974c8f18e74e) - add some method to test any value against a predicate *(commit by [@oniice](https://github.com/oniice))*
+- [`9b25271`](https://github.com/myerscode/utilities-bags/commit/9b2527143ae64ace96be64ab240e8aaa118251cd) - add partition method to split the bag by a predicate *(commit by [@oniice](https://github.com/oniice))*
+- [`f425fee`](https://github.com/myerscode/utilities-bags/commit/f425fee12790a5c036f189c17bffac89b5a2bb85) - add flatMap method to map and flatten one level *(commit by [@oniice](https://github.com/oniice))*
+- [`9d83bc3`](https://github.com/myerscode/utilities-bags/commit/9d83bc344b55ab715a16f75e00fb5f996c9be611) - add keyBy method to re-index the bag by key or callback *(commit by [@oniice](https://github.com/oniice))*
+- [`270a8dc`](https://github.com/myerscode/utilities-bags/commit/270a8dc051b78cdad0e2f4cad9345d2ef6571431) - add countBy method to count occurrences by key or callback *(commit by [@oniice](https://github.com/oniice))*
+- [`47c44f5`](https://github.com/myerscode/utilities-bags/commit/47c44f5a2a8afa09a693f1ff0dec679a02d16d08) - add collapse method to flatten a bag of arrays or bags *(commit by [@oniice](https://github.com/oniice))*
+- [`0028fd4`](https://github.com/myerscode/utilities-bags/commit/0028fd4b210398cbb64b6ccc3d60fa5388fcdb4a) - add diff method to find values not present in another bag *(commit by [@oniice](https://github.com/oniice))*
+- [`82a6e88`](https://github.com/myerscode/utilities-bags/commit/82a6e88b7f4c9466e3353a9f82a7a28e30b88a76) - add intersect method to find values present in another bag *(commit by [@oniice](https://github.com/oniice))*
+- [`938debd`](https://github.com/myerscode/utilities-bags/commit/938debdf512ae9e9557fed243f0317431e2fd908) - add tap method to run a side effect and continue the chain *(commit by [@oniice](https://github.com/oniice))*
+- [`d93e77d`](https://github.com/myerscode/utilities-bags/commit/d93e77df49d0c7d0bd71cdd457585f73b8a9bdcd) - **ci**: add shared dependabot auto-merge *(PR [#8](https://github.com/myerscode/utilities-bags/pull/8) by [@oniice](https://github.com/oniice))*
+
+
 ## [2026.0.0] - 2026-03-24
 ### New Features
 - [`d766f97`](https://github.com/myerscode/utilities-bags/commit/d766f977c8abb665bc3d909c27e085188daaf6b0) - **bag**: add first and last methods *(commit by [@oniice](https://github.com/oniice))*
@@ -63,3 +85,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - [`440d2a3`](https://github.com/myerscode/utilities-bags/commit/440d2a3c0ed34e87b1de60128cacf4b8c2a2f9ef) Merge branch 'release/2.1.0'
 [2026.0.0]: https://github.com/myerscode/utilities-bags/compare/2025.1.0...2026.0.0
 [2026.0.0]: https://github.com/myerscode/utilities-bags/compare/2025.1.0...2026.0.0
+[2026.0.1]: https://github.com/myerscode/utilities-bags/compare/2026.0.0...2026.0.1
