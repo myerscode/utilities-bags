@@ -197,16 +197,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Pass each value in the bag to a closure until a specific value is returned
-     *
-     * @deprecated Use eachUntil(), this misspelt alias will be removed in the next major version
-     */
-    public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
-    {
-        return $this->eachUntil($eachCallable, $stopOn);
-    }
-
-    /**
-     * Pass each value in the bag to a closure until a specific value is returned
      */
     public function eachUntil(callable $eachCallable, mixed $stopOn): Utility
     {
@@ -217,6 +207,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return $this;
+    }
+
+    /**
+     * Pass each value in the bag to a closure until a specific value is returned
+     *
+     * @deprecated Use eachUntil(), this misspelt alias will be removed in the next major version
+     */
+    public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
+    {
+        return $this->eachUntil($eachCallable, $stopOn);
     }
 
     /**
@@ -1048,19 +1048,6 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
-     * Cast a value to an array key the way PHP does (null => '', bool/float => int)
-     */
-    protected function toArrayKey(mixed $key): int|string
-    {
-        return match (true) {
-            is_int($key), is_string($key) => $key,
-            $key === null => '',
-            is_bool($key), is_float($key) => (int) $key,
-            default => throw new InvalidArgumentException('Cannot use a value of type '.get_debug_type($key).' as an array key'),
-        };
-    }
-
-    /**
      * Compare as strings like array_diff does, serializing arrays instead of converting them
      */
     protected function compareValues(mixed $a, mixed $b): int
@@ -1068,6 +1055,20 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $string = fn (mixed $v): string => is_array($v) ? serialize($v) : (string) $v;
 
         return $string($a) <=> $string($b);
+    }
+
+    protected function dotGet(string $index, mixed $default = null): mixed
+    {
+        $value = $this->value();
+        foreach (explode('.', $index) as $segment) {
+            if (is_array($value) && array_key_exists($segment, $value)) {
+                $value = $value[$segment];
+            } else {
+                return $default;
+            }
+        }
+
+        return $value;
     }
 
     /**
@@ -1083,18 +1084,17 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         );
     }
 
-    protected function dotGet(string $index, mixed $default = null): mixed
+    /**
+     * Cast a value to an array key the way PHP does (null => '', bool/float => int)
+     */
+    protected function toArrayKey(mixed $key): int|string
     {
-        $value = $this->value();
-        foreach (explode('.', $index) as $segment) {
-            if (is_array($value) && array_key_exists($segment, $value)) {
-                $value = $value[$segment];
-            } else {
-                return $default;
-            }
-        }
-
-        return $value;
+        return match (true) {
+            is_int($key), is_string($key) => $key,
+            $key === null => '',
+            is_bool($key), is_float($key) => (int) $key,
+            default => throw new InvalidArgumentException('Cannot use a value of type '.get_debug_type($key).' as an array key'),
+        };
     }
 
     /**

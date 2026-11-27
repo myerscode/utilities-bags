@@ -56,6 +56,13 @@ final class AvgTest extends BaseBagSuite
         $this->assertSame(5, $this->utility([5])->avg());
     }
 
+    public function testAvgWhenKeyMissingEverywhereReturnsNull(): void
+    {
+        $utility = $this->utility([['Gerald' => 1], ['Arthur' => 2]]);
+
+        $this->assertNull($utility->avg('Rupert'));
+    }
+
     public function testAvgWithMissingKeySkipsMissingValues(): void
     {
         $utility = $this->utility([
@@ -65,12 +72,5 @@ final class AvgTest extends BaseBagSuite
         ]);
 
         $this->assertSame(20, $utility->avg('Rupert'));
-    }
-
-    public function testAvgWhenKeyMissingEverywhereReturnsNull(): void
-    {
-        $utility = $this->utility([['Gerald' => 1], ['Arthur' => 2]]);
-
-        $this->assertNull($utility->avg('Rupert'));
     }
 }
