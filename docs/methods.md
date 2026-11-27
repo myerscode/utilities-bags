@@ -644,6 +644,8 @@ $bag->mergeRecursively([1 => 'Chris', 'foo' => 'hello world']);
 // ['Tor', 'Fred', 'Chris', 'foo' => ['hello world', 'bar' => 'value']]
 ```
 
+This uses `array_merge_recursive`, so a key that holds a scalar in both bags becomes an array of both values, and numeric keys are appended rather than replaced.
+
 ### min(string|callable|null $callback = null): mixed
 > Returns `mixed`
 
@@ -672,8 +674,12 @@ $bag->min('age');
 ### offsetSet($offset, $value): void
 > Returns `void`
 
+Set a value with array syntax (`$bag['key'] = 'value'`). Unlike every other method this changes the bag in place, because `ArrayAccess` cannot return a new bag.
+
 ### offsetUnset($offset): void
 > Returns `void`
+
+Remove a value with array syntax (`unset($bag['key'])`). Like `offsetSet`, this changes the bag in place.
 
 ### only(array|Utility $onlyKeys): Utility
 > Returns `Utility`
