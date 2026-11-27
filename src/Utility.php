@@ -1098,6 +1098,13 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         $bag = is_array($bag) ? $bag : [$bag];
 
-        return array_map(fn ($e): mixed => (($e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
+        // Only rewrite nested arrays/objects, so copy-on-write leaves untouched values shared
+        foreach ($bag as $key => $value) {
+            if ($value instanceof stdClass || (is_array($value) && $value !== [])) {
+                $bag[$key] = $this->transformToBag($value);
+            }
+        }
+
+        return $bag;
     }
 }
