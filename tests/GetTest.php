@@ -42,6 +42,18 @@ final class GetTest extends BaseBagSuite
 
     public static function __utilityGetData(): Iterator
     {
+        yield 'literal dot key is returned' => [
+            'Rupert',
+            ['a.b' => 'Rupert', 'a' => ['b' => 'Gerald']],
+            'a.b',
+            'fallback',
+        ];
+        yield 'dot path used when no literal key' => [
+            'Gerald',
+            ['a' => ['b' => 'Gerald']],
+            'a.b',
+            'fallback',
+        ];
         yield 'missing index returns null' => [
             null,
             [],
@@ -77,12 +89,6 @@ final class GetTest extends BaseBagSuite
             'fallback',
             ['deep' => ['nested' => 'value']],
             'deep.nested.missing',
-            'fallback',
-        ];
-        yield 'literal dot key falls back via dotGet' => [
-            'fallback',
-            ['a.b' => 'value'],
-            'a.b',
             'fallback',
         ];
     }

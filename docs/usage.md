@@ -40,7 +40,7 @@ $bag->remove('my.deep.nested.value');
 - `set()` creates missing levels, and overwrites a level that holds a scalar with an array.
 - `merge()` and `mergeRecursively()` expand dotted keys in the bag being merged in.
 - `remove()` follows dot paths. A plain `Utility` only removes a literal key.
-- A plain `Utility` also reads dot paths with `get()` and `exists()`. `exists('a.b')` is true for a literal `'a.b'` key, but `get('a.b')` always follows the dot path.
+- A plain `Utility` also reads dot paths with `get()` and `exists()`. `exists('a.b')` is true for a literal `'a.b'` key, and `get('a.b')` returns it too. Otherwise both follow the dot path.
 
 ## Immutability
 

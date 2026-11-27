@@ -349,15 +349,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function get(int|string $index, mixed $default = null): mixed
     {
-        if ($this->exists($index)) {
-            if (is_int($index) || ! str_contains($index, '.')) {
-                return $this->bag[$index];
-            }
-
-            return $this->dotGet($index, $default);
+        if (array_key_exists($index, $this->bag)) {
+            return $this->bag[$index];
         }
 
-        return $default;
+        if (is_int($index) || ! str_contains($index, '.')) {
+            return $default;
+        }
+
+        return $this->dotGet($index, $default);
     }
 
     /**
