@@ -459,7 +459,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $values = $this->values();
 
-        if ($lastGlue === null) {
+        if ($lastGlue === null || $values === []) {
             return implode($joinGlue, $values);
         }
 
