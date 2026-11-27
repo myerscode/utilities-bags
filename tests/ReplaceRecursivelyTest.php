@@ -20,6 +20,14 @@ final class ReplaceRecursivelyTest extends BaseBagSuite
         );
     }
 
+    public function testDotUtilityReplacesFromObject(): void
+    {
+        $object = new stdClass();
+        $object->Rupert = 'York';
+
+        $this->assertSame(['Rupert' => 'York'], $this->dot(['Rupert' => 'Leeds'])->replaceRecursively($object)->value());
+    }
+
     public function testDotUtilityReplacesWithBag(): void
     {
         $bag = $this->dot(['Rupert' => ['age' => 30]]);
