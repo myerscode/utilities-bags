@@ -19,7 +19,7 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
 | [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [tap](#tapcallable-callback-utility) |
 | [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
-| [eachUntil](#eachuntilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [eachUntil](#eachuntilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint---string-valueprefix---string-valuepostfix---callable-escape--null-string) |
 | [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
 | [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
 | [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
@@ -1000,7 +1000,7 @@ $bag->toArray();
 // ['Tor', 'Fred', 'foo' => 'bar']
 ```
 
-### toKeyValueString(string $glue = ' ', string $keyPrefix = '', string $keyPostfix = '', string $keyJoint = '=', string $valuePrefix = '\'', string $valuePostfix = '\''): string
+### toKeyValueString(string $glue = ' ', string $keyPrefix = '', string $keyPostfix = '', string $keyJoint = '=', string $valuePrefix = '\'', string $valuePostfix = '\'', ?callable $escape = null): string
 > Returns `string`
 
 Implode the bag to show a key=value string
@@ -1014,10 +1014,18 @@ $bag->toKeyValueString(', ', '*', '*', '~', '>', '<');
 // "*hello*~>world<, *foo*~>bar<"
 ```
 
+Values are not escaped. Pass an `$escape` callback when the output goes into HTML attributes or a shell command:
+```php
+$bag = new Utility(['title' => 'Rupert\'s "bag"']);
+
+$bag->toKeyValueString(valuePrefix: '"', valuePostfix: '"', escape: htmlspecialchars(...));
+// 'title="Rupert&#039;s &quot;bag&quot;"'
+```
+
 ### toObject(): object
 > Returns `object`
 
-Get the bag as an stdClass object
+Get the bag as an stdClass object. The bag is converted through JSON, so it throws a `JsonException` for values JSON cannot encode (`NAN`, `INF`, invalid UTF-8, resources), and nested objects become `stdClass`.
 
 ### unique(?callable $callback = null): Utility
 > Returns `Utility`

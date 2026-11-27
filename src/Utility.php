@@ -972,6 +972,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Implode the bag to show a key=value string
+     * Values are not escaped by default, pass $escape (e.g. htmlspecialchars(...)) when the output goes into HTML or a shell
      */
     public function toKeyValueString(
         string $glue = ' ',
@@ -979,16 +980,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         string $keyPostfix = '',
         string $keyJoint = '=',
         string $valuePrefix = "'",
-        string $valuePostfix = "'"
+        string $valuePostfix = "'",
+        ?callable $escape = null,
     ): string {
         return implode(
             $glue,
             array_map(
-                fn ($v, string $k): string => sprintf(
-                    $keyPrefix.'%s'.$keyPostfix.$keyJoint.$valuePrefix.'%s'.$valuePostfix,
-                    $k,
-                    $v
-                ),
+                fn ($v, int|string $k): string => $keyPrefix.$k.$keyPostfix.$keyJoint.$valuePrefix
+                    .($escape === null ? (string) $v : $escape((string) $v)).$valuePostfix,
                 $this->bag,
                 array_keys($this->bag)
             )
