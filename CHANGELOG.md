@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [2026.1.0] - 2026-11-27
+### Bug Fixes
+- [`9897a36`](https://github.com/myerscode/utilities-bags/commit/9897a369ecb77c0a6012c6bf1d67c9b6065e0373) - harden bags, add eachUntil and replaceRecursively *(PR [#14](https://github.com/myerscode/utilities-bags/pull/14) by [@oniice](https://github.com/oniice))*
+
+
 ## [2026.0.1] - 2026-10-31
 ### New Features
 - [`c38b4d2`](https://github.com/myerscode/utilities-bags/commit/c38b4d2899589353e403e0b131b6dde33456adc7) - add flip method to swap keys and values *(commit by [@oniice](https://github.com/oniice))*
@@ -86,3 +91,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 [2026.0.0]: https://github.com/myerscode/utilities-bags/compare/2025.1.0...2026.0.0
 [2026.0.0]: https://github.com/myerscode/utilities-bags/compare/2025.1.0...2026.0.0
 [2026.0.1]: https://github.com/myerscode/utilities-bags/compare/2026.0.0...2026.0.1
+[2026.1.0]: https://github.com/myerscode/utilities-bags/compare/2026.0.1...2026.1.0
