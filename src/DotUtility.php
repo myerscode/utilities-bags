@@ -20,29 +20,6 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
-    public function get(int|string $index, mixed $default = null): mixed
-    {
-        $array = $this->toArray();
-
-        if (! $this->exists($index)) {
-            return $default;
-        }
-
-        foreach (explode('.', (string) $index) as $segment) {
-            if (isset($array[$segment])) {
-                $array = $array[$segment];
-            } else {
-                return $default;
-            }
-        }
-
-        return $array;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    #[Override]
     public function remove(string|int $index): Utility
     {
         if (! $this->exists($index)) {

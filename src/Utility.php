@@ -246,7 +246,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $array = $this->value();
 
         foreach (explode('.', (string) $index) as $segment) {
-            if (isset($array[$segment])) {
+            if (is_array($array) && array_key_exists($segment, $array)) {
                 $array = $array[$segment];
             } else {
                 return false;
@@ -1037,7 +1037,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $value = $this->value();
         foreach (explode('.', $index) as $segment) {
-            if (isset($value[$segment])) {
+            if (is_array($value) && array_key_exists($segment, $value)) {
                 $value = $value[$segment];
             } else {
                 return $default;
