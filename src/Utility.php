@@ -332,7 +332,8 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         foreach ($iterator as $key => $value) {
             $path[$iterator->getDepth()] = $key;
-            if (! is_array($value)) {
+            // An empty array is a leaf too, otherwise its key would be lost
+            if (! is_array($value) || $value === []) {
                 $flattened[implode($separator, array_slice($path, 0, $iterator->getDepth() + 1))] = $value;
             }
         }
