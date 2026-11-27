@@ -43,6 +43,29 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
+    public function remove(string|int $index): Utility
+    {
+        if (! $this->exists($index)) {
+            return $this;
+        }
+
+        $newBag = $this->toArray();
+        $array = &$newBag;
+        $keys = explode('.', (string) $index);
+
+        while (count($keys) > 1) {
+            $array = &$array[array_shift($keys)];
+        }
+
+        unset($array[$keys[0]]);
+
+        return new static($newBag);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[Override]
     public function merge(array|stdClass|Utility $bag): Utility
     {
         if (is_array($bag)) {
