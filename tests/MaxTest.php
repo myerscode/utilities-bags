@@ -28,6 +28,13 @@ final class MaxTest extends BaseBagSuite
         $this->assertSame(35, $utility->max('age'));
     }
 
+    public function testMaxByKeySkipsMissingNegativeValues(): void
+    {
+        $utility = $this->utility([['Rupert' => -5], ['Gerald' => 1], ['Rupert' => -2]]);
+
+        $this->assertSame(-2, $utility->max('Rupert'));
+    }
+
     public function testMaxByKeyWithMissingKey(): void
     {
         $utility = $this->utility([
@@ -51,6 +58,13 @@ final class MaxTest extends BaseBagSuite
     public function testMaxSingleElement(): void
     {
         $this->assertSame(42, $this->utility([42])->max());
+    }
+
+    public function testMaxWhenKeyMissingEverywhereReturnsNull(): void
+    {
+        $utility = $this->utility([['name' => 'Arthur'], ['name' => 'Gerald']]);
+
+        $this->assertNull($utility->max('age'));
     }
 
     public function testMaxWithFloats(): void

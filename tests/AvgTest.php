@@ -56,14 +56,21 @@ final class AvgTest extends BaseBagSuite
         $this->assertSame(5, $this->utility([5])->avg());
     }
 
-    public function testAvgWithMissingKeyTreatsAsZero(): void
+    public function testAvgWhenKeyMissingEverywhereReturnsNull(): void
+    {
+        $utility = $this->utility([['Gerald' => 1], ['Arthur' => 2]]);
+
+        $this->assertNull($utility->avg('Rupert'));
+    }
+
+    public function testAvgWithMissingKeySkipsMissingValues(): void
     {
         $utility = $this->utility([
-            ['foo' => 10],
-            ['bar' => 20],
+            ['Rupert' => 10],
+            ['Gerald' => 20],
+            ['Rupert' => 30],
         ]);
 
-        // second row has no 'foo' key, so it resolves to null (0 when summed)
-        $this->assertSame(5, $utility->avg('foo'));
+        $this->assertSame(20, $utility->avg('Rupert'));
     }
 }

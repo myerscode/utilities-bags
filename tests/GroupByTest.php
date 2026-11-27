@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Myerscode\Utilities\Bags\Utility;
+use InvalidArgumentException;
 use Tests\Support\BaseBagSuite;
 
 final class GroupByTest extends BaseBagSuite
@@ -94,5 +95,12 @@ final class GroupByTest extends BaseBagSuite
         $grouped = $utility->groupBy('team');
         $this->assertCount(2, $grouped->get('alpha'));
         $this->assertCount(1, $grouped->get(''));
+    }
+
+    public function testGroupingByAnArrayValueIsRejected(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->utility(['Rupert', 'Gerald', 'Arthur'])->groupBy(fn (string $name): array => [$name]);
     }
 }

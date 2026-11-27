@@ -67,14 +67,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return array_sum($this->bag) / count($this->bag);
         }
 
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
+        $values = is_string($callback) ? $this->presentValues($callback) : array_map($callback, $this->bag);
 
-        $values = array_map($callback, $this->bag);
-
-        return array_sum($values) / count($values);
+        return $values === [] ? null : array_sum($values) / count($values);
     }
 
     /**
@@ -172,6 +167,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         foreach ($this->bag as $key => $value) {
             $group = $callback($value, $key);
+            $group = $this->toArrayKey($group);
             $counts[$group] = ($counts[$group] ?? 0) + 1;
         }
 
@@ -184,7 +180,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function diff(array|Utility $bag): Utility
     {
-        return new static(array_diff($this->bag, $this->transformToBag($bag)));
+        return new static(array_udiff($this->bag, $this->transformToBag($bag), $this->compareValues(...)));
     }
 
     /**
@@ -202,7 +198,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     /**
      * Pass each value in the bag to a closure until a specific value is returned
      */
-    public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
+    public function eachUntil(callable $eachCallable, mixed $stopOn): Utility
     {
         foreach ($this->value() as $key => $item) {
             if ($eachCallable($item, $key) === $stopOn) {
@@ -211,6 +207,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return $this;
+    }
+
+    /**
+     * Pass each value in the bag to a closure until a specific value is returned
+     *
+     * @deprecated Use eachUntil(), this misspelt alias will be removed in the next major version
+     */
+    public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
+    {
+        return $this->eachUntil($eachCallable, $stopOn);
     }
 
     /**
@@ -227,7 +233,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function except(array|Utility $exceptKeys): Utility
     {
-        return new self(array_diff_key($this->bag, array_flip((array) $exceptKeys)));
+        return new static(array_diff_key($this->bag, array_flip((array) $exceptKeys)));
     }
 
     /**
@@ -246,7 +252,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $array = $this->value();
 
         foreach (explode('.', (string) $index) as $segment) {
-            if (isset($array[$segment])) {
+            if (is_array($array) && array_key_exists($segment, $array)) {
                 $array = $array[$segment];
             } else {
                 return false;
@@ -321,7 +327,8 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         foreach ($iterator as $key => $value) {
             $path[$iterator->getDepth()] = $key;
-            if (! is_array($value)) {
+            // An empty array is a leaf too, otherwise its key would be lost
+            if (! is_array($value) || $value === []) {
                 $flattened[implode($separator, array_slice($path, 0, $iterator->getDepth() + 1))] = $value;
             }
         }
@@ -342,15 +349,15 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function get(int|string $index, mixed $default = null): mixed
     {
-        if ($this->exists($index)) {
-            if (is_int($index) || ! str_contains($index, '.')) {
-                return $this->bag[$index];
-            }
-
-            return $this->dotGet($index, $default);
+        if (array_key_exists($index, $this->bag)) {
+            return $this->bag[$index];
         }
 
-        return $default;
+        if (is_int($index) || ! str_contains($index, '.')) {
+            return $default;
+        }
+
+        return $this->dotGet($index, $default);
     }
 
     /**
@@ -376,7 +383,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $groups = [];
 
         foreach ($this->bag as $key => $value) {
-            $groupKey = $callback($value, $key) ?? '';
+            $groupKey = $this->toArrayKey($callback($value, $key));
             $groups[$groupKey][] = $value;
         }
 
@@ -389,7 +396,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function intersect(array|Utility $bag): Utility
     {
-        return new static(array_intersect($this->bag, $this->transformToBag($bag)));
+        return new static(array_uintersect($this->bag, $this->transformToBag($bag), $this->compareValues(...)));
     }
 
     /**
@@ -458,7 +465,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     {
         $values = $this->values();
 
-        if ($lastGlue === null) {
+        if ($lastGlue === null || $values === []) {
             return implode($joinGlue, $values);
         }
 
@@ -489,7 +496,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $result = [];
 
         foreach ($this->bag as $key => $value) {
-            $result[$callback($value, $key)] = $value;
+            $result[$this->toArrayKey($callback($value, $key))] = $value;
         }
 
         return new static($result);
@@ -566,12 +573,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return max($this->bag);
         }
 
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
+        $values = is_string($callback) ? $this->presentValues($callback) : array_map($callback, $this->bag);
 
-        return max(array_map($callback, $this->bag));
+        return $values === [] ? null : max($values);
     }
 
     /**
@@ -611,12 +615,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return min($this->bag);
         }
 
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
+        $values = is_string($callback) ? $this->presentValues($callback) : array_map($callback, $this->bag);
 
-        return min(array_map($callback, $this->bag));
+        return $values === [] ? null : min($values);
     }
 
     /**
@@ -662,7 +663,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function only(array|Utility $onlyKeys): Utility
     {
-        return new self(array_intersect_key($this->bag, array_flip((array) $onlyKeys)));
+        return new static(array_intersect_key($this->bag, array_flip((array) $onlyKeys)));
     }
 
     /**
@@ -706,7 +707,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             $value = $item[$valuePath] ?? null;
 
             if ($keyPath !== null) {
-                $results[$item[$keyPath] ?? null] = $value;
+                $results[$this->toArrayKey($item[$keyPath] ?? null)] = $value;
             } else {
                 $results[] = $value;
             }
@@ -735,7 +736,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $newBag = $this->toArray();
         array_push($newBag, ...$values);
 
-        return new self($newBag);
+        return new static($newBag);
     }
 
     /**
@@ -780,7 +781,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             $newBag = $this->toArray();
             unset($newBag[$index]);
 
-            return new self($newBag);
+            return new static($newBag);
         }
 
         return $this;
@@ -799,6 +800,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return new static($filteredBag);
+    }
+
+    /**
+     * Recursively replace values in the bag with those from an array or bag Utility
+     */
+    public function replaceRecursively(mixed $bag): Utility
+    {
+        if ($bag instanceof self) {
+            return new static(array_replace_recursive($this->bag, $bag->toArray()));
+        }
+
+        return new static(array_replace_recursive($this->bag, new static($bag)->toArray()));
     }
 
     /**
@@ -836,7 +849,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         $newBag[$index] = $value;
 
-        return new self($newBag);
+        return new static($newBag);
     }
 
     /**
@@ -960,6 +973,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Implode the bag to show a key=value string
+     * Values are not escaped by default, pass $escape (e.g. htmlspecialchars(...)) when the output goes into HTML or a shell
      */
     public function toKeyValueString(
         string $glue = ' ',
@@ -967,16 +981,14 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         string $keyPostfix = '',
         string $keyJoint = '=',
         string $valuePrefix = "'",
-        string $valuePostfix = "'"
+        string $valuePostfix = "'",
+        ?callable $escape = null,
     ): string {
         return implode(
             $glue,
             array_map(
-                fn ($v, string $k): string => sprintf(
-                    $keyPrefix.'%s'.$keyPostfix.$keyJoint.$valuePrefix.'%s'.$valuePostfix,
-                    $k,
-                    $v
-                ),
+                fn ($v, int|string $k): string => $keyPrefix.$k.$keyPostfix.$keyJoint.$valuePrefix
+                    .($escape === null ? (string) $v : $escape((string) $v)).$valuePostfix,
                 $this->bag,
                 array_keys($this->bag)
             )
@@ -1007,9 +1019,11 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         foreach ($this->bag as $key => $value) {
             $computed = $callback($value, $key);
+            // Hash keys give O(1) lookups; serialize keeps strict (===) type distinctions, objects compare by identity
+            $hash = is_object($computed) ? 'o'.spl_object_id($computed) : serialize($computed);
 
-            if (! in_array($computed, $seen, true)) {
-                $seen[] = $computed;
+            if (! isset($seen[$hash])) {
+                $seen[$hash] = true;
                 $result[$key] = $value;
             }
         }
@@ -1033,11 +1047,21 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         return array_values($this->value());
     }
 
+    /**
+     * Compare as strings like array_diff does, serializing arrays instead of converting them
+     */
+    protected function compareValues(mixed $a, mixed $b): int
+    {
+        $string = fn (mixed $v): string => is_array($v) ? serialize($v) : (string) $v;
+
+        return $string($a) <=> $string($b);
+    }
+
     protected function dotGet(string $index, mixed $default = null): mixed
     {
         $value = $this->value();
         foreach (explode('.', $index) as $segment) {
-            if (isset($value[$segment])) {
+            if (is_array($value) && array_key_exists($segment, $value)) {
                 $value = $value[$segment];
             } else {
                 return $default;
@@ -1045,6 +1069,32 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         }
 
         return $value;
+    }
+
+    /**
+     * Get the values of a key across the items, skipping items where it is missing or null
+     *
+     * @return array<mixed>
+     */
+    protected function presentValues(string $key): array
+    {
+        return array_filter(
+            array_map(fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null, $this->bag),
+            fn (mixed $value): bool => $value !== null
+        );
+    }
+
+    /**
+     * Cast a value to an array key the way PHP does (null => '', bool/float => int)
+     */
+    protected function toArrayKey(mixed $key): int|string
+    {
+        return match (true) {
+            is_int($key), is_string($key) => $key,
+            $key === null => '',
+            is_bool($key), is_float($key) => (int) $key,
+            default => throw new InvalidArgumentException('Cannot use a value of type '.get_debug_type($key).' as an array key'),
+        };
     }
 
     /**
@@ -1062,6 +1112,13 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         $bag = is_array($bag) ? $bag : [$bag];
 
-        return array_map(fn ($e): mixed => (($e instanceof stdClass) || is_array($e)) ? $this->transformToBag($e) : $e, $bag);
+        // Only rewrite nested arrays/objects, so copy-on-write leaves untouched values shared
+        foreach ($bag as $key => $value) {
+            if ($value instanceof stdClass || (is_array($value) && $value !== [])) {
+                $bag[$key] = $this->transformToBag($value);
+            }
+        }
+
+        return $bag;
     }
 }

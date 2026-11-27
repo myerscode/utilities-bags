@@ -20,29 +20,6 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
-    public function get(int|string $index, mixed $default = null): mixed
-    {
-        $array = $this->toArray();
-
-        if (! $this->exists($index)) {
-            return $default;
-        }
-
-        foreach (explode('.', (string) $index) as $segment) {
-            if (isset($array[$segment])) {
-                $array = $array[$segment];
-            } else {
-                return $default;
-            }
-        }
-
-        return $array;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    #[Override]
     public function merge(array|stdClass|Utility $bag): Utility
     {
         if (is_array($bag)) {
@@ -77,16 +54,58 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
+    public function remove(string|int $index): Utility
+    {
+        if (! $this->exists($index)) {
+            return $this;
+        }
+
+        $newBag = $this->toArray();
+        $array = &$newBag;
+        $keys = explode('.', (string) $index);
+
+        while (count($keys) > 1) {
+            $array = &$array[array_shift($keys)];
+        }
+
+        unset($array[$keys[0]]);
+
+        return new static($newBag);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[Override]
+    public function replaceRecursively(mixed $bag): Utility
+    {
+        if (is_array($bag)) {
+            return parent::replaceRecursively($this->normalizeArray($bag));
+        }
+
+        if ($bag instanceof parent) {
+            return parent::replaceRecursively($bag->toArray());
+        }
+
+        return parent::replaceRecursively(new static($bag));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[Override]
     public function set(string|int $index, mixed $value): DotUtility
     {
-        $array = &$this->bag;
+        $newBag = $this->bag;
+        $array = &$newBag;
 
         $keys = explode('.', (string) $index);
 
         while (count($keys) > 1) {
             $key = array_shift($keys);
 
-            if (! isset($array[$key])) {
+            // A scalar (or null) intermediate is overwritten with an array
+            if (! isset($array[$key]) || ! is_array($array[$key])) {
                 $array[$key] = [];
             }
 
@@ -95,9 +114,7 @@ class DotUtility extends Utility
 
         $array[array_shift($keys)] = $value;
 
-        $newBag = $this->bag;
-
-        return new self($newBag);
+        return new static($newBag);
     }
 
     /**

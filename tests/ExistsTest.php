@@ -8,6 +8,11 @@ use Tests\Support\BaseBagSuite;
 
 final class ExistsTest extends BaseBagSuite
 {
+    public function testDottedPathThroughMissingKeyDoesNotExist(): void
+    {
+        $this->assertFalse($this->utility(['Rupert' => ['age' => 30]])->exists('Rupert.town'));
+        $this->assertFalse($this->utility(['Rupert' => 'Leeds'])->exists('Rupert.town'));
+    }
     public function testExists(): void
     {
         $this->assertTrue($this->utility([0 => 'hello', 100 => 'foo'])->exists(100));

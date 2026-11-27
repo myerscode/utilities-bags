@@ -4,10 +4,47 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Myerscode\Utilities\Bags\DotUtility;
 use Tests\Support\BaseBagSuite;
 
 final class RemoveTest extends BaseBagSuite
 {
+    public function testDotUtilityIgnoresMissingKey(): void
+    {
+        $bag = $this->dot(['Rupert' => ['age' => 30]]);
+
+        $this->assertSame(['Rupert' => ['age' => 30]], $bag->remove('Rupert.town')->value());
+    }
+
+    public function testDotUtilityRemoveDoesNotChangeOriginal(): void
+    {
+        $bag = $this->dot(['Rupert' => ['age' => 30]]);
+        $bag->remove('Rupert.age');
+
+        $this->assertSame(['Rupert' => ['age' => 30]], $bag->value());
+    }
+
+    public function testDotUtilityRemoveReturnsDotUtility(): void
+    {
+        $this->assertInstanceOf(DotUtility::class, $this->dot(['Rupert' => ['age' => 30]])->remove('Rupert.age'));
+    }
+
+    public function testDotUtilityRemovesDeeplyNestedKey(): void
+    {
+        $bag = $this->dot(['Rupert' => ['Gerald' => ['Arthur' => 'Leeds', 'town' => 'York']]]);
+
+        $this->assertSame(['Rupert' => ['Gerald' => ['town' => 'York']]], $bag->remove('Rupert.Gerald.Arthur')->value());
+    }
+
+    public function testDotUtilityRemovesNestedKey(): void
+    {
+        $bag = $this->dot(['Rupert' => ['age' => 30, 'town' => 'Leeds'], 'Gerald' => 'York']);
+
+        $this->assertSame(
+            ['Rupert' => ['town' => 'Leeds'], 'Gerald' => 'York'],
+            $bag->remove('Rupert.age')->value()
+        );
+    }
     public function testOffsetUnset(): void
     {
         $bag = $this->utility(['foo', 'bar']);

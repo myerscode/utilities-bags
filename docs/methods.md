@@ -7,25 +7,25 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [resetIndex](#resetindex-utility) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [reverse](#reversebool-preservekeys--false-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [set](#setstringint-index-mixed-value-utility) |
-| [chunk](#chunkint-size-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [skip](#skipint-count-utility) |
-| [collapse](#collapse-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [slice](#sliceint-offset-int-length--null-utility) |
-| [contains](#containsneedles-bool) | [intersect](#intersectarrayutility-bag-utility) | [offsetExists](#offsetexistsoffset-bool) | [some](#somecallable-callback-bool) |
-| [containsAll](#containsallneedles-bool) | [isAssociative](#isassociative-bool) | [offsetGet](#offsetgetoffset-mixed) | [sort](#sortcallable-callback--null-utility) |
-| [containsAny](#containsanyneedles-bool) | [isEmpty](#isempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [count](#count-int) | [isIndexed](#isindexed-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
-| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [tap](#tapcallable-callback-utility) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
-| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
-| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [remove](#removestringint-index-utility) |  |
-| [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [removeEmpty](#removeempty-utility) |  |
+| [add](#addindex-value-utility) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [replaceRecursively](#replacerecursivelybag-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [chunk](#chunkint-size-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
+| [collapse](#collapse-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
+| [contains](#containsneedles-bool) | [intersect](#intersectarrayutility-bag-utility) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
+| [containsAll](#containsallneedles-bool) | [isAssociative](#isassociative-bool) | [offsetGet](#offsetgetoffset-mixed) | [some](#somecallable-callback-bool) |
+| [containsAny](#containsanyneedles-bool) | [isEmpty](#isempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
+| [count](#count-int) | [isIndexed](#isindexed-bool) | [offsetUnset](#offsetunsetoffset-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [take](#takeint-limit-utility) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [tap](#tapcallable-callback-utility) |
+| [eachUntil](#eachuntilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toArray](#toarray-array) |
+| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint---string-valueprefix---string-valuepostfix---callable-escape--null-string) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [toObject](#toobject-object) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [unique](#uniquecallable-callback--null-utility) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [value](#value) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [remove](#removestringint-index-utility) | [values](#values) |
+| [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [removeEmpty](#removeempty-utility) | |
 
 ---
 
@@ -58,7 +58,7 @@ $bag->average();
 ### avg(string|callable|null $callback = null): int|float|null
 > Returns `int|float|null`
 
-Get the average of the values in the bag. Optionally pass a key or callback to average a column of a multidimensional bag. Returns `null` for an empty bag. Like PHP division, a whole result is returned as an `int` and a fractional result as a `float`.
+Get the average of the values in the bag. Optionally pass a key or callback to average a column of a multidimensional bag. Returns `null` for an empty bag. With a key, items where the key is missing or `null` are skipped, and `null` is returned when no item has it. Like PHP division, a whole result is returned as an `int` and a fractional result as a `float`.
 ```php
 $bag = new Utility([1, 2, 3]);
 
@@ -206,14 +206,14 @@ $bag->each(function ($value, $key) {
 // Fred
 ```
 
-### eachUtil(callable $eachCallable, mixed $stopOn): Utility
+### eachUntil(callable $eachCallable, mixed $stopOn): Utility
 > Returns `Utility`
 
-Pass each value in the bag to a closure until the callback returns the stop value
+Pass each value in the bag to a closure until the callback returns the stop value. `eachUtil()` is a deprecated alias.
 ```php
 $bag = new Utility(['Tor', 'Gerald', 'Rupert', 'Chris', 'Fred']);
 
-$bag->eachUtil(function ($value, $key) {
+$bag->eachUntil(function ($value, $key) {
     echo $value;
     return $value;
 }, 'Rupert');
@@ -606,7 +606,7 @@ $bag->mapKeys(fn ($index, $value) => [$value['name'] => $value]);
 ### max(string|callable|null $callback = null): mixed
 > Returns `mixed`
 
-Get the maximum value in the bag, optionally by key or callback
+Get the maximum value in the bag, optionally by key or callback. With a key, items where the key is missing or `null` are skipped, and `null` is returned when no item has it.
 ```php
 $bag = new Utility([3, 1, 4, 1, 5]);
 
@@ -644,10 +644,12 @@ $bag->mergeRecursively([1 => 'Chris', 'foo' => 'hello world']);
 // ['Tor', 'Fred', 'Chris', 'foo' => ['hello world', 'bar' => 'value']]
 ```
 
+This uses `array_merge_recursive`, so a key that holds a scalar in both bags becomes an array of both values, and numeric keys are appended rather than replaced.
+
 ### min(string|callable|null $callback = null): mixed
 > Returns `mixed`
 
-Get the minimum value in the bag, optionally by key or callback
+Get the minimum value in the bag, optionally by key or callback. With a key, items where the key is missing or `null` are skipped, and `null` is returned when no item has it.
 ```php
 $bag = new Utility([3, 1, 4, 1, 5]);
 
@@ -672,8 +674,12 @@ $bag->min('age');
 ### offsetSet($offset, $value): void
 > Returns `void`
 
+Set a value with array syntax (`$bag['key'] = 'value'`). Unlike every other method this changes the bag in place, because `ArrayAccess` cannot return a new bag.
+
 ### offsetUnset($offset): void
 > Returns `void`
+
+Remove a value with array syntax (`unset($bag['key'])`). Like `offsetSet`, this changes the bag in place.
 
 ### only(array|Utility $onlyKeys): Utility
 > Returns `Utility`
@@ -826,6 +832,19 @@ $bag->removeEmpty();
 // ['Tor', 'Fred']
 ```
 
+### replaceRecursively($bag): Utility
+> Returns `Utility`
+
+Recursively replace values in the bag with those from an array or bag Utility
+```php
+$bag = new Utility(['Rupert' => ['age' => 30, 'town' => 'Leeds'], 'Gerald']);
+
+$bag->replaceRecursively(['Rupert' => ['age' => 31], 'Arthur']);
+// ['Rupert' => ['age' => 31, 'town' => 'Leeds'], 'Arthur']
+```
+
+This uses `array_replace_recursive`, so a key present in both bags takes the value from the given bag instead of becoming an array, and nested arrays are replaced key by key. On a `DotUtility`, dotted keys in the given bag are expanded first.
+
 ### resetIndex(): Utility
 > Returns `Utility`
 
@@ -947,7 +966,7 @@ $bag->sortBy('age', descending: true);
 ### sum(string|callable|null $callback = null): int|float
 > Returns `int|float`
 
-Get the sum of values in the bag, optionally by key or callback
+Get the sum of values in the bag, optionally by key or callback. With a key, items where the key is missing count as `0`.
 ```php
 $bag = new Utility([1, 2, 3, 4, 5]);
 
@@ -1000,7 +1019,7 @@ $bag->toArray();
 // ['Tor', 'Fred', 'foo' => 'bar']
 ```
 
-### toKeyValueString(string $glue = ' ', string $keyPrefix = '', string $keyPostfix = '', string $keyJoint = '=', string $valuePrefix = '\'', string $valuePostfix = '\''): string
+### toKeyValueString(string $glue = ' ', string $keyPrefix = '', string $keyPostfix = '', string $keyJoint = '=', string $valuePrefix = '\'', string $valuePostfix = '\'', ?callable $escape = null): string
 > Returns `string`
 
 Implode the bag to show a key=value string
@@ -1014,10 +1033,18 @@ $bag->toKeyValueString(', ', '*', '*', '~', '>', '<');
 // "*hello*~>world<, *foo*~>bar<"
 ```
 
+Values are not escaped. Pass an `$escape` callback when the output goes into HTML attributes or a shell command:
+```php
+$bag = new Utility(['title' => 'Rupert\'s "bag"']);
+
+$bag->toKeyValueString(valuePrefix: '"', valuePostfix: '"', escape: htmlspecialchars(...));
+// 'title="Rupert&#039;s &quot;bag&quot;"'
+```
+
 ### toObject(): object
 > Returns `object`
 
-Get the bag as an stdClass object
+Get the bag as an stdClass object. The bag is converted through JSON, so it throws a `JsonException` for values JSON cannot encode (`NAN`, `INF`, invalid UTF-8, resources), and nested objects become `stdClass`.
 
 ### unique(?callable $callback = null): Utility
 > Returns `Utility`
