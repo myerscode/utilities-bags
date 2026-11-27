@@ -202,8 +202,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
     /**
      * Pass each value in the bag to a closure until a specific value is returned
+     *
+     * @deprecated Use eachUntil(), this misspelt alias will be removed in the next major version
      */
     public function eachUtil(callable $eachCallable, mixed $stopOn): Utility
+    {
+        return $this->eachUntil($eachCallable, $stopOn);
+    }
+
+    /**
+     * Pass each value in the bag to a closure until a specific value is returned
+     */
+    public function eachUntil(callable $eachCallable, mixed $stopOn): Utility
     {
         foreach ($this->value() as $key => $item) {
             if ($eachCallable($item, $key) === $stopOn) {

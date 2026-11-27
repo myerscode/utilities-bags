@@ -19,7 +19,7 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 | [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
 | [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [tap](#tapcallable-callback-utility) |
 | [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
-| [eachUtil](#eachutilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
+| [eachUntil](#eachuntilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint--string-valueprefix---string-valuepostfix---string) |
 | [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
 | [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
 | [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
@@ -206,14 +206,14 @@ $bag->each(function ($value, $key) {
 // Fred
 ```
 
-### eachUtil(callable $eachCallable, mixed $stopOn): Utility
+### eachUntil(callable $eachCallable, mixed $stopOn): Utility
 > Returns `Utility`
 
-Pass each value in the bag to a closure until the callback returns the stop value
+Pass each value in the bag to a closure until the callback returns the stop value. `eachUtil()` is a deprecated alias.
 ```php
 $bag = new Utility(['Tor', 'Gerald', 'Rupert', 'Chris', 'Fred']);
 
-$bag->eachUtil(function ($value, $key) {
+$bag->eachUntil(function ($value, $key) {
     echo $value;
     return $value;
 }, 'Rupert');
