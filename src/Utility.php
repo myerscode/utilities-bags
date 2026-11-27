@@ -227,7 +227,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function except(array|Utility $exceptKeys): Utility
     {
-        return new self(array_diff_key($this->bag, array_flip((array) $exceptKeys)));
+        return new static(array_diff_key($this->bag, array_flip((array) $exceptKeys)));
     }
 
     /**
@@ -662,7 +662,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function only(array|Utility $onlyKeys): Utility
     {
-        return new self(array_intersect_key($this->bag, array_flip((array) $onlyKeys)));
+        return new static(array_intersect_key($this->bag, array_flip((array) $onlyKeys)));
     }
 
     /**
@@ -735,7 +735,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $newBag = $this->toArray();
         array_push($newBag, ...$values);
 
-        return new self($newBag);
+        return new static($newBag);
     }
 
     /**
@@ -780,7 +780,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             $newBag = $this->toArray();
             unset($newBag[$index]);
 
-            return new self($newBag);
+            return new static($newBag);
         }
 
         return $this;
@@ -836,7 +836,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         $newBag[$index] = $value;
 
-        return new self($newBag);
+        return new static($newBag);
     }
 
     /**
