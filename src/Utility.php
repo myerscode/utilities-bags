@@ -1018,9 +1018,11 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         foreach ($this->bag as $key => $value) {
             $computed = $callback($value, $key);
+            // Hash keys give O(1) lookups; serialize keeps strict (===) type distinctions, objects compare by identity
+            $hash = is_object($computed) ? 'o'.spl_object_id($computed) : serialize($computed);
 
-            if (! in_array($computed, $seen, true)) {
-                $seen[] = $computed;
+            if (! isset($seen[$hash])) {
+                $seen[$hash] = true;
                 $result[$key] = $value;
             }
         }
