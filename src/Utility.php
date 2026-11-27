@@ -172,6 +172,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
 
         foreach ($this->bag as $key => $value) {
             $group = $callback($value, $key);
+            $group = $this->toArrayKey($group);
             $counts[$group] = ($counts[$group] ?? 0) + 1;
         }
 
@@ -376,7 +377,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $groups = [];
 
         foreach ($this->bag as $key => $value) {
-            $groupKey = $callback($value, $key) ?? '';
+            $groupKey = $this->toArrayKey($callback($value, $key));
             $groups[$groupKey][] = $value;
         }
 
@@ -489,7 +490,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $result = [];
 
         foreach ($this->bag as $key => $value) {
-            $result[$callback($value, $key)] = $value;
+            $result[$this->toArrayKey($callback($value, $key))] = $value;
         }
 
         return new static($result);
@@ -706,7 +707,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             $value = $item[$valuePath] ?? null;
 
             if ($keyPath !== null) {
-                $results[$item[$keyPath] ?? null] = $value;
+                $results[$this->toArrayKey($item[$keyPath] ?? null)] = $value;
             } else {
                 $results[] = $value;
             }
@@ -1031,6 +1032,19 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     public function values(): array
     {
         return array_values($this->value());
+    }
+
+    /**
+     * Cast a value to an array key the way PHP does (null => '', bool/float => int)
+     */
+    protected function toArrayKey(mixed $key): int|string
+    {
+        return match (true) {
+            is_int($key), is_string($key) => $key,
+            $key === null => '',
+            is_bool($key), is_float($key) => (int) $key,
+            default => throw new InvalidArgumentException('Cannot use a value of type '.get_debug_type($key).' as an array key'),
+        };
     }
 
     protected function dotGet(string $index, mixed $default = null): mixed
