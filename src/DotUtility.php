@@ -79,14 +79,16 @@ class DotUtility extends Utility
     #[Override]
     public function set(string|int $index, mixed $value): DotUtility
     {
-        $array = &$this->bag;
+        $newBag = $this->bag;
+        $array = &$newBag;
 
         $keys = explode('.', (string) $index);
 
         while (count($keys) > 1) {
             $key = array_shift($keys);
 
-            if (! isset($array[$key])) {
+            // A scalar (or null) intermediate is overwritten with an array
+            if (! isset($array[$key]) || ! is_array($array[$key])) {
                 $array[$key] = [];
             }
 
@@ -94,8 +96,6 @@ class DotUtility extends Utility
         }
 
         $array[array_shift($keys)] = $value;
-
-        $newBag = $this->bag;
 
         return new self($newBag);
     }
