@@ -803,6 +803,18 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
     }
 
     /**
+     * Recursively replace values in the bag with those from an array or bag Utility
+     */
+    public function replaceRecursively(mixed $bag): Utility
+    {
+        if ($bag instanceof self) {
+            return new static(array_replace_recursive($this->bag, $bag->toArray()));
+        }
+
+        return new static(array_replace_recursive($this->bag, new static($bag)->toArray()));
+    }
+
+    /**
      * Resets the sequential index keys of the bag
      */
     public function resetIndex(): Utility

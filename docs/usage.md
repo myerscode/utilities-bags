@@ -38,7 +38,7 @@ $bag->remove('my.deep.nested.value');
 
 - Keys containing a dot are expanded into nested arrays when the bag is created, so `['a.b' => 1]` becomes `['a' => ['b' => 1]]`. A key with a literal dot cannot be stored.
 - `set()` creates missing levels, and overwrites a level that holds a scalar with an array.
-- `merge()` and `mergeRecursively()` expand dotted keys in the bag being merged in.
+- `merge()`, `mergeRecursively()` and `replaceRecursively()` expand dotted keys in the bag being merged in.
 - `remove()` follows dot paths. A plain `Utility` only removes a literal key.
 - A plain `Utility` also reads dot paths with `get()` and `exists()`. `exists('a.b')` is true for a literal `'a.b'` key, and `get('a.b')` returns it too. Otherwise both follow the dot path.
 

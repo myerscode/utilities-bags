@@ -7,25 +7,25 @@ the documentation [here](http://php.net/manual/en/reserved.interfaces.php) and [
 
 | | | | |
 |---|---|---|---|
-| [add](#addindex-value-utility) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [resetIndex](#resetindex-utility) |
-| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [reverse](#reversebool-preservekeys--false-utility) |
-| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [set](#setstringint-index-mixed-value-utility) |
-| [chunk](#chunkint-size-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [skip](#skipint-count-utility) |
-| [collapse](#collapse-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [slice](#sliceint-offset-int-length--null-utility) |
-| [contains](#containsneedles-bool) | [intersect](#intersectarrayutility-bag-utility) | [offsetExists](#offsetexistsoffset-bool) | [some](#somecallable-callback-bool) |
-| [containsAll](#containsallneedles-bool) | [isAssociative](#isassociative-bool) | [offsetGet](#offsetgetoffset-mixed) | [sort](#sortcallable-callback--null-utility) |
-| [containsAny](#containsanyneedles-bool) | [isEmpty](#isempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
-| [count](#count-int) | [isIndexed](#isindexed-bool) | [offsetUnset](#offsetunsetoffset-void) | [sum](#sumstringcallablenull-callback--null-intfloat) |
-| [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [take](#takeint-limit-utility) |
-| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [tap](#tapcallable-callback-utility) |
-| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [toArray](#toarray-array) |
-| [eachUntil](#eachuntilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint---string-valueprefix---string-valuepostfix---callable-escape--null-string) |
-| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toObject](#toobject-object) |
-| [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [unique](#uniquecallable-callback--null-utility) |
-| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [value](#value) |
-| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [values](#values) |
-| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [remove](#removestringint-index-utility) |  |
-| [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [removeEmpty](#removeempty-utility) |  |
+| [add](#addindex-value-utility) | [flatten](#flattenstring-separator---) | [mapKeys](#mapkeyscallable-mapper-utility) | [replaceRecursively](#replacerecursivelybag-utility) |
+| [average](#averagestringcallablenull-callback--null-intfloatnull) | [flip](#flip-utility) | [max](#maxstringcallablenull-callback--null-mixed) | [resetIndex](#resetindex-utility) |
+| [avg](#avgstringcallablenull-callback--null-intfloatnull) | [get](#getindex-default--null) | [merge](#mergebag-utility) | [reverse](#reversebool-preservekeys--false-utility) |
+| [chunk](#chunkint-size-utility) | [getIterator](#getiterator-arrayiterator) | [mergeRecursively](#mergerecursivelybag-utility) | [set](#setstringint-index-mixed-value-utility) |
+| [collapse](#collapse-utility) | [groupBy](#groupbystringcallable-keyorcallback-utility) | [min](#minstringcallablenull-callback--null-mixed) | [skip](#skipint-count-utility) |
+| [contains](#containsneedles-bool) | [intersect](#intersectarrayutility-bag-utility) | [offsetExists](#offsetexistsoffset-bool) | [slice](#sliceint-offset-int-length--null-utility) |
+| [containsAll](#containsallneedles-bool) | [isAssociative](#isassociative-bool) | [offsetGet](#offsetgetoffset-mixed) | [some](#somecallable-callback-bool) |
+| [containsAny](#containsanyneedles-bool) | [isEmpty](#isempty-bool) | [offsetSet](#offsetsetoffset-value-void) | [sort](#sortcallable-callback--null-utility) |
+| [count](#count-int) | [isIndexed](#isindexed-bool) | [offsetUnset](#offsetunsetoffset-void) | [sortBy](#sortbystringcallable-keyorcallback-bool-descending--false-utility) |
+| [countBy](#countbystringcallablenull-keyorcallback--null-utility) | [isMultiDimensional](#ismultidimensional-bool) | [only](#onlyarrayutility-onlykeys-utility) | [sum](#sumstringcallablenull-callback--null-intfloat) |
+| [diff](#diffarrayutility-bag-utility) | [isNotEmpty](#isnotempty-bool) | [partition](#partitioncallable-callback-utility) | [take](#takeint-limit-utility) |
+| [each](#eachcallable-eachcallable-utility) | [isSequential](#issequential-bool) | [pipe](#pipecallable-callback-mixed) | [tap](#tapcallable-callback-utility) |
+| [eachUntil](#eachuntilcallable-eachcallable-mixed-stopon-utility) | [join](#joinstring-joinglue-string-lastglue--null-string) | [pluck](#pluckstring-valuepath-string-keypath--null-utility) | [toArray](#toarray-array) |
+| [every](#everycallable-callback-bool) | [jsonSerialize](#jsonserialize-array) | [prepend](#prependvalue-key--null-utility) | [toKeyValueString](#tokeyvaluestringstring-glue----string-keyprefix---string-keypostfix---string-keyjoint---string-valueprefix---string-valuepostfix---callable-escape--null-string) |
+| [except](#exceptarrayutility-exceptkeys-utility) | [keyBy](#keybystringcallable-keyorcallback-utility) | [push](#pushvalues-utility) | [toObject](#toobject-object) |
+| [exists](#existsstringint-index-bool) | [keys](#keys-array) | [reduce](#reducecallable-callback-mixed-initial--null-mixed) | [unique](#uniquecallable-callback--null-utility) |
+| [filter](#filter) | [last](#lastcallable-callback--null-mixed-default--null-mixed) | [reject](#rejectcallable-callback-int-mode--array_filter_use_both-utility) | [value](#value) |
+| [first](#firstcallable-callback--null-mixed-default--null-mixed) | [make](#makebag-utility) | [remove](#removestringint-index-utility) | [values](#values) |
+| [flatMap](#flatmapcallable-callback-utility) | [map](#mapcallable-mapper-utility) | [removeEmpty](#removeempty-utility) | |
 
 ---
 
@@ -831,6 +831,19 @@ $bag = new Utility(['Tor', 'Fred', '', null]);
 $bag->removeEmpty();
 // ['Tor', 'Fred']
 ```
+
+### replaceRecursively($bag): Utility
+> Returns `Utility`
+
+Recursively replace values in the bag with those from an array or bag Utility
+```php
+$bag = new Utility(['Rupert' => ['age' => 30, 'town' => 'Leeds'], 'Gerald']);
+
+$bag->replaceRecursively(['Rupert' => ['age' => 31], 'Arthur']);
+// ['Rupert' => ['age' => 31, 'town' => 'Leeds'], 'Arthur']
+```
+
+This uses `array_replace_recursive`, so a key present in both bags takes the value from the given bag instead of becoming an array, and nested arrays are replaced key by key. On a `DotUtility`, dotted keys in the given bag are expanded first.
 
 ### resetIndex(): Utility
 > Returns `Utility`

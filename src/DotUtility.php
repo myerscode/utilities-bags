@@ -77,6 +77,23 @@ class DotUtility extends Utility
      * {@inheritdoc}
      */
     #[Override]
+    public function replaceRecursively(mixed $bag): Utility
+    {
+        if (is_array($bag)) {
+            return parent::replaceRecursively($this->normalizeArray($bag));
+        }
+
+        if ($bag instanceof parent) {
+            return parent::replaceRecursively($bag->toArray());
+        }
+
+        return parent::replaceRecursively(new static($bag));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[Override]
     public function set(string|int $index, mixed $value): DotUtility
     {
         $newBag = $this->bag;
