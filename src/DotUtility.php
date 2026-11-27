@@ -97,7 +97,7 @@ class DotUtility extends Utility
 
         $array[array_shift($keys)] = $value;
 
-        return new self($newBag);
+        return new static($newBag);
     }
 
     /**
