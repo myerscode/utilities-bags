@@ -185,7 +185,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function diff(array|Utility $bag): Utility
     {
-        return new static(array_diff($this->bag, $this->transformToBag($bag)));
+        return new static(array_udiff($this->bag, $this->transformToBag($bag), $this->compareValues(...)));
     }
 
     /**
@@ -390,7 +390,7 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
      */
     public function intersect(array|Utility $bag): Utility
     {
-        return new static(array_intersect($this->bag, $this->transformToBag($bag)));
+        return new static(array_uintersect($this->bag, $this->transformToBag($bag), $this->compareValues(...)));
     }
 
     /**
@@ -1045,6 +1045,16 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             is_bool($key), is_float($key) => (int) $key,
             default => throw new InvalidArgumentException('Cannot use a value of type '.get_debug_type($key).' as an array key'),
         };
+    }
+
+    /**
+     * Compare as strings like array_diff does, serializing arrays instead of converting them
+     */
+    protected function compareValues(mixed $a, mixed $b): int
+    {
+        $string = fn (mixed $v): string => is_array($v) ? serialize($v) : (string) $v;
+
+        return $string($a) <=> $string($b);
     }
 
     protected function dotGet(string $index, mixed $default = null): mixed
