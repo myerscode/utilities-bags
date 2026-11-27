@@ -35,6 +35,13 @@ final class MinTest extends BaseBagSuite
             ['name' => 'Tor'],
             ['name' => 'Chris', 'age' => 25],
         ]);
+        $this->assertSame(25, $utility->min('age'));
+    }
+
+    public function testMinWhenKeyMissingEverywhereReturnsNull(): void
+    {
+        $utility = $this->utility([['name' => 'Rupert'], ['name' => 'Gerald']]);
+
         $this->assertNull($utility->min('age'));
     }
 

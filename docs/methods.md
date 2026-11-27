@@ -58,7 +58,7 @@ $bag->average();
 ### avg(string|callable|null $callback = null): int|float|null
 > Returns `int|float|null`
 
-Get the average of the values in the bag. Optionally pass a key or callback to average a column of a multidimensional bag. Returns `null` for an empty bag. Like PHP division, a whole result is returned as an `int` and a fractional result as a `float`.
+Get the average of the values in the bag. Optionally pass a key or callback to average a column of a multidimensional bag. Returns `null` for an empty bag. With a key, items where the key is missing or `null` are skipped, and `null` is returned when no item has it. Like PHP division, a whole result is returned as an `int` and a fractional result as a `float`.
 ```php
 $bag = new Utility([1, 2, 3]);
 
@@ -606,7 +606,7 @@ $bag->mapKeys(fn ($index, $value) => [$value['name'] => $value]);
 ### max(string|callable|null $callback = null): mixed
 > Returns `mixed`
 
-Get the maximum value in the bag, optionally by key or callback
+Get the maximum value in the bag, optionally by key or callback. With a key, items where the key is missing or `null` are skipped, and `null` is returned when no item has it.
 ```php
 $bag = new Utility([3, 1, 4, 1, 5]);
 
@@ -649,7 +649,7 @@ This uses `array_merge_recursive`, so a key that holds a scalar in both bags bec
 ### min(string|callable|null $callback = null): mixed
 > Returns `mixed`
 
-Get the minimum value in the bag, optionally by key or callback
+Get the minimum value in the bag, optionally by key or callback. With a key, items where the key is missing or `null` are skipped, and `null` is returned when no item has it.
 ```php
 $bag = new Utility([3, 1, 4, 1, 5]);
 
@@ -953,7 +953,7 @@ $bag->sortBy('age', descending: true);
 ### sum(string|callable|null $callback = null): int|float
 > Returns `int|float`
 
-Get the sum of values in the bag, optionally by key or callback
+Get the sum of values in the bag, optionally by key or callback. With a key, items where the key is missing count as `0`.
 ```php
 $bag = new Utility([1, 2, 3, 4, 5]);
 

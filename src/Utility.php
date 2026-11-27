@@ -67,14 +67,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return array_sum($this->bag) / count($this->bag);
         }
 
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
+        $values = is_string($callback) ? $this->presentValues($callback) : array_map($callback, $this->bag);
 
-        $values = array_map($callback, $this->bag);
-
-        return array_sum($values) / count($values);
+        return $values === [] ? null : array_sum($values) / count($values);
     }
 
     /**
@@ -578,12 +573,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return max($this->bag);
         }
 
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
+        $values = is_string($callback) ? $this->presentValues($callback) : array_map($callback, $this->bag);
 
-        return max(array_map($callback, $this->bag));
+        return $values === [] ? null : max($values);
     }
 
     /**
@@ -623,12 +615,9 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
             return min($this->bag);
         }
 
-        if (is_string($callback)) {
-            $key = $callback;
-            $callback = fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null;
-        }
+        $values = is_string($callback) ? $this->presentValues($callback) : array_map($callback, $this->bag);
 
-        return min(array_map($callback, $this->bag));
+        return $values === [] ? null : min($values);
     }
 
     /**
@@ -1067,6 +1056,19 @@ class Utility implements ArrayAccess, Countable, IteratorAggregate, JsonSerializ
         $string = fn (mixed $v): string => is_array($v) ? serialize($v) : (string) $v;
 
         return $string($a) <=> $string($b);
+    }
+
+    /**
+     * Get the values of a key across the items, skipping items where it is missing or null
+     *
+     * @return array<mixed>
+     */
+    protected function presentValues(string $key): array
+    {
+        return array_filter(
+            array_map(fn (mixed $item): mixed => is_array($item) ? ($item[$key] ?? null) : null, $this->bag),
+            fn (mixed $value): bool => $value !== null
+        );
     }
 
     protected function dotGet(string $index, mixed $default = null): mixed
