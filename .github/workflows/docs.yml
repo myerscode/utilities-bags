@@ -1,0 +1,23 @@
+# Publishes ./docs and CHANGELOG.md as a Starlight site on GitHub Pages.
+# The caller must grant all three permissions below.
+
+name: Docs
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'CHANGELOG.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  docs:
+    uses: myerscode/workflows/.github/workflows/starlight-docs.yml@v1
+    with:
+      site-title: "Bags Utilities"
